@@ -1,0 +1,42 @@
+{% import "macros_google.html" as google %}
+<!doctype html>
+<html>
+<head>
+    <title>PieCrust {% if page.title %}&mdash; {{ page.title }}{% endif %}</title>
+    <meta name="description" content="PieCrust, a simple website engine and static website generator" />
+    <meta name="keywords" content="bolt80, portfolio, ludovic, chabant" />
+    <meta name="generator" content="PieCrust" />
+    {% include('blueprint.html') %}
+    {{ google.webfonts('Lobster|Covered+By+Your+Grace') }}
+    <link rel="stylesheet/less" href="{{ site.root }}styles/piecrust-screen.less" type="text/css" media="screen, projection" />
+    {% include "less.html" %}
+</head>
+<body>
+    <div id="container" class="container">
+        <div id="header" class="span-24 last">
+            <h1>PieCrust</h1>
+        </div>
+        <hr />
+        <div id="menu" class="span-24 last">
+            <div id="menu-inner">
+                <ul>
+                    <li><a href="{{ pcurl('piecrust') }}">Overview</a></li>
+                    <li><a href="{{ pcurl('piecrust/install') }}">Installation</a></li>
+                    <li><a href="{{ pcurl('piecrust/doc') }}">Documentation</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr />
+        <div id="content" class="span-24 last">
+            <div id="content-inner">
+                {% block content %}
+                {{ content|raw }}
+                {% endblock %}
+            </div>
+        </div>
+        <div id="footer" class="span-24 last">
+            <p>{{ piecrust.branding|raw }}</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+---
+title: Baking your website
+layout: piecrust_doc
+---
+
+Baking your website
+-------------------
+
+"*Baking*" is the **PieCrust** name for transforming your website into a bunch of static
+HTML files.
+
+### Why and when to bake
+
+There are quite a few advantages for doing so:
+
+* You get the fatest website possible.
+* You barely use any of your web-server's resources (except disk space).
+* It's easy backup/deploy your whole website.
+
+There are obviously disadvantages, too:
+
+* It takes up more disk space (but not that much, and disk space is one of the cheapest resources these days anyway).
+* It makes it impossible to do server-side dynamic content (but in most of the situations we're interested in, dynamic
+content can be handled on the client by Javascript _et al_... if not, like user management, then you probably need a
+full-blown CMS or Wiki engine anyway).
+
+If you have a "blog" or "news" section on your website and you post new articles
+often, you probably want to bake your site. If you have high traffic, or expect to
+in the near future, you also shoud bake your site.
+
+
+
+### Running the baker
+
+The baker is located in the `_chef` directory of your website. On **Windows**, you can run it with the `bake.cmd`
+command-line script. On **Mac OS X** or **Linux** you can run the `bake.php` script directly, or through the `php`
+command (like so: `php bake.php`) if PHP was not installed in `/usr/bin`.
+
+In the most simple case, baking your website is done by running the following command:
+
+    bake -r SITE_ROOT_DIR -o OUTPUT_DIR -h HOST_NAME
+
+Where:
+
+* *SITE_ROOT_DIR* is your site's root directory (the one containing `_content` and `_cache`).
+* *OUTPUT_DIR* is the directory where all the static HTML files will be generated. That's the directory you would
+  expose to the internet.
+* *HOST_NAME* is your site's root URL.
+
+To get a list of all the other options, type:
+
+    bake --help
+

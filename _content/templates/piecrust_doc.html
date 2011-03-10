@@ -1,0 +1,34 @@
+{% extends "piecrust.html" %}
+
+{% block content %}
+<div id="page-navigation">
+    <div id="page-navigation-inner">
+        <h4>Editing</h4>
+        <ul>
+            <li><a href="{{ pcurl('piecrust/doc/create-page') }}">Creating a page</a>
+                <ul>
+                    <li><a href="{{ pcurl('piecrust/doc/page-assets') }}">Using page assets</a></li>
+                    <li><a href="{{ pcurl('piecrust/doc/pagination') }}">Using blog posts</a></li>
+                    <li><a href="{{ pcurl('piecrust/doc/links') }}">Using link listings</a></li>
+                </ul>
+            </li>
+            <li><a href="{{ pcurl('piecrust/doc/create-post') }}">Creating a blog post</a></li>
+            <li><a href="{{ pcurl('piecrust/doc/create-feed') }}">Creating an RSS feed</a></li>
+            <li><a href="{{ pcurl('piecrust/doc/templates') }}">Included templates</a></li>
+        </ul>
+        <h4>Managing</h4>
+        <ul>
+            <li><a href="{{ pcurl('piecrust/doc/config') }}">Configuration</a></li>
+            <li><a href="{{ pcurl('piecrust/doc/caching') }}">Caching</a></li>
+            <li><a href="{{ pcurl('piecrust/doc/debugging') }}">Debugging</a></li>
+        </ul>
+        <h4>Baking</h4>
+        <ul>
+            <li><a href="{{ pcurl('piecrust/doc/baking') }}">Baking the site</a></li>
+            <li><a href="{{ pcurl('piecrust/doc/bake-processors') }}">Bake processors</a></li>
+        </ul>
+    </div>
+</div>
+
+{{ content|raw }}
+{% endblock %}
