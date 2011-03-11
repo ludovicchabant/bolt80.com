@@ -5,10 +5,75 @@ layout: piecrust_doc
 
 Creating a new page is as easy as creating a new text file... probably because that's all there is to it.
 
-The directory and name of that text file will decide what path this page is accessible from. Assuming you've got the '[pretty URLs][1]' option turned on, creating the file `_content/food/bacon.html` would make the page reachable at `http://domain.com/food/bacon`.
+The directory and name of that text file will decide what URL this page is accessible from. For example, creating the file `_content/food/bacon.html` would make the page:
 
-The contents of the page are, by default, [Markdown][] text.
+* `http://domain.com/food/bacon` (with "[pretty URLs][1]")
+* `http://domain.com/?/food/bacon` (without)
+
+The text file's extension must be "html", even if that page happens to not be HTML, sorry.
+
+For more information on your website's directory structure, check out the [documentation on the subject][2].
+
+> **WARNING**: Don't create pages whose names are just a number. This could mess up the [pagination features][6].
 
 
-  [1]: {{ pcurl('install/pretty-urls') }}
-  [2]: http://daringfireball.net/projects/markdown/
+### Writing contents
+
+The contents of the page are, by default, [Markdown][] text (to change this, see [page][3] and [site][4] configurations). This means that text like this:
+
+    This is some sample text. It has stuff like
+    *paragraphs* and *emphasized words* and all 
+    that jazz. It's seriously pretty cool, 
+    especially since it's so **natural** to write.
+    
+    So Basically:
+    
+    * It's easy
+    * It's useful
+    * It creates nice typography
+
+...would render on your page like this:
+
+This is some sample text. It has stuff like *paragraphs* and *emphasized words* and all that jazz. It's seriously pretty cool, especially since it's so **natural** to write.
+
+So Basically:
+
+* It's easy
+* It's useful
+* It creates nice typography
+
+
+### Template syntax appetizer
+
+The template system exposes several variables that you can use when writing pages. We go into this more in the [templates documentation][5] but here are a few tips to get you started.
+
+With the default template engine, [Twig][], variables are referenced using double-curly-brackets:
+
+    {{ variable }}
+
+A very helpful variable would be `site.root`, which is the root URL of your website. That's pretty handy for hyperlinks. For example, if you want to link to the `about/contact` page, you could write:
+
+{% raw %}
+    [Contact me!]({{ site.root }}about/contact)
+{% endraw %}
+
+That was **Markdown** syntax, by the way.
+
+Another more advanced tip is to make this work whether you have [pretty URLs][1] turned on or not (the previous example would only work with pretty URLs enabled). **Twig** also supports functions, and you can call a function on a variable. The `pcurl` creates a **PieCrust** URL with the correct syntax according to whether you have pretty URLs enabled or not. So you could rewrite you contact link like so:
+
+{% raw %}
+    [Contact me!]({{ pcurl('about/contact') }})
+{% endraw %}
+
+For more information, check out the [templates documentation][5], and **Twig**'s [own documentation][twigdoc].
+    
+
+  [1]: {{ pcurl('piecrust/install/pretty-urls') }}
+  [2]: {{ pcurl('piecrust/doc/structure') }}
+  [3]: {{ pcurl('piecrust/doc/page-config') }}
+  [4]: {{ pcurl('piecrust/doc/site-config') }}
+  [5]: {{ pcurl('piecrust/doc/templates') }}
+  [6]: {{ pcurl('piecrust/doc/pagination') }}
+  [markdown]: http://daringfireball.net/projects/markdown/
+  [twig]: http://www.twig-project.org/
+  [twigdoc]: http://www.twig-project.org/doc/templates.html

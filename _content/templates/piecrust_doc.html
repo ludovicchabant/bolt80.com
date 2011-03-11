@@ -3,29 +3,38 @@
 {% block content %}
 <div id="page-navigation">
     <div id="page-navigation-inner">
+        <h4>General</h4>
+        <ul>
+            <li><a href="{{ pcurl('piecrust/doc') }}">Introduction</a></li>
+            <li><a href="{{ pcurl('piecrust/doc/structure') }}">Website structure</a></li>
+            <li><a href="{{ pcurl('piecrust/doc/site-config') }}">Site configuration</a></li>
+        </ul>
         <h4>Editing</h4>
         <ul>
             <li><a href="{{ pcurl('piecrust/doc/create-page') }}">Creating a page</a>
                 <ul>
-                    <li><a href="{{ pcurl('piecrust/doc/page-assets') }}">Using page assets</a></li>
+                    <li><a href="{{ pcurl('piecrust/doc/page-config') }}">Page configuration</a></li>
+                    {#<li><a href="{{ pcurl('piecrust/doc/page-assets') }}">Using page assets</a></li>#}
                     <li><a href="{{ pcurl('piecrust/doc/pagination') }}">Using blog posts</a></li>
-                    <li><a href="{{ pcurl('piecrust/doc/links') }}">Using link listings</a></li>
+                    {#<li><a href="{{ pcurl('piecrust/doc/links') }}">Using link listings</a></li>#}
                 </ul>
             </li>
-            <li><a href="{{ pcurl('piecrust/doc/create-post') }}">Creating a blog post</a></li>
+            <li><a href="{{ pcurl('piecrust/doc/create-post') }}">Creating a blog post</a>
+                <ul>
+                    <li><a href="{{ pcurl('piecrust/doc/categories-and-tags') }}">Categories and tags</a></li>
+                </ul>
+            </li>
             <li><a href="{{ pcurl('piecrust/doc/create-feed') }}">Creating an RSS feed</a></li>
-            <li><a href="{{ pcurl('piecrust/doc/templates') }}">Included templates</a></li>
+            <li><a href="{{ pcurl('piecrust/doc/templates') }}">Editing templates</a></li>
         </ul>
-        <h4>Managing</h4>
+        <h4>Advanced</h4>
         <ul>
-            <li><a href="{{ pcurl('piecrust/doc/config') }}">Configuration</a></li>
             <li><a href="{{ pcurl('piecrust/doc/caching') }}">Caching</a></li>
             <li><a href="{{ pcurl('piecrust/doc/debugging') }}">Debugging</a></li>
         </ul>
         <h4>Baking</h4>
         <ul>
             <li><a href="{{ pcurl('piecrust/doc/baking') }}">Baking the site</a></li>
-            <li><a href="{{ pcurl('piecrust/doc/bake-processors') }}">Bake processors</a></li>
         </ul>
     </div>
 </div>

@@ -29,6 +29,7 @@
         <hr />
         <div id="content" class="span-24 last">
             <div id="content-inner">
+                {% if page.title %}<h2>{{ page.title }}</h2>{% endif %}
                 {% block content %}
                 {{ content|raw }}
                 {% endblock %}
