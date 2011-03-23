@@ -1,0 +1,46 @@
+---
+title: Baking your website
+layout: piecrust_doc
+---
+
+"*Baking*" is the **PieCrust** name for transforming your website into a bunch of static HTML files.
+
+
+### Why and when to bake
+
+There are quite a few advantages for doing so:
+
+* You get the fatest website possible.
+* You barely use any of your web-server's resources (except disk space).
+* There are no security holes in your website.
+
+There are obviously disadvantages, too:
+
+* It takes up more disk space, but not that much, and disk space is one of the cheapest resources these days anyway.
+* It makes it impossible to do server-side dynamic content, but **PieCrust** doesn't do that anyway even without baking. In most of the situations we're interested in, dynamic content can be handled on the client by Javascript _et al_. If you're looking for other dynamic stuff like user permissions and accounts, you should be using a full scale CMS in the first place.
+
+When to bake:
+
+* You have a very high traffic website, or expect/hope to have high traffic in the near future.
+* You have a blog section with many articles.
+* You have a blog section with lots of categories and/or tags.
+* You don't have PHP 5.3+ on your web server.
+* You just don't want to worry!
+
+
+### Running the baker
+
+You run the baker through [_chef_][chef] with the `bake` command. Type `chef bake --help` for a detailed usage.
+
+In the most simple case, baking your website is done like this:
+
+    chef bake /path/to/root/directory
+
+This would bake the given root directory (the directory that contains `_content`) into itself. Cleaning all the baked files would be done by deleting everything in that directory except things starting with an _underscore_ (`_content`, `_cache`, etc.).
+
+If you want to bake into a specific output directory, type:
+
+    chef bake -o /path/to/output  /path/to/root/directory
+
+
+  [chef] {{ pcurl('piecrust/doc/chef') }}

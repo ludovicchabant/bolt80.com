@@ -1,0 +1,79 @@
+---
+layout: piecrust_doc
+title: Website structure
+---
+
+A **PieCrust** website is ideally organized as follows:
+
+    (root)
+     |-- _chef
+     |-- _piecrust
+     |-- mywebsite.com
+          |-- _cache
+          |-- _content
+                |-- pages
+                |-- posts
+                |-- templates
+                |-- config.yml
+          |-- css
+          |-- images
+          |-- js
+          |-- index.php
+          |-- .htaccess
+          |-- web.config
+
+The `_chef` and `_piecrust` folders are from **PieCrust**. When you update **PieCrust**, you overwrite those 2 folders with the new version of the engine.
+
+The `mywebsite.com` folder would be the folder actually accessible from the internet. Note how the **PieCrust** folders are not accessible from outside. It's better to do it this way since it exposes less information to the internet, and makes your websites a bit more secure.
+
+
+
+#### A note about some hosting services
+
+Depending on where you host your websites, you may not be able to organize things as shown previously because you only have access to your website's folder, not to a parent folder. In that case, organize your files like this:
+
+    mywebsite.com
+     |-- _cache
+     |-- _content
+          |-- pages
+          |-- posts
+          |-- templates
+          |-- config.yml
+     |-- _piecrust
+     |-- css
+     |-- images
+     |-- js
+     |-- index.php
+     |-- .htaccess
+     |-- web.config
+
+Note how the `_chef` folder is missing. That's because you don't want to expose the tools found in there to the world, so you would have to only have them locally on your home machine.
+
+
+#### A note about baked websites
+
+If you [baked your website]({{ pcurl('piecrust/doc/baking') }}) (meaning you got **PieCrust** to transform it into static HTML files), you would obviously only need to upload all the baked files to your hosting provider and that's it. However, note that still following the first recommended directory structure has some advantages:
+
+* You have both the `_content` and the baked directories on your web-server. This lets you edit and re-bake your website remotely (e.g. using SSH) from anywhere. It can be handy for quick fix on the go.
+* You can easily switch between dynamically rendered mode and baked mode by cleaning your baked files and reinstating your `index.php` file. This can be useful for debugging or rapid iteration authoring.
+
+
+### PieCrust folders
+
+The only folders **PieCrust** cares about in your website are the `_cache` and `_content` folders.
+
+The cache folder should be writeable, as it's there **PieCrust** will store pre-rendered parts of your pages, among other things, to render or bake stuff faster. **PieCrust** will make it writeable if it's not the case, and display an error if it can't do it.
+
+The content folder contains the following pre-defined folders:
+
+* "_pages_": That's where you put all your pages. Sub-folders here will map to sub-folders in the URL needed to access the page. See [how to create a page]({{ pcurl('piecrust/doc/create-page') }}) for more information.
+* "_posts_": That's where you put your blog posts and articles. You need to organize this folder by following a year/month/day convention. See [how to create a blog post]({{ pcurl('piecrust/doc/create-post') }}) for more information.
+* "_templates_": That's where you put the layouts for your website. See the [templates]({{ pcurl('piecrust/doc/templates') }}) documentation.
+
+There's also the very important `config.yml` file, which contains information about your website like its title and how you want its contents to be formatted. See the [configuration documentation]({{ pcurl('piecrust/doc/config') }}).
+
+All the rest, like your `css` or `images` folders, will be left untouched by **PieCrust**.
+
+
+  [1]: {{ pcurl('piecrust/doc/page-assets') }}
+  [2]: {{ pcurl('piecrust/doc/baking') }}

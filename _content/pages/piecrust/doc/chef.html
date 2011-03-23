@@ -1,0 +1,23 @@
+---
+layout: piecrust_doc
+title: Chef
+---
+
+The **PieCrust** _chef_ is a command-line utility that let you do cool things with your website. It takes the name of a _command_ and a bunch of other arguments. Just type `chef` from the `_chef` directory and look at the usage message.
+
+The main things _chef_ lets you do are [baking][] and [serving][] your website.
+
+
+### Windows
+
+On **Windows**, typing `chef` will actually run the little batch bootstrap that tries to find PHP on your system. Otherwise, you'd have to type `C:\My Path To PHP\php.exe chef.php`. If it can't find PHP, it will tell you.
+
+
+### MacOS X
+
+On **Mac OS X**, running `chef` will run the little shell script that tries to find PHP on your system. Otherwise, you'd have to type `/path/to/php chef.php`. If you had PHP installed in `/usr/bin`, you could actually just run `chef.php` directly from the command prompt.
+
+
+  [baking]: {{ pcurl('piecrust/doc/baking') }}
+  [serving]: {{ pcurl('piecrust/doc/serving') }}
+

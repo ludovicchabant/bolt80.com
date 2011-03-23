@@ -1,0 +1,11 @@
+#container {
+    margin: 0 3em;
+}
+
+#footer {
+    margin: 2em;
+}
+#footer p {
+    font-size: 75%;
+    text-align: center;
+}

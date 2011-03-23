@@ -1,0 +1,24 @@
+---
+title: Create an RSS/Atom feed
+layout: piecrust_doc
+---
+
+Creating an RSS or Atom feed is basically similar to creating your blog's home page, only the markup is RSS or Atom instead of HTML (you can look up the [RSS] or [Atom] formats on **Wikipedia** for more information). The only difference is that you probably don't want any [sub-pages][3] created for the feed, especially when [baking the site][1].
+
+All you have to do is set the `single_page` setting to `true`. You also probably want to change the number of posts shown in the feed, so your feed page header would look like this:
+
+    ---
+    content_type: rss
+    posts_per_page: 10
+    single_page: true
+    ---
+    <feed>...</feed>
+
+Note how it's a good idea to specify the `content_type` so **PieCrust** sets the correct HTTP headers when dynamically rendering the page, or uses the correct file extension when baking.
+
+
+  [1]: {{ pcurl('piecrust/doc/baking') }}
+  [2]: {{ pcurl('piecrust/doc/page-config') }}
+  [3]: {{ pcurl('piecrust/doc/pagination') }}
+  [rss]: http://en.wikipedia.org/wiki/Rss
+  [atom]: http://en.wikipedia.org/wiki/Atom_(standard)

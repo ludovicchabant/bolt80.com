@@ -1,0 +1,44 @@
+---
+layout: stupidhttp
+title: Documentation
+---
+
+**StupidHttp** starts with the `StupidHttp_WebServer` class which obviously represents the web server. You pass it the path to the document root (or `null` if you don't intend to serve files from your disk), the port to server from (the default is `8080`), and the address (the default is `localhost`).
+
+{% geshi 'php' %}
+    $server = new StupidHttp_WebServer('/path/to/document/root', 8080, 'localhost');
+{% endgeshi %}
+
+You can then set request handlers in the form of callback functions. Such callbacks can be triggered by a URL to match, or by a regular expression pattern:
+
+{% geshi 'php' %}
+    // Say hello when the website root is accessed.
+    $server->on('GET', '/')
+           ->call(function($c) { echo 'Hello from StupidHttp!'; });
+           
+    // Say hello to any name specified in the URL using regular expression matching.
+    $server->onPattern('GET', '/hello/(.+)')
+           ->call(function($c, $m) { echo 'Hello, ' . $m[1]; });
+    $server->run();
+{% endgeshi %}
+
+Callbacks must be:
+
+* Callable objects (functions, etc.)
+* Take a first parameter that will receive the "context" of the request (more on this later).
+* If the request was matched from a regular expression with capture groups, take a second parameter which is the array of those groups (as returned by `preg_match`).
+
+Whatever is printed to the standard output from the callback will be sent to the client browser as the response body.
+
+The "context" parameter is of type `StupidHttp_HandlerContext` and lets you access various things like the HTTP request, the HTTP response (where you can set custom headers), and the log. For more information on those types, see the [API documentation]({{ site.root }}stupidhttp/api_doc/html/).
+
+
+Server options
+--------------
+
+The `StupidHttp_WebServer::run` function can take options as an associative array:
+
+* `list_directories` (default: `true`): if a request maps to an existing directory, a listing of the directory's contents will be returned to the browser. If set to `false`, the server will instead fall through to the request handlers.
+* `list_root_directory` (default: `false`): the `/` request would usually list the root directory's contents unless an `index.html` file is present. This is `false` by default so the request handlers are called instead.
+* `run_browser` (default: `false`): Runs the default browser after the server is started.
+

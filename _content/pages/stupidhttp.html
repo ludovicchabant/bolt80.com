@@ -1,0 +1,30 @@
+---
+layout: stupidhttp
+title: A super simple (and not very smart) HTTP library for PHP
+---
+**StupidHttp** is the stupidest HTTP library for PHP ever (or for any other language, for that matter). The problem is, as far as I can tell, there's not really any other such library for PHP anyway, so I could say it's also the best one, but that would be a big lie. Truth is, **StupidHttp** _is_ stupid. Take a look at what it does:
+
+* Runs a local HTTP server.
+    * Tries to support `HTTP/1.0` and `HTTP/1.1` persistent connections (`keep-alive`).
+* Serves existing files in the document root folder.
+    * Handles the usual MIME types.
+    * Handles `If-Modified-Since` and `If-None-Match`/`Etag` HTML headers.
+* Lets you map URLs and URL patterns to custom callbacks.
+    * Callbacks output whatever should be shown in the client browser.
+    * Callbacks can set HTML response headers.
+
+That's it. That's all it does. It does not support _anything_ else, so obviously it's nice for running a small embedded development web server in a PHP application, but it's absolutely not suited for anything with more than a couple of clients connected at once, let alone for being exposed to the internet or other sensitive network (I'm sure this thing is full of security holes since I haven't made any effort in securing it in the first place).
+
+Remember, it's all in the name.
+
+Here's a quick preview of how it looks like to run a development web server with **StupidHttp**:
+
+{% geshi 'php' %}
+    $server = new StupidHttp_WebServer('/path/to/document/root', 8080);
+    $server->on('GET', '/')
+           ->call(function($c) { echo 'Hello from StupidHttp!'; });
+    $server->onPattern('GET', '/hello/(.+)')
+           ->call(function($c, $m) { echo 'Hello, ' . $m[1]; });
+    $server->run();
+{% endgeshi %}
+

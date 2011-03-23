@@ -1,0 +1,70 @@
+---
+title: Creating a blog post
+layout: piecrust_doc
+---
+
+Creating a blog post is a lot like [creating a page][1], only you create the text file in the `posts` folder instead of `pages`.
+
+### Naming conventions
+
+There are 2 ways of organizing the `posts` folder: *flat* or *hierarchical*. By default **PieCrust** uses the "*flat*" mode. You can change the mode in the [site configuration][2]
+
+
+#### Flat organization
+
+In "*flat*" mode, all blog posts are HTML files that follow this naming convention:
+
+    <year>-<month>-<day>_<slug>.html
+
+Here's an example:
+
+    2010-08-23_why-i-love-bacon.html
+
+By default, that article would be accessible at `http://domain.com/2010/08/23/why-i-love-bacon`, although you can also change the URL format of blog posts in the [site configuration][2] (e.g. you want to add "blog" in front).
+
+
+#### Hierarchical organization
+
+In "*hierarchical*" mode, the year and month of a blog post are specified by the sub-folders in which they reside:
+
+    posts
+     |- 2009
+     |- 2010
+         |- 07
+         |- 08
+             |- 23_why-i-love-bacon.html
+         |- 09
+
+The article would be reached at the same address as before, but you may like this folder organization better, especially if you have lots of posts.
+
+
+### Page breaks
+
+When a page displays a list of blog posts, you sometimes don't want to put the complete posts texts in there -- instead, you only want the introduction of the post to be used. You can "cut" a post in two by inserting one of the "page break" tags:
+
+    <!-- more -->
+    <!-- break -->
+    <!-- pagebreak -->
+
+Any of these tags would tell the pagination system to only take whatever comes before that tag when a post is shown in a list. See the [pagination documentation][5] for more info.
+
+
+### Configuration values
+
+In addition to the [usual page configuration values][3], blog posts can define a few useful things:
+
+* `time`: Use this to specify a time of day for when the post was written (e.g. "12:45:02"). **PieCrust** will use it to expose the correct `date` and `timestamp` variables to the template engine.
+
+* `tags`: Use this to add tags to a post, so that it appears in [tag listings][4]. This should be an array, like so: `tags: [ food, cooking, fun ]`.
+
+* `category`: Use this to put this post into one category, so that it appears in [category listings][4].
+
+Other useful variables to define are `author` or `summary`, although **PieCrust** wouldn't do anything special with those -- it's just that they would be commonly used by pages showing those posts.
+
+
+
+  [1]: {{ pcurl('piecrust/doc/create-page') }}
+  [2]: {{ pcurl('piecrust/doc/site-config') }}
+  [3]: {{ pcurl('piecrust/doc/page-config') }}
+  [4]: {{ pcurl('piecrust/doc/categories-and-tags') }}
+  [5]: {{ pcurl('piecrust/doc/pagination') }}

@@ -1,0 +1,36 @@
+---
+layout: piecrust
+title: Just add fillings to your website
+---
+
+[PieCrust][] is a very lightweight <acronym title="Content Management System">CMS</acronym> that's all managed with text files. No complex setup, no databases, no administrative panels. But **PieCrust** is also a static website generator, where you can transform all you content into plain HTML files.
+
+
+Features
+--------
+* Super-simple authoring: it's all just text files!
+* Can generate a completely static website that will run with minimum resources for maximum scalability.
+* Dynamic stuff can be handled with **Javascript** and other client-side processing.
+* Comments can be handled by 3rd party services like [Disqus][].
+* Your whole website can be easily stored in a revision control system.
+* Rapid-iteration authoring: even if you use **PieCrust** as a static site generator, you can temporarily switch your website back to dynamic generation for instant preview (no need to way for the site to be regenerated!)
+
+Don't think **PieCrust** quite fits your needs? Check out this [big list of other website generators][others] to find something you may like better.
+
+
+Requirements
+------------
+[PieCrust][] only requires a web-server running [PHP 5.3+][php] for dynamically rendered websites. If you "[bake]" your website, however, all you need is a web-server that can serve HTML files (and that's by definition _any_ web server)! You can't make it simpler (although of course you'll need some computer with PHP somewhere to do the baking in the first place).
+
+
+
+  [piecrust]: {{ pcurl('piecrust') }}
+  [bake]: {{ pcurl('piecrust/doc/baking') }}
+  [others]: {{ pcurl('piecrust/others') }}
+  
+  [jekyll]: http://jekyllrb.com/
+  [hyde]: http://ringce.com/hyde/
+  [aym-cms]: http://aymcms.com/
+  [stacey]: http://staceyapp.com/
+  [disqus]: http://disqus.com/
+  [php]: http://php.net/

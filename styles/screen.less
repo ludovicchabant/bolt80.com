@@ -1,0 +1,125 @@
+@orange: #f80;
+@light_grey: #666;
+
+.vignette(@color) {
+	background: -moz-radial-gradient(top center, circle cover, @color, darken(@color, 20%));
+	background: -webkit-radial-gradient(top center, circle cover, @color, darken(@color, 20%));
+	background: radial-gradient(top center, circle cover, @color, darken(@color, 20%));
+}
+
+html, body {
+    min-height: 100%;
+}
+body {
+	font-family: Arial, sans-serif;
+	background: #bbb;
+	padding: 0;
+	margin: 0;
+    
+    .vignette(@light_grey);
+}
+
+a {
+	&:link { text-decoration: none; color: @light_grey; }
+	&:visited {	color: @light_grey; }
+	&:hover { color: @orange; }
+	&:active { color: @light_grey; }
+}
+
+#wrapper {
+	margin: 3em 0;
+	padding: 3em 0;
+	background: #fff;
+    .vignette(#fff);
+}
+
+#header {
+	padding: 2em 0 1em 0;
+	
+	h1 {
+		font-family: Cantarell, Arial, sans-serif;
+		font-weight: bold;
+		font-size: 10em;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		text-align: center;
+		margin: 0;
+		padding: 0;
+	}
+}
+
+#menu {
+	padding: 0 0 2em 0;
+	overflow: hidden;
+	
+	ul {
+		margin: 0.5em 0;
+		font-size: 2em;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		font-family: Cantarell, Arial, sans-serif;
+	}
+}
+
+#after-menu { clear: both; }
+
+#secondary-menu {
+	margin: 0;
+	overflow: hidden;
+
+	ul {
+		margin: 0.5em 0;
+		font-size: 1.8em;
+		text-transform: lowercase;
+		font-family: Georgia, Times, serif;
+		font-style: italic;
+	}
+}
+
+#after-secondary-menu { clear: both; }
+
+#content {
+	margin: 4em;
+
+	p {
+		font-family: Georgia, Times, serif;
+		font-size: 1.5em;
+		text-indent: 1.5em;
+	}
+}
+
+#footer {
+	margin: 0;
+
+	p {
+		color: @light_grey;
+		font-family: Georgia, Times, serif;
+		font-size: 0.9em;
+		text-align: center;
+		text-transform: lowercase;
+		margin: 0 3em;
+		
+		a:link,
+		a:visited,
+		a:active { color: #444; }
+		a:hover { color: @orange; }
+	}
+}
+
+.horizontal-menu>ul {
+	list-style-type: none;
+	position: relative;
+	float: left;
+	left: 50%;
+	margin: 0;
+	padding: 0;
+    
+    li {
+		float: left;
+		left: -50%;
+		position: relative;
+		margin: 0 1em 0 0;
+		
+		.note { font-size: 40%; }
+    }
+}

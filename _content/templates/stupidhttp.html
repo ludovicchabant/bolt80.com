@@ -1,0 +1,35 @@
+{% import "macros_google.html" as google %}
+<!doctype html>
+<html>
+<head>
+    <title>StupidHttp Library {% if page.title %}&mdash; {{ page.title }}{% endif %}</title>
+    <meta name="description" content="StupidHttp, the stupidest HTTP library ever, for PHP." />
+    <meta name="keywords" content="http, web, server, php, library" />
+    <meta name="generator" content="PieCrust" />
+    <link rel="stylesheet" href="{{ site.root }}styles/stupidhttp.css" type="text/css" media="all" />
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <h1>StupidHttp Library</h1>
+        </div>
+        <hr />
+        <div id="menu">
+            <ul>
+                <li><a href="{{ pcurl('stupidhttp') }}">Overview</a></li>
+                <li><a href="{{ pcurl('stupidhttp/doc') }}">Documentation</a></li>
+            </ul>
+        </div>
+        <hr />
+        <div id="content">
+            {% if page.title %}<h2>{{ page.title }}</h2>{% endif %}
+            {% block content %}
+            {{ content|raw }}
+            {% endblock %}
+        </div>
+        <div id="footer">
+            <p>{{ piecrust.branding|raw }}</p>
+        </div>
+    </div>
+</body>
+</html>

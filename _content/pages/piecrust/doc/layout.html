@@ -1,0 +1,35 @@
+---
+title: Layouts
+layout: piecrust_doc
+---
+
+In **PieCrust**, pages only define the _content_ of your website. You need to also define what _layout_ it will fit into.
+
+You can specify the layout to use for a page by using the `layout` setting in the configuration header:
+
+    ---
+    title: My awesome page
+    layout: some-cool-layout
+    ---
+    ...page contents go here...
+
+This will tell **PieCrust** to go find a template file in `_content/templates/some-cool-layout.html`. By default, a page's layout is, unsurprisingly, `default`, which means it will use the template found in `_content/templates/default.html`.
+
+Now's a good time to [read about templates][1].
+
+
+### Specifying the layout extension
+
+As mentioned above, if you set the `layout` to `foo`, **PieCrust** will look for a `foo.html` template file. If, however, you set `layout` to `foo.haml`, **PieCrust** will look for a `foo.haml` template file -- _i.e._ it only looks for an HTML file if you don't already specify an extension.
+
+Extensions are used for specifying what [template engine][2] to use.
+
+
+### Not using any layout
+
+Template files are useful for reusing the same markup across several pages, but you may have a page that is just unique. Writing a specific layout file just for that one page is unproductive, so you could just make the page self-contained by not using any layout at all. To achieve this, set the `layout` to `none`.
+
+
+
+  [1]: {{ pcurl('piecrust/doc/templates') }}
+  [2]: {{ pcurl('piecrust/doc/template-engines') }}

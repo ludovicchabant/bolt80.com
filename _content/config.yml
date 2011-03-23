@@ -1,0 +1,10 @@
+site:
+    title: B O L T 8 0
+    pretty_urls: true
+
+markdown:
+    use_markdown_extra: true
+
+smartypants:
+    enable: true
+    use_smartypants_typographer: true

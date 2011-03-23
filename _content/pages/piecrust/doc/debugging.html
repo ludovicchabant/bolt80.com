@@ -1,0 +1,28 @@
+---
+layout: piecrust_doc
+title: Debugging features
+---
+
+While you're building your website, it's a good idea to enable the "*debug*" mode:
+
+* It gets rid of the [caching features][caching], which can prevent your browser from
+  showing your the very latest version of a page you just changed a couple seconds ago.
+* It shows you the real error messages, complete with file paths and stack traces, instead
+  of showing you sugar-coated error messages that don't give any technical details
+  most visitors don't care about.
+  
+Obviously, "*debug*" mode is only valid for dynamically rendered sites (as opposed
+to [baked] sites). However, even for baked sites, you could temporarily revert back to
+dynamic rendering in "*debug*" mode to iterate faster on your editing without waiting for
+the bake to finish... baking is fast, but dynamic rendering is faster!
+
+There are 3 ways to enable "*debug*" mode:
+
+* Append `?!debug` at the end of the URL. For example, go to `http://domain.com/about?!debug`.
+* Set the `site/debug` [configuration value][config] to `true`.
+* Initialize the `PieCrust` engine with a `array('debug' => true)` parameter.
+
+
+  [caching]: {{ pcurl('piecrust/doc/caching') }}
+  [baked]: {{ pcurl('piecrust/doc/baking') }}
+  [config]: {{ pcurl('piecrust/doc/config') }}
