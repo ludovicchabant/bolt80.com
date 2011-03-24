@@ -23,6 +23,13 @@ Because **PieCrust** uses [PHP Markdown](http://michelf.com/projects/php-markdow
 [Textile](http://www.textism.com/tools/textile/) is more powerful than **Markdown** but that means it's also more complicated and less natural to write. You can use this formatter by setting the page's `format` to `textile`.
 
 
+### HAML
+
+[HAML](http://haml-lang.com) lets you write HTML in a more concise way, so it's useful if your page has lots of structural tags. You can use this by setting your page's `format` to `haml`.
+
+Note that **HAML** also supports [filters](http://haml-lang.com/docs/yardoc/file.HAML_REFERENCE.html#filters), so you can use **Markdown** (`:markdown`) and **Textile** (`:textile`) to specifically format some paragraphs.
+
+
 ### SmartyPants
 
 [SmartyPants](http://daringfireball.net/projects/smartypants/) will transform the punctuation on your pages into more typographically accurate characters. For instance, it will make your quotes prettier and let you easily insert en- and em-dashes.
