@@ -9,11 +9,24 @@ title: Just add fillings to your website
 Features
 --------
 * Super-simple authoring: it's all just text files!
-* Can generate a completely static website that will run with minimum resources for maximum scalability.
-* Dynamic stuff can be handled with **Javascript** and other client-side processing.
-* Comments can be handled by 3rd party services like [Disqus][].
 * Your whole website can be easily stored in a revision control system.
-* Rapid-iteration authoring: even if you use **PieCrust** as a static site generator, you can temporarily switch your website back to dynamic generation for instant preview (no need to way for the site to be regenerated!)
+* Can generate a completely static website that will run with minimum resources for maximum scalability, or run as a lightweight dynamic CMS.
+* Rapid-iteration authoring: even if you use **PieCrust** as a static site generator, you can temporarily switch your website back to dynamic generation for instant preview, or use the built-in development web server that will (re)bake your pages on demand.
+
+### Limitations
+
+* Only static content is supported, but most dynamic content requiring server-side processing is not within **PieCrust**'s scope anyway (user accounts, access permissions, etc.). For this, you should look into a proper CMS engine.
+    * For dynamic content like displaying **Flickr** pictures or **Twitter** feeds, you can use client-side scripting (**Javascript** _et al._).
+    * For user comments and ratings, you can use 3rd party services like [Disqus][].
+
+### Special features
+
+All those features are pretty standard for static site generators, so what sets **PieCrust** apart?
+
+* _Multiple entrées_: your pages are not limited to one piece of content that you place in the center of your layout. You can define other "_text segments_" like a page-specific menu or sidebar text that you can insert in different places in the layout.
+* _Comes with side-orders_: **PieCrust** comes with a nice selection of text formatters (**Markdown**, **Textile**, **SmartyPants**) and template engines (**Twig**, **Haml**, **Mustache**, **Dwoo**) out-of-the-box.
+* _Super-fast service_: because **PieCrust** is also designed as a lightweight CMS, it can render your pages in less than a few milliseconds in most cases. This means statically generating your whole website will be done way faster than with most other engines.
+* _On-demand cooking_: you don't have to use static generation if you don't need it -- just use **PieCrust** as a classic PHP CMS that will render requested pages on the fly (don't worry, that's pretty fast, thanks to caching and ).
 
 Don't think **PieCrust** quite fits your needs? Check out this [big list of other website generators][others] to find something you may like better.
 
@@ -27,10 +40,6 @@ Requirements
   [piecrust]: {{ pcurl('piecrust') }}
   [bake]: {{ pcurl('piecrust/doc/baking') }}
   [others]: {{ pcurl('piecrust/others') }}
-  
-  [jekyll]: http://jekyllrb.com/
-  [hyde]: http://ringce.com/hyde/
-  [aym-cms]: http://aymcms.com/
-  [stacey]: http://staceyapp.com/
+
   [disqus]: http://disqus.com/
   [php]: http://php.net/

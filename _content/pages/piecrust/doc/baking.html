@@ -36,11 +36,16 @@ In the most simple case, baking your website is done like this:
 
     chef bake /path/to/root/directory
 
-This would bake the given root directory (the directory that contains `_content`) into itself. Cleaning all the baked files would be done by deleting everything in that directory except things starting with an _underscore_ (`_content`, `_cache`, etc.).
+This would bake the given root directory (the directory that contains `_content`) into a sub-directory named `_counter`.
 
 If you want to bake into a specific output directory, type:
 
     chef bake -o /path/to/output  /path/to/root/directory
+    
+For example, with the [recommended **PieCrust** directory structure][struct], you would set the output folder to the `mywebsite.com` folder.
+
+On top of baking all the **PieCrust** content (pages, posts, tags, categories, etc.), baking also copies all the other files found in the root directory into the output directory. By default, any top directory starting with an underscore will be skipped.
 
 
-  [chef] {{ pcurl('piecrust/doc/chef') }}
+  [struct]: {{ pcurl('piecrust/doc/structure') }}
+  [chef]: {{ pcurl('piecrust/doc/chef') }}

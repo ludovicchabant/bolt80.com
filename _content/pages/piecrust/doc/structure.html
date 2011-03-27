@@ -3,10 +3,11 @@ layout: piecrust_doc
 title: Website structure
 ---
 
-A **PieCrust** website is ideally organized as follows:
+### "Dynamic" websites
+
+If you will be using **PieCrust** directly on your web server, your website would ideally be organized as follows:
 
     (root)
-     |-- _chef
      |-- _piecrust
      |-- mywebsite.com
           |-- _cache
@@ -22,40 +23,36 @@ A **PieCrust** website is ideally organized as follows:
           |-- .htaccess
           |-- web.config
 
-The `_chef` and `_piecrust` folders are from **PieCrust**. When you update **PieCrust**, you overwrite those 2 folders with the new version of the engine.
+The `_piecrust` folder contains, surprisingly, the **PieCrust** engine. When you update **PieCrust**, you overwrite this folder.
 
-The `mywebsite.com` folder would be the folder actually accessible from the internet. Note how the **PieCrust** folders are not accessible from outside. It's better to do it this way since it exposes less information to the internet, and makes your websites a bit more secure.
+The `mywebsite.com` folder would be the folder actually accessible from the internet. Note how the **PieCrust** folder is not accessible from outside. It's better to do it this way since it exposes less information to the internet, and makes your websites a bit more secure.
+
+> #### A note about some hosting services
+>
+> Depending on where you host your websites, you may not be able to organize things as shown previously because you only have access to your website's folder, not to a parent folder. In that case, put the `_piecrust` folder into your website's folder (next to `_content`), or consider [baking][2] your website.
 
 
+### Baked websites
 
-#### A note about some hosting services
+If you plan to [bake your website][2] instead of having it dynamically generated, a slightly different folder structure is recommended:
 
-Depending on where you host your websites, you may not be able to organize things as shown previously because you only have access to your website's folder, not to a parent folder. In that case, organize your files like this:
-
-    mywebsite.com
-     |-- _cache
-     |-- _content
-          |-- pages
-          |-- posts
-          |-- templates
-          |-- config.yml
+    (root)
+     |-- _chef
      |-- _piecrust
-     |-- css
-     |-- images
-     |-- js
-     |-- index.php
-     |-- .htaccess
-     |-- web.config
+     |-- _kitchen
+     |     |-- mywebsite
+     |          |-- _cache
+     |          |-- _content
+     |                |-- pages
+     |                |-- posts
+     |                |-- templates
+     |                |-- config.yml
+     |          |-- css
+     |          |-- images
+     |          |-- js
+     |-- mywebsite.com
 
-Note how the `_chef` folder is missing. That's because you don't want to expose the tools found in there to the world, so you would have to only have them locally on your home machine.
-
-
-#### A note about baked websites
-
-If you [baked your website]({{ pcurl('piecrust/doc/baking') }}) (meaning you got **PieCrust** to transform it into static HTML files), you would obviously only need to upload all the baked files to your hosting provider and that's it. However, note that still following the first recommended directory structure has some advantages:
-
-* You have both the `_content` and the baked directories on your web-server. This lets you edit and re-bake your website remotely (e.g. using SSH) from anywhere. It can be handy for quick fix on the go.
-* You can easily switch between dynamically rendered mode and baked mode by cleaning your baked files and reinstating your `index.php` file. This can be useful for debugging or rapid iteration authoring.
+You would keep all your content in a `_kitchen` folder that you can serve with any PHP-enabled web server on your local machine, or with the _[chef][3]_ development server. Then you would bake the contents of the "_kitchen_" into the actual `mywebsite.com` folder, which is accessible from the internet. Incidentally, the baking utility is also in _[chef][3]_ so it's a good thing the `_chef` folder is shown here alongside `_piecrust`.
 
 
 ### PieCrust folders
@@ -77,3 +74,4 @@ All the rest, like your `css` or `images` folders, will be left untouched by **P
 
   [1]: {{ pcurl('piecrust/doc/page-assets') }}
   [2]: {{ pcurl('piecrust/doc/baking') }}
+  [3]: {{ pcurl('piecrust/doc/chef') }}

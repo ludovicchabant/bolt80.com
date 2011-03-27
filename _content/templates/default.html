@@ -3,11 +3,11 @@
 <html>
 <head>
     <title>{{ site.title }}{% if page.title %}&mdash; {{ page.title }}{% endif %}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="description" content="BOLT80, the digital portfolio of Ludovic Chabant" />
     <meta name="keywords" content="bolt80, portfolio, ludovic, chabant" />
     {{ google.webfonts('Droid+Sans|Nobile|Molengo|Cantarell|Inconsolata') }}
-    <link rel="stylesheet/less" href="{{ site.root }}styles/screen.less" type="text/css" media="screen, projection" />
-    {% include "less.html" %}
+    <link rel="stylesheet" href="{{ site.root }}styles/screen.css" type="text/css" media="screen, projection" />
 </head>
     <body>
         <div id="wrapper">
