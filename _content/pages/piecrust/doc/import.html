@@ -1,0 +1,28 @@
+---
+title: Import
+layout: piecrust_doc
+---
+Because you may want to transition an existing website to **PieCrust**, the _chef_ utility has a special command for importing content from other engines.
+
+> Unfortunately, right now, the only supported import is importing blog posts from a **Wordpress** site.
+
+Running the import is done like this:
+
+    chef import --source SOURCE --format FORMAT /path/to/root/directory
+
+Where `SOURCE` is the path or resource string to the content to import, and `FORMAT` is the format of that content.
+
+
+Formats
+-------
+
+### Wordpress
+
+By specifying `wordpress` as the format, you can point the source to an XML file that contains your **Wordpress** content. You can create that XML file by going into your website's administration panel, going in the "_Tools_" sections and choosing "_Export_".
+
+This will import all your blog posts, along with tags, last modification time, _etc._, into the specified **PieCrust** root directory. The directory structure used for the imported content is determined by the [site configuration][siteconfig]'s setting regarding the [posts file system][post].
+
+
+
+  [post]: {{ pcurl('piecrust/doc/create-post') }}
+  [siteconfig]: {{ pcurl('piecrust/doc/site-config') }}

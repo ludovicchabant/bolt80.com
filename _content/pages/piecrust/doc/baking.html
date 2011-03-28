@@ -11,19 +11,13 @@ layout: piecrust_doc
 There are quite a few advantages for doing so:
 
 * You get the fatest website possible.
-* You barely use any of your web-server's resources (except disk space).
+* You barely use any of your web-server's resources.
 * There are no security holes in your website.
-
-There are obviously disadvantages, too:
-
-* It takes up more disk space, but not that much, and disk space is one of the cheapest resources these days anyway.
-* It makes it impossible to do server-side dynamic content, but **PieCrust** doesn't do that anyway even without baking. In most of the situations we're interested in, dynamic content can be handled on the client by Javascript _et al_. If you're looking for other dynamic stuff like user permissions and accounts, you should be using a full scale CMS in the first place.
 
 When to bake:
 
 * You have a very high traffic website, or expect/hope to have high traffic in the near future.
-* You have a blog section with many articles.
-* You have a blog section with lots of categories and/or tags.
+* You have a blog section with many articles, or with lots of categories and/or tags (this is where **PieCrust** doesn't scale well compared to SQL-enabled CMS engines).
 * You don't have PHP 5.3+ on your web server.
 * You just don't want to worry!
 
@@ -44,8 +38,9 @@ If you want to bake into a specific output directory, type:
     
 For example, with the [recommended **PieCrust** directory structure][struct], you would set the output folder to the `mywebsite.com` folder.
 
-On top of baking all the **PieCrust** content (pages, posts, tags, categories, etc.), baking also copies all the other files found in the root directory into the output directory. By default, any top directory starting with an underscore will be skipped.
+On top of baking all the **PieCrust** content (pages, posts, tags, categories, etc.), _chef_ also bakes any other file found in the root directory. See the section on [file processors][procs] for more information.
 
 
   [struct]: {{ pcurl('piecrust/doc/structure') }}
   [chef]: {{ pcurl('piecrust/doc/chef') }}
+  [procs]: {{ pcurl('piecrust/doc/file-processors') }}

@@ -1,0 +1,50 @@
+---
+title: File processors
+layout: piecrust_doc
+---
+When [baking your website][baking], [_chef_][chef] transforms all the **PieCrust** content (pages, posts, _etc._) into fully rendered HTML files. However, it can do other things with all the other files found in the root directory. That's when _file processors_ get involved.
+
+### Including and excluding files
+
+By default, everything that's not in a directory starting with an underscore (surprise, surprise, this includes `_cache` and `_content`) goes through a file processor. Most system files, however (like `.DS_Store` in **MacOSX** or `Thumbs.db` on **Windows**), also get excluded.
+
+You can change which files are excluded from the baking by changing the `skip_pattern` and `skip_system` [site configuration settings][siteconfig] in the `baker` section. They both contain a regular expression pattern that matches against the filenames to exclude.
+
+> **Note**: Don't forget to add the delimiters to the regular expression patterns (in the default values shown below we're using '`/`').
+
+There are 2 of settings instead of one because `skip_system` contains basic stuff you very probably want to always exclude and will probably not change -- so if you want to customize the exclusion pattern, you only have to change the much simpler `skip_pattern`.
+
+Here are the default values:
+
+    baker:
+        skip_pattern: /^_/
+        skip_system: /(\.DS_Store)|(Thumbs.db)|(\.git)|(\.hg)|(\.svn)/
+
+
+### Processing files
+
+The [_chef_][chef] baker figures out what to do with a file based on the file's extension. That extension is passed on to the registered file processors to see who first declares it can handle it. The list of file processors to use is found in the [site configuration][siteconfig]'s  `processors` setting in the `baker` section. By default, it has the special value `*`, which means all file processors will be used:
+
+    baker:
+        processors: *
+
+You can however specify processors individually:
+
+    baker:
+        processors: [ less, sass, copy ]
+
+
+### Processors
+
+Here's a list of file processors included with **PieCrust**:
+
+* `less`: Compiles all `.less` files into CSS files using the [LessCSS](http://lesscss.org/) language. **PieCrust** uses [LessPHP](http://leafo.net/lessphp/docs/) for this.
+* `sass`: Compiles all `.sass` and `.scss` files into CSS files using the [Sass](http://sass-lang.com/) language. **PieCrust** uses [PHamlP](http://code.google.com/p/phamlp/) for this.
+* `copy`: Simply copies the file to the matching sub-directory in the output baking directory. This processor has low priority so it will be used only if no other processor matched the given file extension.
+
+> **Note**: If you specify processors individually in the site configuration, you _probably_ don't want to forget the `copy` processor in the list. Otherwise, all the files not compiled by a listed processor will be missing from the output directory!
+
+
+  [chef]: {{ pcurl('piecrust/doc/chef') }}
+  [baking]: {{ pcurl('piecrust/doc/baking') }}
+  [siteconfig]: {{ pcurl('piecrust/doc/site-config') }}

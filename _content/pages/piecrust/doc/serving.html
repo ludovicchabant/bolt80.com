@@ -3,3 +3,33 @@ title: Serving your website
 layout: piecrust_doc
 ---
 
+**PieCrust** includes a small development web server for previewing your website. Since **PieCrust** also works as a standard, lightweight CMS, you could preview your website with any other web server like **Apache**, **IIS** or **Lighttpd**. Here are some advantages to using the development server:
+
+* No setup or configuration needed, you just run it from the command line.
+* If you're [baking your site][baking], you don't need to maintain an `index.php` file, along with a `.htaccess` or `web.config`, that you then need to exclude from the baking.
+* If you're [baking your site][baking] and rely on [file processors][procs], the development server can re-bake your website on-demand to generate those output files. With another server, you would get `404` ("_not found_") errors unless you somehow write your own request handlers to trigger a baking.
+
+Here are the disadvantages:
+
+* The development server uses the [StupidHttp][] library, which is pretty retarded (we know, we wrote it ourselves!). It has a very limited support of the HTTP protocol so it will only work with the purely **PieCrust**-powered parts of your website (_e.g._ if you have other parts of your website that work with custom PHP files, you won't be able to test that in the development server).
+
+
+### Running the server
+
+The server is run through [_chef_][chef] with the `serve` command. Type `chef serve --help` for a detailed usage.
+
+In the most simple case, serving your website is done like this:
+
+    chef serve /path/to/root/directory
+
+This would serve your website using the "dynamic" (CMS) mode at the address `localhost:8080`. If you want the server to re-bake your website on request, do:
+
+    chef serve --autobake /path/to/output /path/to/root/directory
+
+You can also specify the `--forcefirstbake` option to make [_chef_][chef] bake the whole website on startup, instead of doing an incremental bake that picks up from the last time you baked it.
+
+
+  [chef]: {{ pcurl('piecrust/doc/chef') }}
+  [baking]: {{ pcurl('piecrust/doc/baking') }}
+  [procs]: {{ pcurl('piecrust/doc/file-processors') }}
+  [stupidhttp]: {{ pcurl('stupidhttp') }}
