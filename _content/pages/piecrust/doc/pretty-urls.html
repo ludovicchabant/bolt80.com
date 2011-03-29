@@ -3,14 +3,34 @@ title: Enabling pretty URLs
 layout: piecrust_doc
 ---
 
-Enabling pretty URLs
---------------------
+### Baked websites
 
-With "*pretty URLs*" enabled, the address of, say, the "*about*" page would be `http://yoursite.com/about`
-instead of `http://yoursite.com/?/about`. This obviously looks more "natural" to visitors. 
-However, it requires a bit of configuration on the server side.
+With "*pretty URLs*" disabled, a baked "*about*" page's address would look like this:
 
-> If you're [baking your site][baking], you'll get pretty URLs automatically.
+    http://yoursite.com/about.html
+
+If the option is enabled, however, it would look like this:
+
+    http://yoursite.com/about
+
+This obviously looks more "natural" to visitors, and it only requires you to set the `pretty_urls` [site configuration setting][siteconfig] to `true`:
+
+    site:
+        pretty_urls: true
+
+
+
+### Dynamic websites (PieCrust as a CMS)
+
+With "*pretty URLs*" disabled, an "*about*" page's address would look like this:
+
+    http://yoursite.com/?/about
+
+If the option is enabled, however, it would look like this:
+
+    http://yoursite.com/about
+    
+This obviously looks more "natural" to visitors, but it requires a bit of configuration, especially on the server side.
 
 To use pretty URLs you need a web-server with URL rewriting features. The ones supported out-of-the-box by **PieCrust**
 are [Apache][] and [IIS7][].
@@ -21,7 +41,7 @@ are [Apache][] and [IIS7][].
 * *On the web*: if you're hosting your website with services like [Dreamhost][], [Bluehost][], [NearlyFreeSpeech][]
     or [HostGator][], chances are your website is running with **Apache**.
 
-### On Apache
+#### On Apache
 
 1. Open the `.htaccess` file at the root of your website folder.
 1. Uncomment the line that says `RewriteEngine on` (remove the `#` character at the beginning of the line).
@@ -29,23 +49,21 @@ are [Apache][] and [IIS7][].
    also uncomment the line that says `RewriteBase /piecrust`, and replace "*piecrust*" with the name
    of your sub-directory.
 1. In your `config.yml`, in the `site` section, set `pretty_urls` to `true` (check out the documenation
-   about [your website's configuration][config] to see how to do this).
+   about [your website's configuration][siteconfig] to see how to do this).
    
 If links on your website are suddenly broken, check that you've got the correct rewrite-base (step 3, above), and
 check (or have an admin check for you) that you have the `mod_rewrite` extension enabled.
 
 
-### On IIS7
+#### On IIS7
 
 1. Open the `web.config` file at the root of your domain.
 1. Uncomment the `rewrite` section (remove lines 8 and 23 completely).
 
 
-Now you should be able to enjoy super nice looking URLs in your website!
-
 
   [baking]: {{ pcurl('doc/baking') }}
-  [config]: {{ pcurl('doc/config') }}
+  [siteconfig]: {{ pcurl('doc/site-config') }}
   [apache]: http://httpd.apache.org/
   [iis7]: http://www.iis.net/
   [mamp]: http://www.mamp.info/
