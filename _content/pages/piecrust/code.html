@@ -1,9 +1,44 @@
 ---
-layout: piecrust
-title: Code
+layout: piecrust_code
+title: Running PieCrust
 ---
 
-**PieCrust**'s code is available on [BitBucket][] and mirrored on [GitHub][].
+> **Note**: This section is irrelevant if you bake your website. It's only useful if you use **PieCrust** as a CMS.
 
-  [bitbucket]: https://bitbucket.org/ludovicchabant/piecrust
-  [github]: https://github.com/ludovicchabant/PieCrust
+The simplest way to run **PieCrust** is to put these lines in your site's `index.php` (assuming you have the [recommended directory structure][struct])
+
+{% geshi 'php' %}
+require '../_piecrust/PieCrust.class.php';
+PieCrust::setupAndRun();
+{% endgeshi %}
+
+The `setupAndRun` method basically does the following:
+
+{% geshi 'php' %}
+// Setup the timezone, the error handler, etc.
+PieCrust::setup();
+
+// Create the PieCrust application, and run
+// it on the incoming request.
+$pieCrust = new PieCrust();
+$pieCrust->run();
+{% endgeshi %}
+
+You can skip the `PieCrust::setup()` call if you want to initialize the PHP environment yourself.
+
+You can pass an associative array as an argument to the `PieCrust` constructor to set some options:
+
+* `url_base` (defaults to `/`): the base URL used for links (_e.g._ when using the `pcurl` template function).
+* `root` (defaults the the directory of the entry PHP script): the root of the website, where `_content` lives.
+* `cache` (defaults to `true`): whether or not to enable [caching][].
+* `debug` (defaults to `false`): whether or not to enable [debug mode][debug].
+
+Finally, the `run` method takes 2 arguments:
+
+1. The URI to process (it defaults to the current request's URL).
+1. The server variables (it defaults to PHP's `$_SERVER`).
+
+
+  [struct]: {{ pcurl('piecrust/doc/debugging') }}
+  [caching]: {{ pcurl('piecrust/doc/caching') }}
+  [debug]: {{ pcurl('piecrust/doc/structure') }}
