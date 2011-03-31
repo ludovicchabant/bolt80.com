@@ -43,5 +43,7 @@ Here are a few important things to know:
 
 * Because all formatters are initialized, only do cheap stuff in the `initialize` method. Generally speaking, you should only query a few configuration settings from the application object or, better, just store a reference to it for later use.
 * Formatters are asked in order of priority whether they want to support a format. There are only 3 priorities so far (high, default and low). The **SmartyPants** and _pass-through_ formatters have low priorities. All the other ones have default priority.
-* The `supportsFormat` function should obviously return `true` if the text should be processed by this formatter. Usually, you want to only process unformatted text (except for **SmartPants**, which adds more formatting on top of other formatting).
+* The `supportsFormat` function should obviously return `true` if the text should be processed by this formatter. Usually, you want to only process unformatted text (**SmartPants** is an exception, since it adds more formatting on top of other formattings).
 * The `format` function should do all the expensive stuff -- not only format the text, of course, but also include and load any needed external libraries. For example, you should avoid including external PHP scripts until you know this formatter is going to be used.
+
+To test your formatter, just create a page that specifies `awesome` (or whatever string you're matching in `supportsFormat`) as its format.

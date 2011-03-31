@@ -3,3 +3,62 @@ title: Adding a template engine
 layout: piecrust_code
 ---
 
+To add a new template engine to **PieCrust**, add a new file in the `_piecrust/template-engines` directory. The file should be named `MyAwesomeTemplateEngine.class.php`, like the other template engines. The main class inside this file should be named the same (_e.g._ `MyAwesomeTemplateEngine`) and should implement the `ITemplateEngine` interface:
+
+{% geshi 'php' %}
+class MyAwesomeTemplateEngine implements ITemplateEngine
+{
+	protected $pieCrust;
+	
+	public function initialize(PieCrust $pieCrust)
+    {
+        // Initialize the template engine.
+		$this->pieCrust = $pieCrust;
+    }
+	
+	public function getExtension()
+	{
+        // Get the file extension for templates using this engine.
+		return 'awesome';
+	}
+	
+	public function renderString($content, $data)
+	{
+        // Render the given string and data.
+        echo SomeLib::render($content, $data);
+	}
+	
+	public function renderFile($templateName, $data)
+	{
+		// Get the actual template file's path.
+		$templatePath = PieCrust::getTemplatePath(
+            $this->pieCrust,
+            $templateName
+        );
+        
+        // Render the file's contents
+		$content = file_get_contents($templatePath);
+		echo SomeLib::render($content, $data);
+	}
+	
+	public function clearInternalCache()
+	{
+        // Any cleaning in between request for when
+	}
+}
+
+{% endgeshi %}
+
+Here are a few important things to know:
+
+* Because all template engines are initialized, only do cheap stuff in the `initialize` method. Generally speaking, you should only query a few configuration settings from the application object or, better, just store a reference to it for later use.
+* The `getExtension` function should return the file extension that templates should have to use your engine. Obviously, don't use any already used extension.
+* The `renderString` function should render the given string template with the given template data. The rendered page should be printed to the standard output.
+* The `renderFile` is the same as `renderString` except that the first parameter is the name of the template. Some template engines already have their own file locating system, so as long as those engines are correctly initialized with the application's template paths (`$this->pieCrust->getTemplatesDir()`), everything should work fine. For the other engines with no such thing, **PieCrust** has a convenient helper function to find the first file with the requested name in any of the templates directories. That's the `PieCrust::getTemplatePath` function used in the example above.
+* The `renderFile` and `renderString` functions should lazy-load and lazy-include all required external libraries. You should avoid doing anything until your template engine is actually used.
+
+To test your template engine:
+
+* Create a template file called `my-test.awesome` in `_content/templates`.
+* Create a page that specifies `my-test.awesome` as its layout.
+
