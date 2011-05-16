@@ -1,13 +1,15 @@
 {% import "macros_google.html" as google %}
+{% import "macros_less.html" as less %}
 <!doctype html>
 <html>
 <head>
-    <title>{{ site.title }}{% if page.title %}&mdash; {{ page.title }}{% endif %}</title>
+    <title>{{ site.title }}{% if page.title %} &mdash; {{ page.title }}{% endif %}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="description" content="BOLT80, the digital portfolio of Ludovic Chabant" />
     <meta name="keywords" content="bolt80, portfolio, ludovic, chabant" />
     {{ google.webfonts('Droid+Sans|Nobile|Molengo|Cantarell|Inconsolata') }}
-    <link rel="stylesheet" href="{{ site.root }}styles/screen.css" type="text/css" media="screen, projection" />
+    {{ less.stylesheet(baker, site.root ~ 'styles/screen', 'screen, projection') }}
+    {{ less.less_js(baker, site.root) }}
 </head>
     <body>
         <div id="wrapper">

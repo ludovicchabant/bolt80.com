@@ -1,15 +1,17 @@
 {% import "macros_google.html" as google %}
+{% import "macros_less.html" as less %}
 <!doctype html>
 <html>
 <head>
-    <title>PieCrust {% if page.title %}&mdash; {{ page.title }}{% endif %}</title>
+    <title>PieCrust{% if page.title %} &mdash; {{ page.title }}{% endif %}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="description" content="PieCrust, a simple website engine and static website generator" />
     <meta name="keywords" content="bolt80, portfolio, ludovic, chabant" />
     <meta name="generator" content="PieCrust" />
     {% include('blueprint.html') %}
     {{ google.webfonts('Lobster|Covered+By+Your+Grace') }}
-    <link rel="stylesheet" href="{{ site.root }}styles/piecrust-screen.css" type="text/css" media="screen, projection" />
+    {{ less.stylesheet(baker, site.root ~ 'styles/piecrust-screen', 'screen, projection') }}
+    {{ less.less_js(baker, site.root) }}
 </head>
 <body>
     <div id="container" class="container">
