@@ -12,6 +12,6 @@ smartypants:
 baker:
     skip_patterns:
         - /^_/
-        - /index\.php/
-        - /\.htaccess/
-        - /web\.config/
+        - index.php
+        - .htaccess
+        - web.config
