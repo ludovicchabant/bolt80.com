@@ -12,11 +12,8 @@ RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [NC,L]
 
 # Rewrite all the rest through the gateway.
-RewriteRule ^.*$ _index.php [NC,L]
+RewriteRule ^.*$ index.php [NC,L]
 
 # Various other configuration stuff.
 SetEnv TZ Canada/Vancouver
 AddType text/css .less
-
-# Change default document for serving the kitchen's contents with Apache.
-DirectoryIndex _index.php

@@ -8,3 +8,10 @@ markdown:
 smartypants:
     enable: true
     use_smartypants_typographer: true
+
+baker:
+    skip_patterns:
+        - /^_/
+        - /index\.php/
+        - /\.htaccess/
+        - /web\.config/
