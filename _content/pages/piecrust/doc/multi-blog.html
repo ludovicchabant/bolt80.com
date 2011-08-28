@@ -1,0 +1,44 @@
+---
+layout: piecrust_doc
+title: Multi-blog site
+---
+
+By default, a **PieCrust** website has one unique blog or news feed, but you can have several separate ones if you need it. It works like this:
+
+1. Define your blog names in the [site configuration][config]:
+    
+        site:
+            blogs: [ pro, family ]
+    
+1. Move your posts inside [subdirectories][structure] named after each blog name. So instead of having all your posts inside the `_content/posts` folder, you would have some posts under `_content/posts/pro`, and other posts under `_content/posts/family`, depending on which blog they belong to.
+    
+    Note that the post URLs will always be prefixed with the blog name, so choose it accordingly. For example, you would get URLs like this:
+    
+        http://domain.com/family/2011/07/12/my-kid-just-turned-2/
+        http://domain.com/pro/2011/07/12/troubleshooting-xzy-errors-with-abc/
+
+1. If you want to configure each blog differently, specify configuration settings in a section named after the blog in the [site configuration][config]. For example, here's how you keep the same date format between your 2 blogs, but with a different number of posts per page:
+    
+        site:
+            blogs: [ pro, family ]
+            date_format: 'F j, Y'
+        
+        pro:
+            posts_per_page: 20
+        
+        family:
+            posts_per_page: 6
+    
+    Settings that you can configure either at the `site` or blog level are: `post_url`, `tag_url`, `category_url`, `posts_per_page` and `date_format`. The first 3 settings (URL formats) will be automatically prefixed with the blog name, as mentioned in the previous point. Note that the `posts_fs` setting can't be overriden -- it would be confusing to have posts organized differently between blogs.
+    
+1. If you create a new page that lists posts (e.g. the main page, or the RSS feed page), you can specify what blog to take posts from with the `blog` setting in the page's [configuration header][pageconfig]:
+    
+        blog: family
+    
+    By default, all pages take posts from the first declared blog.
+
+
+
+ [config]: {{ pcurl('piecrust/doc/site-config') }}
+ [pageconfig]: {{ pcurl('piecrust/doc/page-config') }}
+ [structure]: {{ pcurl('piecrust/doc/structure') }}

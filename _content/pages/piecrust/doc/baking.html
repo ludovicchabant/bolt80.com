@@ -41,6 +41,40 @@ For example, with the [recommended **PieCrust** directory structure][struct], yo
 On top of baking all the **PieCrust** content (pages, posts, tags, categories, etc.), _chef_ also bakes any other file found in the root directory. See the section on [file processors][procs] for more information.
 
 
+### Customizing the baking
+
+#### Specifying files to skip
+
+By default, `chef` ignores any file that starts with an underscore (`_`), which includes the cache and content directories. It also ignores common system and revision control files: `.DS_Store`, `Thumbs.db`, `.git`, `.hg` and `.svn`.
+
+But you can tell it to skip some specific files if you don't want them to be processed or copied to the output directory. You do this through the `baker/skip_patterns` [configuration setting][config]. For example:
+
+    baker:
+        skip_patterns:
+            - /^_/
+            - index.php
+            - .htaccess
+            - web.config
+
+Any pattern that begins and ends with a `/` will be treated as a regular expression. All other patterns are treated like classic UNIX [_glob_ patterns][1]. The default patterns that exclude the system and revision control files mentioned previously are also automatically appended to those you specify.
+
+
+#### Specifying tag combinations
+
+By default, `chef` will bake any tag combinations you use in your site by using the `[pctagurl][templates]` function. But if you want a tag combination to be available for linking from outside of your site, you can specify it in the `baker/tag_combinations` [configuration setting][config]. For example:
+
+    baker:
+        tag_combinations:
+            - kids/photos
+            - some-tag/some-other-tag
+            - tag1/tag2/tag3
+
+You can specify tags in whatever order you want, but only that order would be baked (`kids/photos` is a different URL than `photos/kids`, even if the contents are likely to be identical).
+
+
   [struct]: {{ pcurl('piecrust/doc/structure') }}
   [chef]: {{ pcurl('piecrust/doc/chef') }}
   [procs]: {{ pcurl('piecrust/doc/file-processors') }}
+  [config]: {{ pcurl('piecrust/doc/site-config') }}
+  [templates]: {{ pcurl('piecrust/doc/templates') }}
+  [1]: http://en.wikipedia.org/wiki/Glob_(programming)

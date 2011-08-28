@@ -14,8 +14,8 @@ While you're building your website, it's a good idea to enable the "*debug*" mod
   most visitors don't care about.
   
 Obviously, "*debug*" mode is only valid for dynamically rendered sites (as opposed
-to [baked] sites). However, even for baked sites, you could temporarily revert back to
-dynamic rendering in "*debug*" mode to iterate faster on your editing without waiting for
+to [baked] sites). However, even for baked sites, it's a good idea to use dynamic rendering
+(with IIS or Apache) in "*debug*" mode to iterate faster on your editing without waiting for
 the bake to finish... baking is fast, but dynamic rendering is faster!
 
 There are 3 ways to enable "*debug*" mode:
@@ -23,6 +23,20 @@ There are 3 ways to enable "*debug*" mode:
 * Append `?!debug` at the end of the URL. For example, go to `http://domain.com/about?!debug`.
 * Set the `site/debug` [configuration value][config] to `true`.
 * Initialize the `PieCrust` engine with a `array('debug' => true)` parameter.
+
+When the "*debug*" mode is enabled, you also get a few nice things:
+
+* All internal links are generated with the `?!debug` suffix, so you stay in "*debug*" mode
+  when navigating your site.
+* An information box can be inserted in your templates with `piecrust.debug_info`. When not in
+  "*debug*" mode, that template macro just returns nothing, so you can add it in all your
+  templates. Note that you may need to escape it, since it contains HTML code.
+  
+  For example, with Twig, you would write:
+  
+      {% raw %}
+        {{ piecrust.debug_info|raw }}
+      {% endraw %}
 
 
   [caching]: {{ pcurl('piecrust/doc/caching') }}

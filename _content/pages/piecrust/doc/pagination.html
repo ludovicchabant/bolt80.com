@@ -50,6 +50,33 @@ And now's a list of variables available on each post:
 * `has_more`: If the post had a page break in it, the `content` variable only returns the first part (the "*excerpt*"), and `has_more` is set to `true` so you can add a "*Read more...*" link that points to the post's URL.
 
 
+
+### Pagination filtering
+
+If you want to create a page that lists only specific posts, you can filter what you get from the `pagination` object. You do this with the `posts_filters` [configuration section][1] in your page. For example:
+
+    posts_filters:
+        has_tags: announcement
+        has_tags: piecrust
+    
+...will only return posts with the `announcement` and `piecrust` tags.
+
+The syntax works like this:
+
+* `has_something`: this will look for the `something` setting in the post's configuration header. If that setting is an array, and it contains the specified value, then the post is included in the page. Otherwise, it's skipped.
+* `is_something`: this will look for the `something` setting in the post's configuration header. If that setting exists and is the same as the specified value, then the post is included in the page. Otherwise, it's skipped.
+
+You can also group `has_*` and `is_*` statements in `and` and `or` sections to create more complex queries:
+
+    posts_filters:
+        has_tags: announcement
+        or:
+            has_tags: piecrust
+            has_tags: stupidhttp
+
+This would return only posts with announcements regarding PieCrust or StupidHttp.
+
+
   [1]: {{ pcurl('piecrust/doc/page-config') }}
   [2]: {{ pcurl('piecrust/doc/site-config') }}
   [twigdoc]: http://www.twig-project.org/doc/templates.html
