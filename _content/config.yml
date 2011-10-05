@@ -16,3 +16,12 @@ baker:
         - index.php
         - .htaccess
         - web.config
+    config_variants:
+        default:
+            site:
+                root: http://bolt80.com
+        local:
+            baker:
+                file_urls: true
+            site:
+                pretty_urls: false
