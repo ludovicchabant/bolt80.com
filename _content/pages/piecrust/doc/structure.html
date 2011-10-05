@@ -37,7 +37,6 @@ The `mywebsite.com` folder would be the folder actually accessible from the inte
 If you plan to [bake your website][2] instead of having it dynamically generated, a slightly different folder structure is recommended:
 
     (root)
-     |-- _chef
      |-- _piecrust
      |-- _kitchen
      |     |-- mywebsite
@@ -52,7 +51,7 @@ If you plan to [bake your website][2] instead of having it dynamically generated
      |          |-- js
      |-- mywebsite.com
 
-You would keep all your content in a `_kitchen` folder that you can serve with any PHP-enabled web server on your local machine, or with the _[chef][3]_ development server. Then you would bake the contents of the "_kitchen_" into the actual `mywebsite.com` folder, which is accessible from the internet. Incidentally, the baking utility is also in _[chef][3]_ so it's a good thing the `_chef` folder is shown here alongside `_piecrust`.
+You would keep all your content in a `_kitchen` folder that you can serve with any PHP-enabled web server on your local machine, or with the _[chef][3]_ development server. Then you would bake the contents of the "_kitchen_" into the actual `mywebsite.com` folder, which is accessible from the internet.
 
 
 ### PieCrust folders
