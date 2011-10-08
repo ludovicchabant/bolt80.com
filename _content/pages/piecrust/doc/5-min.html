@@ -1,0 +1,33 @@
+---
+layout: piecrust_doc
+title: The 5 minute setup
+format: haml
+---
+
+%p This quick tutorial will get you up and running with your first <strong>PieCrust</strong> website in a matter of minutes.
+
+%ol.tutorial
+    %li
+        :markdown
+            Download the [latest version of the sample website][1] and extract it somewhere nice.
+            [1]: https://bitbucket.org/ludovicchabant/piecrust_sample/get/tip.zip
+    %li
+        :markdown
+            Point your favorite PHP-enabled web server to the `website` directory, and
+            change the permissions on `website/_cache` to make it writable for the web server.
+            Launch it in your favorite web browser!
+    %li
+        :markdown
+            Now look into `website/_content/config.yml` (that's the [configuration file][1])
+            and change what obviously needs to be changed.
+            [1]: {{ pcurl('piecrust/doc/site-config') }}
+    %li
+        :markdown
+            Add/edit some [pages][1] and [layouts][2]. Refresh the web browser, and see you changes right away!
+            [1]: {{ pcurl('piecrust/doc/create-page') }}
+            [2]: {{ pcurl('piecrust/doc/layout') }}
+    %li
+        :markdown
+            When you're ready, run `../_piecrust/chef bake` from the `website` directory,
+            and pick up your [statically generated website][1] from the `_counter`!
+            [1]: {{ pcurl('piecrust/doc/baking') }}

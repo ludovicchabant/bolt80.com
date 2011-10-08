@@ -5,15 +5,26 @@ title: Documentation
 
 Using **PieCrust** is mostly a matter of editing text files.
 
-Configurations are written in [YAML][], a simple human-readable syntax. Templating is handled by default by [Twig][], with a syntax similar to [Jinja][] or [Django][]. Text formatting is done by default through [Markdown], which lets you write page contents like you would naturally write an email.
+The application's code itself, of course, it a bunch of text files. It's standalone, so you don't have any dependencies to install.
 
-If you don't know any of those names I mentioned, _DON'T PANIC_! [Keep reading][1], you'll see it's easy.
+Your website will also be mostly text files. Configurations are written in [YAML][], a simple human-readable syntax. Templating is handled by default by [Twig][], with a syntax similar to [Jinja][] or [Django][]. Text formatting is done by default through [Markdown], which lets you write page contents the same way you would naturally write an email.
+
+If you don't know any of those names I mentioned, __*don't panic*__! [Keep reading][1], you'll see it's easy.
 
 
-  [1]: {{ pcurl('piecrust/doc/structure') }}
+
+### Requirements
+
+**PieCrust** only requires a web-server running [PHP 5.3+][php] for dynamically rendered websites. If you [bake] your website, however, all you need is a web-server that can serve HTML files, and that's by definition _any_ web server! You can't make it simpler (although of course you'll need some computer with PHP somewhere to do the baking in the first place).
+
+
+
+
+  [1]: {{ pcurl('piecrust/doc/5-min') }}
   [yaml]: http://en.wikipedia.org/wiki/YAML
   [twig]: http://www.twig-project.org/
   [jinja]: http://jinja.pocoo.org/
   [django]: http://docs.djangoproject.com/en/dev/topics/templates/
   [markdown]: http://daringfireball.net/projects/markdown/
-
+  [php]: http://php.net/
+  [bake]: {{ pcurl('piecrust/doc/baking') }}

@@ -1,0 +1,47 @@
+{% extends "piecrust.html" %}
+
+{% block slogan %}
+<div id="slogan" class="span-22 prepend-1 append-1 last">
+    {{ slogan|raw }}
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main" class="span-24 last">
+    <div class="content-box">
+    {{ main|raw }}
+    </div>
+</div>
+
+<div id="split-1" class="span-24 last">
+    <div class="split">
+    {{ split1|raw }}
+    </div>
+</div>
+<div id="content-detail-1" class="span-12">
+    <div class="content-box content-box-detail">
+    {{ detail1|raw }}
+    </div>
+</div>
+<div id="content-detail-2" class="span-12 last">
+    <div class="content-box content-box-detail">
+    {{ detail2|raw }}
+    </div>
+</div>
+
+<div id="split-2" class="span-24 last">
+    <div class="split">
+    {{ split2|raw }}
+    </div>
+</div>
+<div id="content-detail-3" class="span-12">
+    <div class="content-box content-box-detail">
+    {{ detail3|raw }}
+    </div>
+</div>
+<div id="content-detail-4" class="span-12 last">
+    <div class="content-box content-box-detail">
+    {{ detail4|raw }}
+    </div>
+</div>
+{% endblock %}

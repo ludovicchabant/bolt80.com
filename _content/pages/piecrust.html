@@ -1,47 +1,111 @@
 ---
-layout: piecrust
-title: Just add fillings to your website
+layout: piecrust_splash
+title: A static website generator and lightweight CMS.
 ---
-
-[PieCrust][] is a very lightweight <acronym title="Content Management System">CMS</acronym> that's all managed with text files. No complex setup, no databases, no administrative panels. But **PieCrust** is also a static website generator, where you can transform all your content into plain HTML files.
-
-
-Features
---------
-* Super-simple authoring: it's all just text files!
-* Your whole website can be easily stored in a revision control system.
-* Can generate a completely static website that will run with minimum resources for maximum scalability, or run as a lightweight dynamic CMS.
-* Rapid-iteration authoring: even if you use **PieCrust** as a static site generator, you can preview your website instantly in IIS, Apache, or the built-in development web server.
-
-### Limitations
-
-* Only static content is supported, but most dynamic content requiring server-side processing is not within **PieCrust**'s scope anyway (user accounts, access permissions, etc.). For this, you should look into a proper CMS engine.
-    * For dynamic content like displaying [Flickr][] pictures or [Twitter][] feeds, you can use client-side scripting (**Javascript** _et al._).
-    * For user comments and ratings, you can use 3rd party services like [Disqus][].
-
-### Special features
-
-All those features are pretty standard for static site generators, so what sets **PieCrust** apart?
-
-* _Multiple entrées_: your pages are not limited to one piece of content that you place in the center of your layout. You can define other "_text segments_" like a page-specific menu or sidebar text that you can insert in different places in the layout.
-* _Comes with side-orders_: **PieCrust** comes with a nice selection of text formatters (**Markdown**, **Textile**, **SmartyPants**) and template engines (**Twig**, **Haml**, **Mustache**, **Dwoo**) out-of-the-box.
-* _Super-fast service_: because **PieCrust** is also designed as a lightweight CMS, it can render your pages in less than a few milliseconds in most cases. This means statically generating your whole website will be done way faster than with most other engines.
-* _On-demand cooking_: you don't have to use static generation if you don't need it -- just use **PieCrust** as a classic PHP CMS that will render requested pages on the fly (don't worry, that's pretty fast thanks to caching and other tricks).
-
-Don't think **PieCrust** quite fits your needs? Check out this [big list of other website generators][others] to find something you may like better.
+---slogan---
+## **PieCrust** is a static website generator and lightweight <acronym title="Content Management System">CMS</acronym> that's all managed with text files. No complex setup, databases, or administrative panels. Simple, beautiful, and yummy.
 
 
-Requirements
-------------
-[PieCrust][] only requires a web-server running [PHP 5.3+][php] for dynamically rendered websites. If you "[bake]" your website, however, all you need is a web-server that can serve HTML files (and that's by definition _any_ web server)! You can't make it simpler (although of course you'll need some computer with PHP somewhere to do the baking in the first place).
+---main---
+
+With **PieCrust**, making a website is easy as pie:
+
+* _Simple filling_: it's all just text files!
+* _Store in the cellar_: your whole website fits nicely in a revision control system.
+* _Bake and serve_: generate a completely static website that will run with minimum
+  resources for maximum scalability.
+* _Quickly update your recipe_: update your blog with `git push` or `hg push`!
+* _Taste while you cook_: preview your website instantly during authoring.
+
+Get started right now in less than [5 minutes][5min]!
+
+  [5min]: {{ pcurl('piecrust/doc/5-min') }}
 
 
+---split1---
+## Quick preview
 
-  [piecrust]: {{ pcurl('piecrust') }}
-  [bake]: {{ pcurl('piecrust/doc/baking') }}
-  [others]: {{ pcurl('piecrust/others') }}
+---detail1---
+### Clean kitchen
+**PieCrust** stores everything in neatly organized text files in a `_content` directory:
+    
+    _content/
+        pages/
+        posts/
+        templates/
+        config.yml
+    css/
+    images/
+    otherstuff/
 
-  [flickr]: http://flickr.com/
-  [twitter]: http://twitter.com/
-  [disqus]: http://disqus.com/
-  [php]: http://php.net/
+Folders `pages` and `posts` contain what you expect. `templates` contains layouts
+and repetitive bits of markup. `config.yml` contains common things like
+the site's title, and configuration settings for **PieCrust**.
+
+### Preparation, preparation
+Create page templates and reusable bits quickly:
+
+{% raw %}
+    <html><head>
+        <title>{{page.title}}</title>
+    </head><body>
+        <h1>{{page.title}}</h1>
+        <p>published: {{page.date}}
+           by: {{page.author}}</p>
+        {{content|raw}}
+    </body></html>
+{% endraw %}
+
+---detail2---
+### Quick appetizer
+Create a page or blog post in seconds, with your favorite text editor, using a
+very natural syntax:
+
+    ---
+    title: My rhubarb pie recipe
+    category: desserts
+    ---
+    You're gonna *love* this one,
+    it's so good! You need:
+    
+    - Pastry crust
+    - Rhubarb
+    - Sugar
+
+It will be converted into typographically beautiful text automatically!
+
+### Simple at first, complex later
+Mundane tasks are easy:
+
+* Create a text file to add a page or post.
+* Rename a file to change a page's URL.
+* Edit a page's file to change its title, contents, tags or other metadata.
+* Edit another file to change layout.
+
+But advanced features give you much power to play with, from layout inheritance
+to macros and pagination filtering and conditional includes and so on.
+
+---split2---
+## Highlights
+
+---detail3---
+### Comes with side-orders
+**PieCrust** comes with a nice selection of text formatters (**Markdown**, **Textile**,
+**SmartyPants**) and template engines (**Twig**, **Haml**, **Mustache**, **Dwoo**)
+out-of-the-box.
+
+### Super-fast service
+Because **PieCrust** is also designed as a lightweight CMS, it can render your pages
+in less than a few milliseconds in most cases. It means that previewing or generating
+your website is super fast!
+
+---detail4---
+### Multiple entrées
+Your pages are not limited to one piece of content that you place in the center of
+your layout. You can define other "_text segments_" like a page-specific menu or
+sidebar text that you can insert in different places in the layout.
+
+### On-demand cooking
+You don't have to use static generation if you don't need it -- just use **PieCrust**
+as a classic PHP CMS that will render requested pages on the fly.
+

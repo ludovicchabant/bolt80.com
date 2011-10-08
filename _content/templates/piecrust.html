@@ -17,25 +17,25 @@
     <div id="container" class="container">
         <div id="header" class="span-24 last">
             <h1>PieCrust</h1>
+            {% block slogan %}{% endblock %}
         </div>
-        <hr />
-        <div id="menu" class="span-24 last">
-            <div id="menu-inner">
+        <div id="main-menu" class="menu span-24 last">
+            <div class="menu-inner">
                 <ul>
                     <li><a href="{{ pcurl('piecrust') }}">Overview</a></li>
-                    <li><a href="{{ pcurl('piecrust/install') }}">Installation</a></li>
-                    <li><a href="{{ pcurl('piecrust/support') }}">Support</a></li>
                     <li><a href="{{ pcurl('piecrust/doc') }}">Documentation</a></li>
+                    <li><a href="{{ pcurl('piecrust/support') }}">Support</a></li>
                     <li><a href="{{ pcurl('piecrust/code') }}">Code</a></li>
                 </ul>
             </div>
         </div>
-        <hr />
         <div id="content" class="span-24 last">
             <div id="content-inner">
-                {% if page.title %}<h2>{{ page.title }}</h2>{% endif %}
                 {% block content %}
-                {{ content|raw }}
+                <div class="span-22 prepend-1 append-1 last">
+                    {% if page.title %}<h2>{{ page.title }}</h2>{% endif %}
+                    {{ content|raw }}
+                </div>
                 {% endblock %}
             </div>
         </div>
