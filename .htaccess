@@ -7,8 +7,7 @@ RewriteBase /bolt80
 
 # Don't rewrite requests to stuff that physically exists.
 RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -l [OR]
-RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_FILENAME} -l
 RewriteRule ^.*$ - [NC,L]
 
 # Rewrite all the rest through the gateway.
