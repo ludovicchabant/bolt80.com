@@ -3,40 +3,44 @@ layout: piecrust_code
 title: Running PieCrust
 ---
 
-> **Note**: This section is irrelevant if you bake your website. It's only useful if you use **PieCrust** as a CMS.
+Here's some developer information on how **PieCrust** is run.
 
-The simplest way to run **PieCrust** is to put these lines in your site's `index.php` (assuming you have the [recommended directory structure][struct])
-
-{% geshi 'php' %}
-require '../_piecrust/PieCrust.class.php';
-PieCrust::setupAndRun();
-{% endgeshi %}
-
-The `setupAndRun` method basically does the following:
+The simplest way to bootstrap **PieCrust** is to put these lines in your site's
+`index.php` (assuming you have the [recommended directory structure][struct]...
+otherwise, adjust the `require` path):
 
 {% geshi 'php' %}
-// Setup the timezone, the error handler, etc.
-PieCrust::setup();
-
-// Create the PieCrust application, and run
-// it on the incoming request.
-$pieCrust = new PieCrust();
-$pieCrust->run();
+require '../_piecrust/piecrust.php';
+piecrust_run();
 {% endgeshi %}
 
-You can skip the `PieCrust::setup()` call if you want to initialize the PHP environment yourself.
+The `piecrust_run` method does the following:
 
-You can pass an associative array as an argument to the `PieCrust` constructor to set some options:
+* Check PHP's version (you need PHP v5.3 or above).
+* Set the include paths, the error and shutdown handlers, and a few other PHP environment things.
+* Set up **PieCrust**'s class autoloader.
+* Run **PieCrust** with the default options (_i.e._ using the current server request URL, etc.)
 
-* `url_base` (defaults to `/`): the base URL used for links (_e.g._ when using the `pcurl` template function).
+If you want to bootstrap **PieCrust** yourself, you should run `piecrust_setup`, which takes
+care of all the steps described above except for the last one.
+
+Then you can run the app with the following code:
+
+{% geshi 'php' %}
+$app = new PieCrust\PieCrust($parameters);
+$app->run($uri, $server);
+{% endgeshi %}
+
+The `$parameters` variable should be an associative array with any of the following:
+
 * `root` (defaults the the directory of the entry PHP script): the root of the website, where `_content` lives.
 * `cache` (defaults to `true`): whether or not to enable [caching][].
 * `debug` (defaults to `false`): whether or not to enable [debug mode][debug].
 
 Finally, the `run` method takes 2 arguments:
 
-1. The URI to process (it defaults to the current request's URL).
-1. The server variables (it defaults to PHP's `$_SERVER`).
+1. The URI to process (it defaults to the current request's URL if `null`).
+1. The server variables (it defaults to PHP's `$_SERVER` if `null`).
 
 
   [struct]: {{ pcurl('piecrust/doc/debugging') }}
