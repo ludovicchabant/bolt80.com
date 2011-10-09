@@ -60,11 +60,11 @@ blockquote {
     -o-mask-image: -o-gradient(linear, left bottom, left top, color-stop(0, rgba(255, 255, 255, 0.6)), color-stop(0.6, white));
     mask-image: gradient(linear, left bottom, left top, color-stop(0, rgba(255, 255, 255, 0.6)), color-stop(0.6, white));
 }
-.vignette(@color, @offset) {
-    background: -webkit-radial-gradient(center @offset, circle cover, @color, darken(@color, 18%));
-    background: -moz-radial-gradient(center @offset, circle cover, @color, darken(@color, 18%));
-    background: -o-radial-gradient(center @offset, circle cover, @color, darken(@color, 18%));
-    background: radial-gradient(center @offset, circle cover, @color, darken(@color, 18%));
+.vignette(@color) {
+    background: -webkit-radial-gradient(center top, circle cover, @color, darken(@color, 18%));
+    background: -moz-radial-gradient(center top, circle cover, @color, darken(@color, 18%));
+    background: -o-radial-gradient(center top, circle cover, @color, darken(@color, 18%));
+    background: radial-gradient(center top, circle cover, @color, darken(@color, 18%));
 }
 
 #container {
@@ -74,7 +74,7 @@ blockquote {
 
 #header {
     background: @dark_crust;
-    .vignette(@dark_crust, 0px);
+    .vignette(@dark_crust);
     font-size: 1.8em;
     
     h1 {
@@ -135,7 +135,7 @@ blockquote {
 
 #content {
     background: @light_crust;
-    .vignette(@light_crust, 50px);
+    .vignette(@light_crust);
     
     #content-inner {}
     
@@ -182,7 +182,7 @@ blockquote {
     border-top: 2px solid lighten(@stripes_dark, 20%);
     padding: 10px 0;
     background: @dark_crust;
-    .vignette(@dark_crust, 0px);
+    .vignette(@dark_crust);
 
     font-size: 0.8em;
     text-transform: lowercase;
