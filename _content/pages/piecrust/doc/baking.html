@@ -26,26 +26,26 @@ When to bake:
 
 You run the baker through [_chef_][chef] with the `bake` command. Type `chef bake --help` for a detailed usage.
 
-In the most simple case, baking your website is done like this:
+In the most simple case, baking your website is done like this (if you're already in your website's root directory):
 
-    chef bake /path/to/root/directory
+    chef bake
 
-This would bake the given root directory (the directory that contains `_content`) into a sub-directory named `_counter`.
+This would bake the website found at the current directory (it should contain `_content`) into a sub-directory named `_counter`.
 
-If you want to bake into a specific output directory, type:
+If you want to bake into a specific output directory, from a specific root directory, type:
 
     chef bake -o /path/to/output  /path/to/root/directory
     
 For example, with the [recommended **PieCrust** directory structure][struct], you would set the output folder to the `mywebsite.com` folder.
 
-On top of baking all the **PieCrust** content (pages, posts, tags, categories, etc.), _chef_ also bakes any other file found in the root directory. See the section on [file processors][procs] for more information.
+On top of baking all the **PieCrust** content (pages, posts, tags, categories, etc.), _chef_ also bakes any other file found in the root directory. In most cases it means just copying stuff over (images, CSS stylesheets, etc.), but sometimes it also means processing the file along the way. See the section on [file processors][procs] for more information.
 
 
 ### Customizing the baking
 
 #### Specifying files to skip
 
-By default, `chef` ignores any file that starts with an underscore (`_`), which includes the cache and content directories. It also ignores common system and revision control files: `.DS_Store`, `Thumbs.db`, `.git`, `.hg` and `.svn`.
+By default, _chef_ ignores any file that starts with an underscore (`_`), which includes the cache and content directories. It also ignores common system and revision control files: `.DS_Store`, `Thumbs.db`, `.git`, `.hg` and `.svn`.
 
 But you can tell it to skip some specific files if you don't want them to be processed or copied to the output directory. You do this through the `baker/skip_patterns` [configuration setting][config]. For example:
 
@@ -61,7 +61,7 @@ Any pattern that begins and ends with a `/` will be treated as a regular express
 
 #### Specifying tag combinations
 
-By default, `chef` will bake any tag combinations you use in your site by using the `[pctagurl][templates]` function. But if you want a tag combination to be available for linking from outside of your site, you can specify it in the `baker/tag_combinations` [configuration setting][config]. For example:
+By default, _chef_ will bake any tag combinations you use in your site by using the `[pctagurl][templates]` function. But if you want a tag combination to be available for linking from outside of your site, you can specify it in the `baker/tag_combinations` [configuration setting][config]. For example:
 
     baker:
         tag_combinations:
@@ -70,6 +70,21 @@ By default, `chef` will bake any tag combinations you use in your site by using 
             - tag1/tag2/tag3
 
 You can specify tags in whatever order you want, but only that order would be baked (`kids/photos` is a different URL than `photos/kids`, even if the contents are likely to be identical).
+
+
+#### Specifying configuration variants
+
+Sometimes you want to bake a website with slightly different configuration settings than when you preview it.
+
+A common case is the `site/root` setting, which defines the base URL for a website. When previewed, you generally want **PieCrust** to figure out what that base URL is (something like `http://localhost:8080/mywebsite/`). However, when you bake it, you want a specific base URL like `http://mydomain.com`. Well, you can do this with the `baker/config_variants` setting:
+
+    baker:
+        config_variants:
+            default:
+                site:
+                    root: http://mydomain.com
+
+The `default` configuration variant is the one _chef_ will use by default. You can specify another configuration variant _via_ command line options if you need multiple variants.
 
 
   [struct]: {{ pcurl('piecrust/doc/structure') }}

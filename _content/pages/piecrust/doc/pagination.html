@@ -76,6 +76,15 @@ You can also group `has_*` and `is_*` statements in `and` and `or` sections to c
 
 This would return only posts with announcements regarding PieCrust or StupidHttp.
 
+You can also use the `not` clause to exclude something:
+
+    post_filters:
+        has_tags: announcement
+        not:
+            has_tags: family
+
+This will return all announcement posts except those regarding the family.
+
 
   [1]: {{ pcurl('piecrust/doc/page-config') }}
   [2]: {{ pcurl('piecrust/doc/site-config') }}
