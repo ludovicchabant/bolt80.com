@@ -3,7 +3,7 @@ layout: stupidhttp
 title: Documentation
 ---
 
-**StupidHttp** starts with the `StupidHttp_WebServer` class which obviously represents the web server. You pass it the path to the document root (or `null` if you don't intend to serve files from your disk), the port to server from (the default is `8080`), and the address (the default is `localhost`).
+**StupidHttp** starts with the `StupidHttp_WebServer` class which obviously represents the web server. You pass it the path to the document root (or `null` if you don't intend to serve files from your disk), the port to serve from (the default is `8080`), and the address (the default is `localhost`).
 
 {% geshi 'php' %}
     $server = new StupidHttp_WebServer('/path/to/document/root', 8080, 'localhost');
@@ -25,12 +25,12 @@ You can then set request handlers in the form of callback functions. Such callba
 Callbacks must be:
 
 * Callable objects (functions, etc.)
-* Take a first parameter that will receive the "context" of the request (more on this later).
+* Take a first parameter that will receive the `context` of the request (more on this later).
 * If the request was matched from a regular expression with capture groups, take a second parameter which is the array of those groups (as returned by `preg_match`).
 
 Whatever is printed to the standard output from the callback will be sent to the client browser as the response body.
 
-The "context" parameter is of type `StupidHttp_HandlerContext` and lets you access various things like the HTTP request, the HTTP response (where you can set custom headers), and the log. For more information on those types, see the [API documentation]({{ site.root }}stupidhttp/api_doc/html/).
+The `context` parameter is of type `StupidHttp_HandlerContext` and lets you access various things like the HTTP request, the HTTP response (where you can set custom headers), and the log. For more information on those types, see the [API documentation]({{ site.root }}stupidhttp/api_doc/html/).
 
 
 Server options

@@ -2,7 +2,34 @@
 layout: stupidhttp
 title: A super simple (and not very smart) HTTP library for PHP
 ---
-**StupidHttp** is the stupidest HTTP library for PHP ever (or for any other language, for that matter). The problem is, as far as I can tell, there's not really any other such library for PHP anyway, so I could say it's also the best one, but that would be a big lie. Truth is, **StupidHttp** _is_ stupid. Take a look at what it does:
+**StupidHttp** is the stupidest HTTP library for PHP ever (or for any other language, for that matter). The problem is, as far as I can tell, there's really not any other such library for PHP anyway[^1], so I could say it's also the best one too.
+
+
+Usage
+-----
+
+Running a development web server with **StupidHttp** is stupidly easy:
+
+{% geshi 'php' %}
+    $server = new StupidHttp_WebServer('/path/to/document/root', 8080);
+    $server->on('GET', '/')
+           ->call(function($c) { echo 'Hello from StupidHttp!'; });
+    $server->onPattern('GET', '/hello/(.+)')
+           ->call(function($c, $m) { echo 'Hello, ' . $m[1]; });
+    $server->run();
+{% endgeshi %}
+
+Yes, it does exactly what you expect:
+
+* Display `Hello from StupidHttp!` when you hit the home page (`localhost:8080`).
+* Display `Hello, Dave` when you go to `localhost:8080/hello/Dave`.
+* Serve files in `/path/to/document/root` if the relative URL matches a file.
+
+
+Technical Details
+-----------------
+
+Here's what **StupidHttp** does for you:
 
 * Runs a local HTTP server.
     * Tries to support `HTTP/1.0` and `HTTP/1.1` persistent connections (`keep-alive`).
@@ -17,14 +44,6 @@ That's it. That's all it does. It does not support _anything_ else, so obviously
 
 Remember, it's all in the name.
 
-Here's a quick preview of how it looks like to run a development web server with **StupidHttp**:
 
-{% geshi 'php' %}
-    $server = new StupidHttp_WebServer('/path/to/document/root', 8080);
-    $server->on('GET', '/')
-           ->call(function($c) { echo 'Hello from StupidHttp!'; });
-    $server->onPattern('GET', '/hello/(.+)')
-           ->call(function($c, $m) { echo 'Hello, ' . $m[1]; });
-    $server->run();
-{% endgeshi %}
-
+  [^1]: Nope, [nanoweb](http://nanoweb.si.kz) doesn't cut it. It's a PHP _server_. Not a PHP _server library_.
+        You can't just call it from PHP, and have it call PHP in return.
