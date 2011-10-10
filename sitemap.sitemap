@@ -1,0 +1,7 @@
+locations:
+    - url: /
+      changefreq: monthly
+    - url: piecrust
+      changefreq: weekly
+    - url: stupidhttp
+      changefreq: monthly
