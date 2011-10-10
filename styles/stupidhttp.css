@@ -9,3 +9,16 @@
     font-size: 75%;
     text-align: center;
 }
+
+code, pre {
+    border-radius: 5px;
+    background: #eee;
+    padding: 0.1em 0.5em;
+    box-shadow: 1px 1px 2px #aaa inset;
+    -webkit-box-shadow: 1px 1px 2px #aaa inset;
+    -moz-box-shadow: 1px 1px 2px #aaa inset;
+    -o-box-shadow: 1px 1px 2px #aaa inset;
+}
+pre {
+    padding: 1em;
+}
