@@ -11,11 +11,16 @@ format: haml
         :markdown
             Download the [latest version of the sample website][1] and extract it somewhere nice.
             [1]: https://bitbucket.org/ludovicchabant/piecrust_sample/get/tip.zip
+            
+            <pre><code>wget http://goo.gl/CNaLS -O piecrust.zip
+            unzip piecrust.zip</code></pre>
+            
     %li
         :markdown
-            Point your favorite PHP-enabled web server to the `website` directory, and
-            change the permissions on `website/_cache` to make it writable for the web server.
-            Launch it in your favorite web browser!
+            Run the **PieCrust** development server to check it out.
+            
+            <pre><code>cd ludovicchabant-piecrust_sample-tip
+            _piecrust/chef serve website</code></pre>
     %li
         :markdown
             Now look into `website/_content/config.yml` (that's the [configuration file][1])
@@ -28,6 +33,9 @@ format: haml
             [2]: {{ pcurl('piecrust/doc/layout') }}
     %li
         :markdown
-            When you're ready, run `../_piecrust/chef bake` from the `website` directory,
-            and pick up your [statically generated website][1] from the `_counter`!
+            When you're ready, bake your website:
+            
+            <pre><code>_piecrust/chef bake website</code></pre>
+            
+            Your [statically generated website][1] is waiting for you on the counter, in `website/_counter`!
             [1]: {{ pcurl('piecrust/doc/baking') }}
