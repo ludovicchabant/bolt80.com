@@ -51,6 +51,31 @@ blockquote {
     
     p { padding: 0; margin: 0; }
 }
+h2 {
+    color: @dark_crust;
+    font-family: Lobster, 'Trebuchet MS', sans-serif;
+    font-size: 2.5em;
+    letter-spacing: 0.07em;
+    margin: 1em 0 0.5em 0;
+}
+a {
+    color: @cherry;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0.1em 0.2em;
+    
+    &:link {}
+    &:visited { color: @cherry_shade; }
+    &:hover { color: @highlight; background: @cherry; }
+    &:active {}
+}
+ul li {
+    list-style-type: none;
+    padding-left: 1em;
+    text-indent: -1em;
+    margin: 0;
+}
+ul li:before { content: "\00BB \0020"; }
 
 .raised {
     text-shadow: 0px 2px 5px rgba(0,0,0,0.8);
@@ -88,8 +113,11 @@ blockquote {
     }
     
     #slogan h2 {
-        font-size: 1em;
         color: @dark_crust_shade;
+        font-family: Georgia, serif;
+        font-size: 1em;
+        letter-spacing: 0;
+        margin-bottom: 0.75em;
     }
 }
 
@@ -114,7 +142,10 @@ blockquote {
         float: left;
         position: relative;
         left: -50%;
+        padding-left: 0;
+        text-indent: 0;
     }
+    ul li:before { content: none; }
     ul:after { clear: both; }
     
     a {
@@ -138,34 +169,6 @@ blockquote {
     .vignette(@light_crust);
     
     #content-inner {}
-    
-    h2 {
-        color: @dark_crust;
-        font-family: Lobster, 'Trebuchet MS', sans-serif;
-        font-size: 2.5em;
-        letter-spacing: 0.07em;
-        margin: 1em 0 0.5em 0;
-    }
-    
-    a {
-        color: @cherry;
-        font-weight: bold;
-        text-decoration: none;
-        padding: 0.1em 0.2em;
-        
-        &:link {}
-        &:visited { color: @cherry_shade; }
-        &:hover { color: @highlight; background: @cherry; }
-        &:active {}
-    }
-    
-    /*ul li {
-        list-style-type: none;
-        padding-left: 1em;
-        text-indent: -1em;
-        margin-left: 0;
-    }
-    ul li:before { content: "\00BB \0020"; }*/
 }
 
 #page-navigation {
