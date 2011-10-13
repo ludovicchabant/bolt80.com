@@ -69,13 +69,6 @@ a {
     &:hover { color: @highlight; background: @cherry; }
     &:active {}
 }
-ul li {
-    list-style-type: none;
-    padding-left: 1em;
-    text-indent: -1em;
-    margin: 0;
-}
-ul li:before { content: "\00BB \0020"; }
 
 .raised {
     text-shadow: 0px 2px 5px rgba(0,0,0,0.8);
@@ -145,7 +138,6 @@ ul li:before { content: "\00BB \0020"; }
         padding-left: 0;
         text-indent: 0;
     }
-    ul li:before { content: none; }
     ul:after { clear: both; }
     
     a {
@@ -214,8 +206,6 @@ ul li:before { content: "\00BB \0020"; }
 
 .content-box {
     margin: 30px;
-    
-    ul { padding-left: 0; }
 }
 .content-box-detail {
 }
