@@ -3,9 +3,13 @@ title: Adding a template engine
 layout: piecrust_code
 ---
 
-To add a new template engine to **PieCrust**, add a new file in the `_piecrust/template-engines` directory. The file should be named `MyAwesomeTemplateEngine.class.php`, like the other template engines. The main class inside this file should be named the same (_e.g._ `MyAwesomeTemplateEngine`) and should implement the `ITemplateEngine` interface:
+To add a new template engine to **PieCrust**, add a new file in the `_piecrust/src/PieCrust/TemplateEngines` directory. The file should be named `MyAwesomeTemplateEngine.php`, like the other template engines. The main class inside this file should be named the same (_e.g._ `MyAwesomeTemplateEngine`), should be in the `PieCrust\TemplateEngines` namespace, and should implement the `ITemplateEngine` interface:
 
 {% geshi 'php' %}
+namespace PieCrust\TemplateEngines;
+
+use PieCrust\PieCrust;
+
 class MyAwesomeTemplateEngine implements ITemplateEngine
 {
 	protected $pieCrust;

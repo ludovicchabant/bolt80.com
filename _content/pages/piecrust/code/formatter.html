@@ -3,9 +3,13 @@ title: Adding a formatter
 layout: piecrust_code
 ---
 
-To add a new text formatter to **PieCrust**, add a new file in the `_piecrust/formatters` directory. The file should be named `MyAwesomeFormatter.class.php`, like the other formatters. The main class inside that file should be named the same (_e.g._ `MyAwesomeFormatter`) and should implement the `IFormatter` interface:
+To add a new text formatter to **PieCrust**, add a new file in the `_piecrust/src/PieCrust/Formatters` directory. The file should be named `MyAwesomeFormatter.php`, like the other formatters. The main class inside that file should be named the same (_e.g._ `MyAwesomeFormatter`), should be in the `PieCrust\Formatters` namespace, and should implement the `IFormatter` interface:
 
 {% geshi 'php' %}
+namespace PieCrust\Formatters;
+
+use PieCrust\PieCrust;
+
 class MyAwesomeFormatter implements IFormatter
 {
     protected $pieCrust;

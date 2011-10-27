@@ -3,6 +3,6 @@ title: Adding a file processor
 layout: piecrust_code
 ---
 
-To add a new file processor to **PieCrust**, add a new file in the `_piecrust/src/PieCrust/Baker/Processors` directory. The file should be named `MyAwesomeProcessor.class.php`, like the other formatters. The main class inside that file should be named the same (_e.g._ `MyAwesomeProcessor`) and should implement the `IFileProcessor` interface. Check the `IFileProcessor` for information.
+To add a new file processor to **PieCrust**, add a new file in the `_piecrust/src/PieCrust/Baker/Processors` directory. The file should be named `MyAwesomeProcessor.php`, like the other formatters. The main class inside that file should be named the same (_e.g._ `MyAwesomeProcessor`), should be in the `PieCrust\Baker\Processors` namespace, and should implement the `IFileProcessor` interface. Check the `IFileProcessor` for information.
 
 For most file processors (those taking one input file and generating one output file with the same name and a different extension) there's a simpler base class to extend called `SimpleFileProcessor`. When you inherit from this class, just pass its constructor the name of your processor, the input file extensions it takes, and the output file extensions it creates. Then you just overload the `doProcess` method which gives you the input and output paths.
