@@ -18,10 +18,9 @@ to [baked] sites). However, even for baked sites, it's a good idea to use dynami
 (with IIS or Apache) in "*debug*" mode to iterate faster on your editing without waiting for
 the bake to finish... baking is fast, but dynamic rendering is faster!
 
-There are 3 ways to enable "*debug*" mode:
+There are 2 ways to enable "*debug*" mode:
 
 * Append `?!debug` at the end of the URL. For example, go to `http://domain.com/about?!debug`.
-* Set the `site/debug` [configuration value][config] to `true`.
 * Initialize the `PieCrust` engine with a `array('debug' => true)` parameter.
 
 When the "*debug*" mode is enabled, you also get a few nice things:
