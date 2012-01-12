@@ -2,6 +2,7 @@ site:
     title: B O L T 8 0
     pretty_urls: true
     templates_dirs: ../../_shared/templates
+    plugins_dirs: ../plugins
 
 markdown:
     use_markdown_extra: true
