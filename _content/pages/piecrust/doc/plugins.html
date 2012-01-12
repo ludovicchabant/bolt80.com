@@ -1,0 +1,52 @@
+---
+title: Plugins
+layout: piecrust_doc
+---
+**PieCrust** supports plugins for adding [formatters][1], [template engines][2],
+[file processors][3] and even [chef commands][4] to your websites.
+
+Plugins are just a bunch of files that you copy in a sub-folder of your
+`_content/plugins` folder. For example:
+
+    _content
+      |- pages
+           |- ...pages here...
+      |- plugins
+           |- Dwoo
+           |    |- ...dwoo plugin files here...
+           |- PhamlP
+                |- ...phamlp plugin files here...
+
+Here, your website has 2 plugins: the [Dwoo][] template engine, and the
+[PhamlP][] package which gives access to **Haml** and **Sass** formatters,
+template engines and processors.
+
+
+### Sharing plugins
+
+You may not want to have all your plugins installed in your website -- maybe you
+want to share some plugins between several websites. In that case, you can
+specify additional plugins folders with the `site/plugins_dirs` [configuration
+setting][5]. Paths can be written relative to the website's root:
+
+    site:
+        plugins_dirs:
+            - ../shared/plugins
+            - /usr/local/lib/piecrust/plugins
+
+### Built-in plugin
+
+The built-in plugin, called `__builtin__`, is the plugin that ships with
+**PieCrust**. It defines all the [_chef_][4] commands, the Twig and Mustache
+template engines, the Markdown, Textile and SmartyPants formatters, and the
+LessCSS, Sitemap and plain copy file processors.
+
+
+  [1]: {{ pcurl('piecrust/doc/page-formatters') }}
+  [2]: {{ pcurl('piecrust/doc/template-engines') }}
+  [3]: {{ pcurl('piecrust/doc/file-processors') }}
+  [4]: {{ pcurl('piecrust/doc/chef') }}
+  [5]: {{ pcurl('piecrust/doc/site-config') }}
+  [Dwoo]: https://bitbucket.org/ludovicchabant/piecrust-dwoo
+  [PhamlP]: https://bitbucket.org/ludovicchabant/piecrust-phamlp
+

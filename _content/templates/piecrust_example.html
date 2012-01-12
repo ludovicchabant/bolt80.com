@@ -1,0 +1,46 @@
+{% import "macros_google.html" as google %}
+<!doctype html>
+<html>
+<head>
+    <title>PieCrust Example: {{ page.title }}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="An example page for PieCrust CMS." />
+    <meta name="generator" content="PieCrust" />
+    {% include('blueprint.html') %}
+    {{ google.webfonts('Lobster|Covered+By+Your+Grace') }}
+    <style type="text/css">
+        #container { 
+            padding: 5em;
+            height: 100%;
+            font-family: Georgia, serif;
+        }
+        #header {
+            font-size: 2em;
+            font-family: 'Lobster', serif;
+        }
+        #content { 
+            font-size: 2em;
+        }
+        #footer {
+            font-size: 0.8em;
+            color: #888;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" class="container">
+        <div id="header" class="span-24 last">
+            <h1>{{ page.title }}</h1>
+        </div>
+        <div id="content" class="span-24 last">
+            {{ content|raw }}
+        </div>
+        <div id="footer" class="span-24 last">
+            <p>{{ piecrust.branding|raw }}</p>
+        </div>
+    </div>
+    {{ piecrust.debug_info|raw }}
+    {{ google.analytics("UA-3426592-10") }}
+</body>
+</html>

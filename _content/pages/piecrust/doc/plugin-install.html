@@ -1,0 +1,21 @@
+---
+title: Installing a plugin
+layout: piecrust_doc
+---
+Installing a **PieCrust** plugin is pretty simple: create a sub-folder in
+`_content/plugins` and copy all the plugin's files in there. That's it!
+
+    _content
+      |- plugins
+           |- MyPlugin
+                |- ...plugin files here...
+
+You can name the plugin folder anything you want, but it's obviously a good idea
+to give it the name of the plugin you're installing.
+
+You can see what plugins are loaded by your website with the `chef plugins`
+command -- this is especially useful if you're [loading plugins from other
+locations][1] than the default one.
+
+  [1]: {{ pcurl('piecrust/doc/plugins') }}
+

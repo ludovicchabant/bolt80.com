@@ -5,11 +5,30 @@ layout: piecrust_doc
 
 **PieCrust** makes all your pages and layouts go through a _templating_ stage.
 
-By default, the template engine is [Twig], and all the examples found in this documentation are using the **Twig** syntax. If you want to use a [different default engine][7], change the `default_template_engine` setting in the [site configuration][1]. If you want a layout file to use a different template engine, change its file extension from `html` to the name of the engine you want (pages will have to [specify that layout with the extension][9]). If you want a page to use a different template engine, set the `template_engine` configuration setting for that page to the name of the engine you want. Available template engines are listed in the [template engines list][7].
+By default, the template engine is [Twig], and all the examples found in this
+documentation are using the **Twig** syntax.
+
+* If you want to use a [different default engine][7], change the
+  `default_template_engine` setting in the [site configuration][1].
+
+* If you want just a specific layout file to use a different template engine,
+  change its file extension from `html` to the name of the engine you want (see
+  the available [template engines][7]). Remember that pages will have to
+  [specify that layout with the extension][9].
+
+* If you want a page itself to use a different template engine, set the
+  `template_engine` configuration setting for that page to the name of the
+  engine you want. Available template engines are listed in the [template
+  engines list][7].
 
 
 
 ### Writing a layout template
+
+Templates are text files placed in the `_content/templates` folder. They usually
+have the `html` file extension if they're written using the default template
+engine's syntax -- otherwise, they need to have a file extension that matches
+the engine they should be processed with (see the [available engine names][7]).
 
 In its most basic form, a layout template would look like this:
 
@@ -24,13 +43,18 @@ In its most basic form, a layout template would look like this:
     </html>
 {% endraw %}{% endgeshi %}
 
-This creates an HTML page whose title and contents are the title and contents of the **PieCrust** page being rendered. This is possible because the `page.title` and `content` variables are exposed to the template engine. A lot of other variables are available (see the "_Template variables_" section below).
+This creates an HTML page whose title and contents are the title and contents of
+the **PieCrust** page being rendered. This is possible because the `page.title`
+and `content` variables are exposed to the template engine. A lot of other
+variables are available (see the "_Template variables_" section below).
 
 
 
 ### Page templating
 
-Pages go through the templating stage before having their contents [formatted][8]. This is especially useful when a page needs to display a list of blog posts, for instance.
+Pages go through the templating stage before having their contents
+[formatted][8]. This is especially useful when a page needs to display a list of
+blog posts, for instance.
 
 
 
@@ -38,24 +62,55 @@ Pages go through the templating stage before having their contents [formatted][8
 
 Here's how **PieCrust** exposes variables to the template engine:
 
-* The page's formatted contents are exposed in the `content` variable (only in _layouts_).
-* The page's [configuration settings][2] (from the page's YAML header) are exposed directly (for _pages_) or through the `page` variable (for _layouts_).
-* The page's [assets][3] and [pagination][4] are exposed through the `asset` and `pagination` variables (for _pages_).
-* The site's [configuration settings][1] (from the `_content/config.yml` file) are exposed directly. This means that the `site` variable exposes the settings found in the `site` section of the site's configuration. The `custom` variable would expose any setting found in the `custom` section (valid for both _pages_ and _layouts_).
+* The page's formatted contents are exposed in the `content` variable (only in
+  _layouts_).
+* The page's [configuration settings][2] (from the page's YAML header) are
+  exposed directly (for _pages_) or through the `page` variable (for _layouts_).
+* The page's [assets][3] and [pagination][4] are exposed through the `asset` and
+  `pagination` variables (for _pages_).
+* The site's [configuration settings][1] (from the `_content/config.yml` file)
+  are exposed directly. This means that the `site` variable exposes the settings
+  found in the `site` section of the site's configuration. The `custom` variable
+  would expose any setting found in the `custom` section (valid for both _pages_
+  and _layouts_).
 * A few system variables are always exposed:
     * `piecrust.version` contains the current version of the engine.
-    * `piecrust.branding` contains a short text proudly telling the world how your site runs with **PieCrust** (_you can see that text right now at the bottom of this page!_).
+    * `piecrust.branding` contains a short text proudly telling the world how
+    your site runs with **PieCrust** (_you can see that text right now at the
+    bottom of this page!_).
 
+You can get a list of all the template variables actually exposed to a page,
+along with their values, by showing the [debug window][10].
+
+
+    
+### Sharing templates
+
+You may not want to have all your templates in the `_content/templates` folder
+-- _e.g._ you may want to share some templates with other websites. In that
+case, you can put some templates in other folders, including folders outside of
+your website's root folder.
+
+You can specify your custom templates folders with the `site/templates_dirs`
+[configuration setting][1]. Paths can be written relative to the website's root:
+
+    site:
+        templates_dirs:
+            - ../shared/templates
+            - ../framework/templates
 
 
 ### Twig 101
 
-Although we invite you to go read the [**Twig** documentation][twigdoc] directly, here's some crash course to get you started right away.
+Although we invite you to go read the [**Twig** documentation][twigdoc]
+directly, here's some crash course to get you started right away.
 
 
 #### Variables
 
-You already figured it out by now, but in **Twig**, inserting a variable in a page is done with double curly brackets. You can even access "child" variables with a dot separator:
+You already figured it out by now, but in **Twig**, inserting a variable in a
+page is done with double curly brackets. You can even access "child" variables
+with a dot separator:
 
 {% raw %}
     {{ variable }}
@@ -65,7 +120,12 @@ You already figured it out by now, but in **Twig**, inserting a variable in a pa
 
 #### Escaped contents
 
-By default, **Twig** will escape any variable inserted in a template. But you don't want this to happen for your pages' contents, since it already comes nicely formatted by **Markdown** or **Textile** or whatever other [text formatter][8] you're using. That's why, in the template example above, the `content` variable is inserted "raw" into the markup by applying the `raw` filter:
+By default, **Twig** will escape any variable inserted in a template. But you
+don't want this to happen for your pages' contents, since it already comes
+nicely formatted by **Markdown** or **Textile** or whatever other [text
+formatter][8] you're using. That's why, in the template example above, the
+`content` variable is inserted "raw" into the markup by applying the `raw`
+filter:
 
 {% raw %}
     {{ variable|raw }}
@@ -74,7 +134,9 @@ By default, **Twig** will escape any variable inserted in a template. But you do
 
 #### Conditionals
 
-If you want to test the existence or validity of a variable before doing something, use an `if` block. For instance, here's how you can display a link to the next sub-page if there's one:
+If you want to test the existence or validity of a variable before doing
+something, use an `if` block. For instance, here's how you can display a link to
+the next sub-page if there's one:
 
 {% raw %}
     {% if pagination.next_page %}
@@ -85,7 +147,8 @@ If you want to test the existence or validity of a variable before doing somethi
 
 #### Loops
 
-To loop over a variable array, use the `for` block. For instance, here's how you can loop over the blog posts for the current page:
+To loop over a variable array, use the `for` block. For instance, here's how you
+can loop over the blog posts for the current page:
 
 {% raw %}
     {% for p in posts %}
@@ -102,7 +165,9 @@ To loop over a variable array, use the `for` block. For instance, here's how you
 
 #### URL function
 
-You can easily insert the URL to a page without having to think about whether you have [pretty URLs][5] enabled or not, or if it's for a baked website or whatever. That's done with the `pcurl` function:
+You can easily insert the URL to a page without having to think about whether
+you have [pretty URLs][5] enabled or not, or if it's for a baked website or
+whatever. That's done with the `pcurl` function:
 
 {% raw %}
     {{ pcurl('my/page' }}
@@ -111,7 +176,9 @@ You can easily insert the URL to a page without having to think about whether yo
 
 #### Tags and categories URL function
 
-Similarly to the `pcurl` function, the `pctagurl` and `pccaturl` functions will generate URLs to a [tag or category listing page][6] with respect to the site configuration:
+Similarly to the `pcurl` function, the `pctagurl` and `pccaturl` functions will
+generate URLs to a [tag or category listing page][6] with respect to the site
+configuration:
 
 {% raw %}
     {{ pctagurl('sometag' }}
@@ -121,10 +188,13 @@ Similarly to the `pcurl` function, the `pctagurl` and `pccaturl` functions will 
 
 #### Syntax highlighting
 
-If you're inserting source code into a page, you can make it pretty by using syntax highlighting on it. **PieCrust** uses [GeSHi][] for that, and it should support most of the languages you're likely to need.
+If you're inserting source code into a page, you can make it pretty by using
+syntax highlighting on it. **PieCrust** uses [GeSHi][] for that, and it should
+support most of the languages you're likely to need.
 
-In **Twig**, you can use the `geshi` tag, followed by the language name, to specify a portion of text to process. For example, here's how you can add some PHP code:
-
+In **Twig**, you can use the `geshi` tag, followed by the language name, to
+specify a portion of text to process. For example, here's how you can add some
+PHP code:
 
 {% raw %}
     {% geshi 'php' %}
@@ -142,8 +212,9 @@ In **Twig**, you can use the `geshi` tag, followed by the language name, to spec
   [5]: {{ pcurl('piecrust/doc/pretty-urls') }}
   [6]: {{ pcurl('piecrust/doc/categories-and-tags') }}
   [7]: {{ pcurl('piecrust/doc/template-engines') }}
-  [8]: {{ pcurl('piecrust/doc/formatters') }}
+  [8]: {{ pcurl('piecrust/doc/page-formatters') }}
   [9]: {{ pcurl('piecrust/doc/layout') }}
+  [10]: {{ pcurl('piecrust/doc/debugging') }}
   [twig]: http://www.twig-project.org/
   [twigdoc]: www.twig-project.org/doc/templates.html
   [geshi]: http://qbnz.com/highlighter/

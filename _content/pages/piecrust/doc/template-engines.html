@@ -2,36 +2,32 @@
 title: Template engines
 layout: piecrust_doc
 ---
-**PieCrust** ships with four template engines: [Twig][], [Dwoo][], [Haml][] and [Mustache][].
+**PieCrust** ships with two template engines: [Twig][] and [Mustache][]. Other
+template engines are available as plugins, like [Dwoo][] and [Haml][]. See [how
+to install a plugin][2].
 
 
 ### Twig
 
-**Twig** is the default template engine in **PieCrust**, but you can use `twig` for your template files extensions or page configuration settings if that's not the case. There's a little crash course for you on the [templates documentation page][1], along with a presentation of the extensions relevant to your **PieCrust** website.
+[Twig][] is the default template engine in **PieCrust**, but you can use `twig`
+for your template files extensions or page configuration settings if that's not
+the case. There's a little crash course for you on the [templates documentation
+page][1], along with a presentation of the extensions relevant to your
+**PieCrust** website.
 
 
 ### Mustache
 
-**Mustache** can be used with the `mustache` template file extension or page configuration setting. It's a very simple template engine with an easy to remember syntax that doesn't have any of the "programming" constructs of the other engines on purpose.
-
-
-### Dwoo
-
-**Dwoo** can be used with the `dwoo` template file extension or page configuration setting. It has a similar set of features to **Twig**, only with a different syntax. It also has the `pcurl`, `pctagurl` and `pccaturl` functions to easily create links to pages.
-
-
-### Haml
-
-**Haml** can be used with the `haml` template file extension or page configuration setting. However, it's more of a DSL for writing HTML concisely than a proper template engine, so it's mostly useful for layouts with lots of HTML code, few variable placements and little logic (because those 2 last things are done by embedding PHP code in your template, which is not as user-friendly as a proper template engine's syntax).
-
-**PieCrust** uses the [PHamlP][] parser which is the less worse HAML PHP parser around despite [being half-dead](http://code.google.com/p/phamlp/issues/detail?id=85&q=haml) and [with some problems](https://github.com/MarcWeber/phamlp/blob/master/README). However, it's good enough for simple uses. Watch out for the syntax differences with the "official" Ruby implementation.
+[Mustache][] can be used with the `mustache` template file extension or page
+configuration setting. It's a very simple template engine with an easy to
+remember syntax that doesn't have any of the "programming" constructs of the
+other engines on purpose.
 
 
   [1]: {{ pcurl('piecrust/doc/templates') }}
+  [2]: {{ pcurl('piecrust/doc/plugin-install') }}
   [Twig]: http://www.twig-project.org/
-  [Dwoo]: http://dwoo.org/
-  [Haml]: http://haml-lang.com/
   [Mustache]: http://mustache.github.com/
-  [PHamlP]: http://code.google.com/p/phamlp/
+  [Dwoo]: https://bitbucket.org/ludovicchabant/piecrust-dwoo
+  [Haml]: https://bitbucket.org/ludovicchabant/piecrust-phamlp
 
-  *[DSL]: Domain Specific Language

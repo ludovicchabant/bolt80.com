@@ -2,27 +2,28 @@
 title: Import
 layout: piecrust_doc
 ---
-Because you may want to transition an existing website to **PieCrust**, the _chef_ utility has a special command for importing content from other engines.
-
-> Unfortunately, right now, the only supported import is importing blog posts from a **Wordpress** site.
+Because you may want to transition an existing website to **PieCrust**, the
+_chef_ utility has a special command for importing content from other engines.
 
 Running the import is done like this:
 
-    chef import --source SOURCE --format FORMAT /path/to/root/directory
+    chef import --source SOURCE --format FORMAT
 
-Where `SOURCE` is the path or resource string to the content to import, and `FORMAT` is the format of that content.
+Here, `SOURCE` is the path or resource string to the content to import, and
+`FORMAT` is the format of that content. Type `chef help about-import` to get
+more information about those parameters.
+
+Unless you want to merge content into an existing website, you usually run an
+import process on an empty **PieCrust** website. To create such an empty
+website, you can use the `chef init` command.
 
 
-Formats
--------
+#### Imported blog posts
 
-### Wordpress
-
-By specifying `wordpress` as the format, you can point the source to an XML file that contains your **Wordpress** content. You can create that XML file by going into your website's administration panel, going in the "_Tools_" sections and choosing "_Export_".
-
-This will import all your blog posts, along with tags, last modification time, _etc._, into the specified **PieCrust** root directory. The directory structure used for the imported content is determined by the [site configuration][siteconfig]'s setting regarding the [posts file system][post].
-
+The importers respect the `posts_fs` [configuration setting][post] when
+importing content into your website, so it's a good idea to set it accordingly
+beforehand.
 
 
   [post]: {{ pcurl('piecrust/doc/create-post') }}
-  [siteconfig]: {{ pcurl('piecrust/doc/site-config') }}
+

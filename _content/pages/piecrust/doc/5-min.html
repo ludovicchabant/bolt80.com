@@ -19,8 +19,8 @@ format: haml
         :markdown
             Run the **PieCrust** development server to check it out.
             
-            <pre><code>cd ludovicchabant-piecrust_sample-tip
-            _piecrust/chef serve website</code></pre>
+            <pre><code>cd ludovicchabant-piecrust-xxxxxxxxxx
+            _piecrust/chef serve --root website</code></pre>
     %li
         :markdown
             Now look into `website/_content/config.yml` (that's the [configuration file][1])
@@ -35,7 +35,18 @@ format: haml
         :markdown
             When you're ready, bake your website:
             
-            <pre><code>_piecrust/chef bake website</code></pre>
+            <pre><code>_piecrust/chef bake --root website</code></pre>
             
             Your [statically generated website][1] is waiting for you on the counter, in `website/_counter`!
             [1]: {{ pcurl('piecrust/doc/baking') }}
+    %li
+        :markdown
+            Got the hang of it? Add chef to your `PATH` and start fresh:
+            
+            <pre><code>chef init ~/stuff/mynewwebsite
+            cd ~/stuff/mynewwebsite
+            chef serve</code></pre>
+            
+            And [keep reading the documentation][1]!
+            [1]: {{ pcurl('piecrust/doc/cookbook') }}
+

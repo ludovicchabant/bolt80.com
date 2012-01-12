@@ -3,39 +3,44 @@ layout: piecrust_doc
 title: Debugging features
 ---
 
-> **Note**: This section is irrelevant if you bake your website. It's only useful if you use **PieCrust** as a CMS.
+While you're building your website, it's a good idea to enable the "*debug*"
+mode in some occasions:
 
-While you're building your website, it's a good idea to enable the "*debug*" mode:
-
-* It gets rid of the [caching features][caching], which can prevent your browser from
-  showing your the very latest version of a page you just changed a couple seconds ago.
-* It shows you the real error messages, complete with file paths and stack traces, instead
-  of showing you sugar-coated error messages that don't give any technical details
-  most visitors don't care about.
+* It gets rid of the [caching features][caching], which can sometimes force you
+  to refresh your web-browser frenetically to get the very latest version of a
+  page you changed a second ago.
+* It shows you the real error messages, complete with file paths and stack
+  traces, instead of showing you sugar-coated error messages that don't give any
+  technical details most visitors don't care about.
+* It can show you a debug window on top of your website (we'll get back to this
+  in a bit).
   
-Obviously, "*debug*" mode is only valid for dynamically rendered sites (as opposed
-to [baked] sites). However, even for baked sites, it's a good idea to use dynamic rendering
-(with IIS or Apache) in "*debug*" mode to iterate faster on your editing without waiting for
-the bake to finish... baking is fast, but dynamic rendering is faster!
-
 There are 2 ways to enable "*debug*" mode:
 
-* Append `?!debug` at the end of the URL. For example, go to `http://domain.com/about?!debug`.
+* Append `?!debug` at the end of the URL. For example, go to
+  `http://domain.com/about?!debug`.
 * Initialize the `PieCrust` engine with a `array('debug' => true)` parameter.
 
-When the "*debug*" mode is enabled, you also get a few nice things:
+When "*debug*" mode is enabled, all links generated with the `pcurl` family of
+template functions have the `?!debug` suffix so that you stay in "*debug*" mode
+even after following internal links.
 
-* All internal links are generated with the `?!debug` suffix, so you stay in "*debug*" mode
-  when navigating your site.
-* An information box can be inserted in your templates with `piecrust.debug_info`. When not in
-  "*debug*" mode, that template macro just returns nothing, so you can add it in all your
-  templates. Note that you may need to escape it, since it contains HTML code.
+### Debug window
+
+A debug window can be inserted in your templates with `piecrust.debug_info`.
+When not in "*debug*" mode, that template macro just returns nothing, so you can
+add it in all your templates. Note that you may need to escape it, since it
+contains HTML code.
   
-  For example, with Twig, you would write:
+For example, with Twig, you would add the following code somewhere in your page
+or template (most probably just before the ending `</body>` tag):
   
-      {% raw %}
-        {{ piecrust.debug_info|raw }}
-      {% endraw %}
+    {% raw %}
+      {{ piecrust.debug_info|raw }}
+    {% endraw %}
+
+The debug window contains a lot of useful information about the current page,
+like the cache status or the available template variables.
 
 
   [caching]: {{ pcurl('piecrust/doc/caching') }}

@@ -2,28 +2,44 @@
 title: File processors
 layout: piecrust_doc
 ---
-When [baking your website][baking], [_chef_][chef] transforms all the **PieCrust** content (pages, posts, _etc._) into fully rendered HTML files. However, it can do other things with all the other files found in the root directory. That's when _file processors_ get involved.
+When [baking your website][baking], [_chef_][chef] transforms all the
+**PieCrust** content (pages, posts, _etc._) into fully rendered HTML files.
+However, it can do something with all the other files found in the root
+directory: copy them to the output directory, of course, but also transform them
+some way or another. That's what _file processors_ do.
+
 
 ### Including and excluding files
 
-By default, everything that's not in a directory starting with an underscore (surprise, surprise, this includes `_cache` and `_content`) goes through a file processor. Most system files, however (like `.DS_Store` in **MacOSX** or `Thumbs.db` on **Windows**), also get excluded.
+By default, _chef_ ignores the **PieCrust** directories (`_content`, `_cache`,
+`_counter`) along with common system and revision control files: `.DS_Store`,
+`Thumbs.db`, `.git`, `.hg` and `.svn`. Everything else gets processed.
 
-You can change which files are excluded from the baking by changing the `skip_pattern` and `skip_system` [site configuration settings][siteconfig] in the `baker` section. They both contain a regular expression pattern that matches against the filenames to exclude.
-
-> **Note**: Don't forget to add the delimiters to the regular expression patterns (in the default values shown below we're using '`/`').
-
-There are 2 of settings instead of one because `skip_system` contains basic stuff you very probably want to always exclude and will probably not change -- so if you want to customize the exclusion pattern, you only have to change the much simpler `skip_pattern`.
-
-Here are the default values:
+You can tell **PieCrust** to skip some other files if you don't want them to be
+processed or copied to the output directory. You do this with the
+`baker/skip_patterns` [configuration setting][siteconfig]. For example:
 
     baker:
-        skip_pattern: /^_/
-        skip_system: /(\.DS_Store)|(Thumbs.db)|(\.git)|(\.hg)|(\.svn)/
+        skip_patterns:
+            - /_[^\/]+\.s?ss/
+            - index.php
+            - .htaccess
+            - web.config
+
+Any pattern that begins and ends with a `/` will be treated as a regular
+expression. All other patterns are treated like classic UNIX [_glob_
+patterns][1]. Patterns are matched against the website root-relative path of
+each file. The default patterns, mentioned earlier, are always applied.
 
 
 ### Processing files
 
-The [_chef_][chef] baker figures out what to do with a file based on the file's extension. That extension is passed on to the registered file processors to see who first declares it can handle it. The list of file processors to use is found in the [site configuration][siteconfig]'s  `processors` setting in the `baker` section. By default, it has the special value `*`, which means all file processors will be used:
+The [_chef_][chef] baker figures out what to do with a file based on the file's
+extension. That extension is passed on to the registered file processors to see
+who first declares it can handle it. The list of file processors to use is found
+in the [site configuration][siteconfig]'s  `processors` setting in the `baker`
+section. By default, it has the special value `*`, which means all file
+processors will be used:
 
     baker:
         processors: *
@@ -31,20 +47,63 @@ The [_chef_][chef] baker figures out what to do with a file based on the file's 
 You can however specify processors individually:
 
     baker:
-        processors: [ less, sass, copy ]
+        processors: [ less, copy ]
 
+
+> **Note**: If you specify processors individually in the site configuration,
+> you _probably_ don't want to forget the `copy` processor in the list.
+> Otherwise, all the files not compiled by a listed processor will be missing
+> from the output directory!
 
 ### Processors
 
-Here's a list of file processors included with **PieCrust**:
+Here's a list of file processors included with **PieCrust**, along with some
+information on how to use them.
 
-* `less`: Compiles all `.less` files into CSS files using the [LessCSS](http://lesscss.org/) language. **PieCrust** uses [LessPHP](http://leafo.net/lessphp/docs/) for this.
-* `sass`: Compiles all `.sass` and `.scss` files into CSS files using the [Sass](http://sass-lang.com/) language. **PieCrust** uses [PHamlP](http://code.google.com/p/phamlp/) for this.
-* `copy`: Simply copies the file to the matching sub-directory in the output baking directory. This processor has low priority so it will be used only if no other processor matched the given file extension.
+#### Copy processor
 
-> **Note**: If you specify processors individually in the site configuration, you _probably_ don't want to forget the `copy` processor in the list. Otherwise, all the files not compiled by a listed processor will be missing from the output directory!
+The `copy` processor simply copies the file to the matching sub-directory in the
+output baking directory. This processor has low priority so it will be used only
+if no other processor matched the given file extension.
+
+#### LessCSS processor
+
+The `less` processor compiles all `.less` files into CSS files using the
+[LessCSS](http://lesscss.org/) language. **PieCrust** uses
+[LessPHP](http://leafo.net/lessphp/docs/) for this.
+
+#### Sitemap processor
+
+The `sitemap` processor compiles any file with a `.sitemap` extension into an XML
+file with the [sitemap markup][2]. The input file must be written in YAML syntax
+with a list of `locations` that each define a URL along with optional
+properties:
+
+* `lastmod`: the last modification time of the location. By default, it will be
+  file modification time of the **PieCrust** page whose URL is the location URL,
+  if such a page can be found.
+* `lastmod_path`: specify the root-relative path to a file whose modification
+  time should be used for `lastmod`.
+* `changefreq`: the frequency of changes for the location. Should be one of the
+  frequency names accepted by the [sitemap syntax][2].
+* `priority`: the priority of that location relative to the other locations in
+  the website. See the [sitemap protocol][2] for more information.
+
+Here's an example of a sitemap file:
+
+    locations:
+        - url: /
+        - url: piecrust
+          changefreq: weekly
+        - url: stupidhttp
+          changefreq: monthly
+          priority: 0.2
+
 
 
   [chef]: {{ pcurl('piecrust/doc/chef') }}
   [baking]: {{ pcurl('piecrust/doc/baking') }}
   [siteconfig]: {{ pcurl('piecrust/doc/site-config') }}
+  [1]: http://en.wikipedia.org/wiki/Glob_(programming)
+  [2]: http://en.wikipedia.org/wiki/Sitemaps
+
