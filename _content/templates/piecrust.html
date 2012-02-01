@@ -10,8 +10,7 @@
     <meta name="generator" content="PieCrust" />
     {% include('blueprint.html') %}
     {{ google.webfonts('Lobster|Covered+By+Your+Grace') }}
-    {{ less.stylesheet(baker, site.root ~ 'styles/piecrust-screen', 'screen, projection') }}
-    {{ less.less_js(baker, site.root) }}
+    <link rel="stylesheet" href="{{ site.root ~ 'styles/piecrust-screen.css' }}" type="text/css" media="screen, projection" />
 </head>
 <body>
     <div id="container" class="container">
