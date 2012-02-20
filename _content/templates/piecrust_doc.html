@@ -1,5 +1,15 @@
 {% extends "piecrust.html" %}
 
+{% macro nav_entry(slug, current, label) %}
+{% spaceless %}
+{% if current == slug %}
+<a class="active" href="{{ pcurl(slug) }}">{{ label }}</a>
+{% else %}
+<a href="{{ pcurl(slug) }}">{{ label }}</a>
+{% endif %}
+{% endspaceless %}
+{% endmacro %}
+
 {% block content %}
 <div class="span-22 prepend-1 append-1 last">
     {% if page.title %}<h2>{{ page.title }}</h2>{% endif %}
@@ -7,63 +17,63 @@
         <div id="page-navigation-inner">
             <h4>General</h4>
             <ul>
-                <li><a href="{{ pcurl('piecrust/doc') }}">Introduction</a></li>
-                <li><a href="{{ pcurl('piecrust/doc/5-min') }}">The 5 minute setup</a></li>
-                <li><a href="{{ pcurl('piecrust/doc/cookbook') }}">The PieCrust cookbook</a></li>
-                <li><a href="{{ pcurl('piecrust/doc/structure') }}">Website structure</a></li>
-                <li><a href="{{ pcurl('piecrust/doc/site-config') }}">Site configuration</a></li>
+                <li>{{ _self.nav_entry('piecrust/doc', page.slug, 'Introduction') }}</li>
+                <li>{{ _self.nav_entry('piecrust/doc/5-min', page.slug, 'The 5 minute setup') }}</li>
+                <li>{{ _self.nav_entry('piecrust/doc/cookbook', page.slug, 'The PieCrust cookbook') }}</li>
+                <li>{{ _self.nav_entry('piecrust/doc/structure', page.slug, 'Website structure') }}</li>
+                <li>{{ _self.nav_entry('piecrust/doc/site-config', page.slug, 'Site configuration') }}</li>
             </ul>
             <h4>Editing</h4>
             <ul>
-                <li><a href="{{ pcurl('piecrust/doc/create-page') }}">Creating a page</a>
+                <li>{{ _self.nav_entry('piecrust/doc/create-page', page.slug, 'Creating a page', true) }}
                     <ul>
-                        <li><a href="{{ pcurl('piecrust/doc/page-config') }}">Page configuration</a></li>
-                        <li><a href="{{ pcurl('piecrust/doc/page-formatters') }}">Formatters</a></li>
-                        <li><a href="{{ pcurl('piecrust/doc/page-segments') }}">Content segments</a></li>
-                        <li><a href="{{ pcurl('piecrust/doc/page-assets') }}">Using page assets</a></li>
-                        <li><a href="{{ pcurl('piecrust/doc/pagination') }}">Using blog posts</a></li>
+                        <li>{{ _self.nav_entry('piecrust/doc/page-config', page.slug, 'Page configuration') }}</li>
+                        <li>{{ _self.nav_entry('piecrust/doc/page-formatters', page.slug, 'Formatters') }}</li>
+                        <li>{{ _self.nav_entry('piecrust/doc/page-segments', page.slug, 'Content segments') }}</li>
+                        <li>{{ _self.nav_entry('piecrust/doc/page-assets', page.slug, 'Using page assets') }}</li>
+                        <li>{{ _self.nav_entry('piecrust/doc/pagination', page.slug, 'Using blog posts') }}</li>
                     </ul>
                 </li>
-                <li><a href="{{ pcurl('piecrust/doc/create-post') }}">Creating a blog post</a>
+                <li>{{ _self.nav_entry('piecrust/doc/create-post', page.slug, 'Creating a blog post', true) }}
                     <ul>
-                        <li><a href="{{ pcurl('piecrust/doc/categories-and-tags') }}">Categories and tags</a></li>
+                        <li>{{ _self.nav_entry('piecrust/doc/categories-and-tags', page.slug, 'Categories and tags') }}</li>
                     </ul>
                 </li>
-                <li><a href="{{ pcurl('piecrust/doc/create-feed') }}">Creating an RSS/Atom feed</a></li>
-                <li><a href="{{ pcurl('piecrust/doc/layout') }}">Page layouts</a></li>
-                <li><a href="{{ pcurl('piecrust/doc/templates') }}">Editing templates</a>
+                <li>{{ _self.nav_entry('piecrust/doc/create-feed', page.slug, 'Creating an RSS/Atom feed') }}</li>
+                <li>{{ _self.nav_entry('piecrust/doc/layout', page.slug, 'Page layouts') }}</li>
+                <li>{{ _self.nav_entry('piecrust/doc/templates', page.slug, 'Editing templates', true) }}</li>
                     <ul>
-                        <li><a href="{{ pcurl('piecrust/doc/template-engines') }}">Template engines</a></li>
+                        <li>{{ _self.nav_entry('piecrust/doc/template-engines', page.slug, 'Template engines') }}</li>
                     </ul>
                 </li>
             </ul>
             <h4>Plugins</h4>
             <ul>
-                <li><a href="{{ pcurl('piecrust/doc/plugins') }}">PieCrust plugins</a></li>
-                <li><a href="{{ pcurl('piecrust/doc/plugin-install') }}">Installing a plugin</a></li>
+                <li>{{ _self.nav_entry('piecrust/doc/plugins', page.slug, 'PieCrust plugins') }}</li>
+                <li>{{ _self.nav_entry('piecrust/doc/plugin-install', page.slug, 'Installing a plugin') }}</li>
             </ul>
             <h4>Advanced</h4>
             <ul>
-                <li><a href="{{ pcurl('piecrust/doc/pretty-urls') }}">Pretty URLs</a></li>
-                <li><a href="{{ pcurl('piecrust/doc/multi-blog') }}">Multi-blog sites</a></li>
-                <li><a href="{{ pcurl('piecrust/doc/caching') }}">Caching</a></li>
-                <li><a href="{{ pcurl('piecrust/doc/debugging') }}">Debugging</a></li>
+                <li>{{ _self.nav_entry('piecrust/doc/pretty-urls', page.slug, 'Pretty URLs') }}</li>
+                <li>{{ _self.nav_entry('piecrust/doc/multi-blog', page.slug, 'Multi-blog sites') }}</li>
+                <li>{{ _self.nav_entry('piecrust/doc/caching', page.slug, 'Caching') }}</li>
+                <li>{{ _self.nav_entry('piecrust/doc/debugging', page.slug, 'Debugging') }}</li>
             </ul>
             <h4>Chef</h4>
             <ul>
-                <li><a href="{{ pcurl('piecrust/doc/chef') }}">Overview</a></li>
-                <li><a href="{{ pcurl('piecrust/doc/baking') }}">Baking the site</a>
+                <li>{{ _self.nav_entry('piecrust/doc/chef', page.slug, 'Overview') }}</li>
+                <li>{{ _self.nav_entry('piecrust/doc/baking', page.slug, 'Baking the site', true) }}
                     <ul>
-                        <li><a href="{{ pcurl('piecrust/doc/file-processors') }}">File processors</a></li>
+                        <li>{{ _self.nav_entry('piecrust/doc/file-processors', page.slug, 'File processors') }}</li>
                     </ul>
                 </li>
-                <li><a href="{{ pcurl('piecrust/doc/serving') }}">Serving the site</a></li>
-                <li><a href="{{ pcurl('piecrust/doc/import') }}">Importing content</a></li>
+                <li>{{ _self.nav_entry('piecrust/doc/serving', page.slug, 'Serving the site') }}</li>
+                <li>{{ _self.nav_entry('piecrust/doc/import', page.slug, 'Importing content') }}</li>
             </ul>
             <h4>Miscellaneous</h4>
             <ul>
-                <li><a href="{{ pcurl('piecrust/doc/limitations') }}">Limitations and workarounds</a></li>
-                <li><a href="{{ pcurl('piecrust/doc/alternatives') }}">Alternatives</a></li>
+                <li>{{ _self.nav_entry('piecrust/doc/limitations', page.slug, 'Limitations and workarounds') }}</li>
+                <li>{{ _self.nav_entry('piecrust/doc/alternatives', page.slug, 'Alternatives') }}</li>
             </ul>
         </div>
     </div>
