@@ -1,5 +1,15 @@
 {% extends "piecrust.html" %}
 
+{% macro nav_entry(slug, current, label) %}
+{% spaceless %}
+{% if current == slug %}
+<a class="active" href="{{ pcurl(slug) }}">{{ label }}</a>
+{% else %}
+<a href="{{ pcurl(slug) }}">{{ label }}</a>
+{% endif %}
+{% endspaceless %}
+{% endmacro %}
+
 {% block content %}
 <div class="span-22 prepend-1 append-1 last">
     {% if page.title %}<h2>{{ page.title }}</h2>{% endif %}
@@ -7,15 +17,16 @@
         <div id="page-navigation-inner">
             <h4>Using</h4>
             <ul>
-                <li><a href="{{ pcurl('piecrust/code') }}">Running PieCrust</a></li>
+                <li>{{ _self.nav_entry('piecrust/code', page.slug, 'Running PieCrust') }}</li>
+                <li>{{ _self.nav_entry('piecrust/code/get', page.slug, 'Getting the code') }}</li>
             </ul>
-            <h4>Contributing</h4>
+            <h4>Extending</h4>
             <ul>
-                <li><a href="{{ pcurl('piecrust/code/get') }}">Getting the full code</a></li>
-                <li><a href="{{ pcurl('piecrust/code/plugin') }}">Writing a plugin</a></li>
-                <li><a href="{{ pcurl('piecrust/code/formatter') }}">Adding a formatter</a></li>
-                <li><a href="{{ pcurl('piecrust/code/template-engine') }}">Adding a template engine</a></li>
-                <li><a href="{{ pcurl('piecrust/code/processor') }}">Adding a file processor</a></li>
+                <li>{{ _self.nav_entry('piecrust/code/plugin', page.slug, 'Writing a plugin') }}</li>
+                <li>{{ _self.nav_entry('piecrust/code/twig-extension', page.slug, 'Extending Twig') }}</li>
+                <li>{{ _self.nav_entry('piecrust/code/formatter', page.slug, 'Adding a formatter') }}</li>
+                <li>{{ _self.nav_entry('piecrust/code/template-engine', page.slug, 'Adding a template engine') }}</li>
+                <li>{{ _self.nav_entry('piecrust/code/processor', page.slug, 'Adding a file processor') }}</li>
             </ul>
         </div>
     </div>

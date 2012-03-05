@@ -1,0 +1,77 @@
+---
+layout: piecrust_code
+title: Writing a plugin
+---
+
+**PieCrust**` supports [plugins][4] since version 0.4.0. With plugins, you can add your own [formatters][1], [template engines][2] or [file processors][3] to your websites. You can even extend Twig with more functions.
+
+### The plugin class
+
+You start by creating a folder named after your plugin in the `_content/plugins`
+directory -- or any other directory specified in the `site/plugins_dirs` site
+configuration setting. Let's assume your plugin is named `Foo`.
+
+In the `_content/plugins/Foo` directory, create a `FooPlugin.php` file with a
+`FooPlugin` class inheriting `PieCrust\PieCrustPlugin`:
+
+{% geshi 'php' %}
+use PieCrust\PieCrustPlugin;
+
+class FooPlugin extends PieCrustPlugin
+{
+    public function getName()
+    {
+        return 'Foo';
+    }
+}
+{% endgeshi %}
+
+You just need to override the `getName` function to make it work, and you have a
+nice, completely useless, plugin. You can check that everything is good by
+running `chef plugins` from within your website's root. You should get the
+following:
+
+    __builtin__
+    Foo
+
+This shows that you have both the built-in plugin and your own `Foo` one.
+
+
+### Plugin structure and environment
+
+A good practice for creating plugins is to arrange them as follows:
+
+    Foo
+     |- libs
+     |   |- DependencyLib1
+     |   `- DependencyLib2
+     |
+     |- src
+     |   |- SomeCode.php
+     |   `- SomeOtherCode.php
+     |
+     `- FooPlugin.php
+
+The `libs` folder should contain any dependency the plugin has. Right now,
+**PieCrust** automatically adds this folder, if it exists, to PHP's
+`include_path` so you can easily include stuff from there.
+
+The `src` folder should contain the actual code for the plugin. That's where you
+would put the classes for any custom formatter or template engine you wrote.
+
+
+### Adding components
+
+You can now go read up on adding [formatters][5], [template engines][6],
+[processors][7], or [Twig extensions][8] to the basic **PieCrust**
+feature set.
+
+
+  [1]: {{ pcurl('piecrust/doc/page-formatters') }}
+  [2]: {{ pcurl('piecrust/doc/template-engines') }}
+  [3]: {{ pcurl('piecrust/doc/file-processors') }}
+  [4]: {{ pcurl('piecrust/doc/plugins') }}
+  [5]: {{ pcurl('piecrust/code/formatter') }}
+  [6]: {{ pcurl('piecrust/code/template-engine') }}
+  [7]: {{ pcurl('piecrust/code/processor') }}
+  [8]: {{ pcurl('piecrust/code/twig-extension') }}

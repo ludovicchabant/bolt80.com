@@ -3,6 +3,43 @@ title: Adding a file processor
 layout: piecrust_code
 ---
 
-To add a new file processor to **PieCrust**, add a new file in the `_piecrust/src/PieCrust/Baker/Processors` directory. The file should be named `MyAwesomeProcessor.php`, like the other formatters. The main class inside that file should be named the same (_e.g._ `MyAwesomeProcessor`), should be in the `PieCrust\Baker\Processors` namespace, and should implement the `IFileProcessor` interface. Check the `IFileProcessor` for information.
+To add a new file processor to **PieCrust**, override the `getProcessors` method in your plugin and return a new instance of a class implementing the `PieCrust\Baker\Processors\IProcessor` interface.
+
+### The IProcessor interface
+
+The interface has the following methods:
+
+* `initialize`: This is called when the PieCrust baker is loaded, with a chance for your processor to get hold of the `PieCrust` instance.
+
+* `getName`: This should return the name of your file processor, for such things
+  as enabling/disabling it in the site configuration.
+
+* `getPriority`: Processors are asked in order of priority whether they support a file extension. There are only 3 priorities so far (high, default and low). The _copy_ processor is the only built-in processor with low priority.
+
+* `supportsExtension`: This should return whether the processor supports the
+  given file extension.
+
+* `isDelegatingDependencyCheck`: This should return whether **PieCrust** should
+  handle dependency checking. If it returns `false`, the processor's `process`
+  method will always be called, and it is expected it will figure out on its own
+  whether to actually re-process the file.
+
+* `getDependencies`: If `isDelegatingDependencyCheck` returns `true`,
+  **PieCrust** will call this to know what other files to check besides just
+  comparing the input and output files.
+
+* `getOutputFilenames`: Returns the output file(s) for a given input file. All
+  output files must be in the same directory -- one matching the input
+  directory.
+
+* `process`: This is the function that actually does the stuff. Output files
+  should be created in the given output directory.
 
 For most file processors (those taking one input file and generating one output file with the same name and a different extension) there's a simpler base class to extend called `SimpleFileProcessor`. When you inherit from this class, just pass its constructor the name of your processor, the input file extensions it takes, and the output file extensions it creates. Then you just overload the `doProcess` method which gives you the input and output paths.
+
+
+### Testing
+
+Just create a file with the extension your processor takes as an input, and bake
+the website.
+

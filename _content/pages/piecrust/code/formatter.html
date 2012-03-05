@@ -3,12 +3,26 @@ title: Adding a formatter
 layout: piecrust_code
 ---
 
-To add a new text formatter to **PieCrust**, add a new file in the `_piecrust/src/PieCrust/Formatters` directory. The file should be named `MyAwesomeFormatter.php`, like the other formatters. The main class inside that file should be named the same (_e.g._ `MyAwesomeFormatter`), should be in the `PieCrust\Formatters` namespace, and should implement the `IFormatter` interface:
+To add a new text formatter to **PieCrust**, override the `getFormatters` method in your plugin and return a new instance of a class implementing the `PieCrust\Formatters\IFormatter` interface.
+
+### The IFormatter interface
+
+The interface has the following methods:
+
+* `initialize`: This is called when the website is loaded, with a chance for your formatter to get hold of the `PieCrust` instance. Because this is always called, you should only do cheap stuff in this method. Generally speaking, you should only query a few configuration settings from the application object or, better, just store a reference to it for later use. Delay as much as possible until your formatter is actually used.
+
+* `getPriority`: Formatters are asked in order of priority whether they want to support a format. There are only 3 priorities so far (high, default and low). The **SmartyPants** and _pass-through_ formatters have low priorities. All the other ones have default priority.
+
+* `supportsFormat`: This function should obviously return `true` if the text should be processed by this formatter. The name of the requested format is given as the first parameter. Usually, you want to only process unformatted text so check the `isUnformatted` flag (**SmartPants** is an exception, since it adds more formatting on top of other formattings).
+
+* `format` : This function should do all the expensive stuff -- not only format the text, of course, but also include and load any needed external libraries. For example, you should avoid including external PHP scripts until you know this formatter is going to be used.
+
+
+### Example
 
 {% geshi 'php' %}
-namespace PieCrust\Formatters;
-
 use PieCrust\PieCrust;
+use PieCrust\Formatters\IFormatter;
 
 class MyAwesomeFormatter implements IFormatter
 {
@@ -40,14 +54,10 @@ class MyAwesomeFormatter implements IFormatter
         return ExternalLib::doStuff($text);
     }
 }
-
 {% endgeshi %}
 
-Here are a few important things to know:
 
-* Because all formatters are initialized, only do cheap stuff in the `initialize` method. Generally speaking, you should only query a few configuration settings from the application object or, better, just store a reference to it for later use.
-* Formatters are asked in order of priority whether they want to support a format. There are only 3 priorities so far (high, default and low). The **SmartyPants** and _pass-through_ formatters have low priorities. All the other ones have default priority.
-* The `supportsFormat` function should obviously return `true` if the text should be processed by this formatter. Usually, you want to only process unformatted text (**SmartPants** is an exception, since it adds more formatting on top of other formattings).
-* The `format` function should do all the expensive stuff -- not only format the text, of course, but also include and load any needed external libraries. For example, you should avoid including external PHP scripts until you know this formatter is going to be used.
+### Testing the formatter
 
 To test your formatter, just create a page that specifies `awesome` (or whatever string you're matching in `supportsFormat`) as its format.
+

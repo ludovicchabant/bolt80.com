@@ -21,28 +21,19 @@ The `piecrust_run` method does the following:
 * Set up **PieCrust**'s class autoloader.
 * Run **PieCrust** with the default options (_i.e._ using the current server request URL, etc.)
 
-If you want to bootstrap **PieCrust** yourself, you should run `piecrust_setup`, which takes
-care of all the steps described above except for the last one.
+You can pass some parameters to `piecrust_run` to change the way it runs the web
+request:
 
-Then you can run the app with the following code:
+* An associative array that's passed to the `PieCrust` constructor. It can contain any of the following:
+    * `root` (defaults the the directory of the entry PHP script): the root of the website, where `_content/config.yml` lives.
+    * `cache`: whether or not to enable [caching][]. Defaults to `true` unless
+    `?!debug` has been specified on the request URL.
+    * `debug`: whether or not to enable [debug mode][debug]. Defaults to `false`
+    unless `?!nocache` has been specified on the request URL.
 
-{% geshi 'php' %}
-$app = new PieCrust\PieCrust($parameters);
-$app->run($uri, $server);
-{% endgeshi %}
-
-The `$parameters` variable should be an associative array with any of the following:
-
-* `root` (defaults the the directory of the entry PHP script): the root of the website, where `_content` lives.
-* `cache` (defaults to `true`): whether or not to enable [caching][].
-* `debug` (defaults to `false`): whether or not to enable [debug mode][debug].
-
-Finally, the `run` method takes 2 arguments:
-
-1. The URI to process (it defaults to the current request's URL if `null`).
-1. The server variables (it defaults to PHP's `$_SERVER` if `null`).
+* The URL to process. It defaults to the current request's URL if `null`.
 
 
-  [struct]: {{ pcurl('piecrust/doc/debugging') }}
+  [struct]: {{ pcurl('piecrust/doc/structure') }}
   [caching]: {{ pcurl('piecrust/doc/caching') }}
-  [debug]: {{ pcurl('piecrust/doc/structure') }}
+  [debug]: {{ pcurl('piecrust/doc/debugging') }}

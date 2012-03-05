@@ -3,12 +3,32 @@ title: Adding a template engine
 layout: piecrust_code
 ---
 
-To add a new template engine to **PieCrust**, add a new file in the `_piecrust/src/PieCrust/TemplateEngines` directory. The file should be named `MyAwesomeTemplateEngine.php`, like the other template engines. The main class inside this file should be named the same (_e.g._ `MyAwesomeTemplateEngine`), should be in the `PieCrust\TemplateEngines` namespace, and should implement the `ITemplateEngine` interface:
+To add a new template engine to **PieCrust**, override the `getTemplateEngines` method in your plugin and return a new instance of a class implementing the `PieCrust\TemplateEngines\ITemplateEngine` interface.
+
+### The ITemplateEngine interface
+
+The interface has the following methods:
+
+* `initialize`: This is called when the website is loaded, with a chance for your template engine to get hold of the `PieCrust` instance. Because this is always called, you should only do cheap stuff in this method. Generally speaking, you should only query a few configuration settings from the application object or, better, just store a reference to it for later use. Delay as much as possible until your template engine is actually used.
+
+* `getExtension`: This should return the file extension to use to select this template
+engine.
+
+* `renderString`: This should render the given string template with the given template data. The rendered page should be printed to the standard output.
+
+* `renderFile`: This is the same as `renderString` except that the first parameter is the name of the template. Some template engines already have their own file locating system, so as long as those engines are correctly initialized with the application's template paths (`$this->pieCrust->getTemplatesDir()`), everything should work fine.
+
+* `clearInternalCache`: This is a method that gets called in between requests in
+  the development server (`chef serve`). This is because some template engines
+  store static data, expecting it all to be re-created in between requests in a
+  proper web server. Most of the time, you don't need to do anything in the
+  method.
+
+### Example
 
 {% geshi 'php' %}
-namespace PieCrust\TemplateEngines;
-
 use PieCrust\PieCrust;
+use PieCrust\TemplateEngines;
 
 class MyAwesomeTemplateEngine implements ITemplateEngine
 {
@@ -35,7 +55,7 @@ class MyAwesomeTemplateEngine implements ITemplateEngine
 	public function renderFile($templateName, $data)
 	{
 		// Get the actual template file's path.
-		$templatePath = PieCrust::getTemplatePath(
+		$templatePath = \PieCrust\Util\PathHelper::getTemplatePath(
             $this->pieCrust,
             $templateName
         );
@@ -47,22 +67,16 @@ class MyAwesomeTemplateEngine implements ITemplateEngine
 	
 	public function clearInternalCache()
 	{
-        // Any cleaning in between request for when
 	}
 }
 
 {% endgeshi %}
 
-Here are a few important things to know:
 
-* Because all template engines are initialized, only do cheap stuff in the `initialize` method. Generally speaking, you should only query a few configuration settings from the application object or, better, just store a reference to it for later use.
-* The `getExtension` function should return the file extension that templates should have to use your engine. Obviously, don't use any already used extension.
-* The `renderString` function should render the given string template with the given template data. The rendered page should be printed to the standard output.
-* The `renderFile` is the same as `renderString` except that the first parameter is the name of the template. Some template engines already have their own file locating system, so as long as those engines are correctly initialized with the application's template paths (`$this->pieCrust->getTemplatesDir()`), everything should work fine. For the other engines with no such thing, **PieCrust** has a convenient helper function to find the first file with the requested name in any of the templates directories. That's the `PieCrust::getTemplatePath` function used in the example above.
-* The `renderFile` and `renderString` functions should lazy-load and lazy-include all required external libraries. You should avoid doing anything until your template engine is actually used.
+### Testing 
 
 To test your template engine:
 
-* Create a template file called `my-test.awesome` in `_content/templates`.
-* Create a page that specifies `my-test.awesome` as its layout.
+1. Create a template file called `my-test.awesome` in `_content/templates`.
+1. Create a page that specifies `my-test.awesome` as its layout.
 
