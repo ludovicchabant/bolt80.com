@@ -1,0 +1,67 @@
+---
+title: Twig 101
+layout: piecrust_doc
+---
+
+[Twig][] is the default [template engine][1] in PieCrust, so it's a good idea to
+get to know it. Although we invite you to go read the [**Twig**
+documentation][twigdoc] directly, here's a crash course to get you started right
+away.
+
+
+### Variables
+
+You already figured it out by now, but in **Twig**, inserting a variable in a
+page is done with double curly brackets. You can even access "child" variables
+with a dot separator:
+
+{% raw %}
+    {{ variable }}
+    {{ variable.other_variable }}
+{% endraw %}
+
+
+### Escaped contents
+
+By default, **Twig** will escape any variable inserted in a template. But you
+don't want this to happen for your pages' contents, since it already comes
+nicely formatted by **Markdown** or **Textile** or whatever other [text
+formatter][2] you're using. That's why the `content` variable is usually
+inserted "raw" into the markup by applying the `raw` filter:
+
+{% raw %}
+    {{ variable|raw }}
+{% endraw %}
+
+
+### Conditionals
+
+If you want to test the existence or validity of a variable before doing
+something, use an `if` block. For instance, here's how you can display a link to
+the next sub-page if there's one:
+
+{% raw %}
+    {% if pagination.next_page %}
+        [Next page]({{ pagination.next_page }})
+    {% endif %}
+{% endraw %}
+
+
+### Loops
+
+To loop over a variable array, use the `for` block. For instance, here's how you
+can loop over the blog posts for the current page:
+
+{% raw %}
+    {% for p in posts %}
+        {{ p.title }}
+        {{ p.content|raw }}
+    {% endfor %}
+{% endraw %}
+
+
+  [1]: {{ pcurl('piecrust/doc/templates') }}
+  [2]: {{ pcurl('piecrust/doc/page-formatters') }}
+  [twig]: http://www.twig-project.org/
+  [twigdoc]: http://www.twig-project.org/doc/templates.html
+

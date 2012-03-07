@@ -1,0 +1,102 @@
+---
+title: Twig extensions for PieCrust
+layout: piecrust_doc
+---
+
+**PieCrust** adds a few functions to **Twig** by default. They greatly help with
+authoring a website.
+
+
+### URL functions
+
+You can easily insert the URL to a page without having to think about whether
+you have [pretty URLs][1] enabled or not, or if it's for a baked website or
+whatever. That's done with the `pcurl` function:
+
+{% raw %}
+    {{ pcurl('my/page' }}
+{% endraw %}
+
+Similarly to the `pcurl` function, the `pctagurl` and `pccaturl` functions will
+generate URLs to a [tag or category listing page][2] with respect to the site
+configuration:
+
+{% raw %}
+    {{ pctagurl('sometag' }}
+    {{ pccaturl('category' }}
+{% endraw %}
+
+Last but not least, the `pcposturl` function generates the URL to a post given a
+year, month, day and name. It will take into account the [posts file-system][3]
+when generating the URL:
+
+{% raw %}
+    {{ pcposturl(2011, 11, 21, 'some-post') }}
+{% endraw %}
+
+Those functions will update their output automatically if you change the posts,
+tags or categories URL formats.
+
+
+### Word count function
+
+The `wordcount(text)` function counts the number of words in the given text.
+
+
+### Nocache filter
+
+This filter adds an URL query parameter of the form `?t=12345` at the end of the
+provided text. This is useful to prevent caching on updated resources like CSS
+sheets:
+
+{% raw %}
+    {{ pcurl('css/mobile.css')|nocache }}
+{% endraw %}
+
+By default, it will use a parameter `t` and the current timestamp. You can
+override that behaviour by specifying them directory:
+
+{% raw %}
+    {{ pcurl('css/mobile.css')|nocache('v', 5) }}
+{% endraw %}
+
+
+### Formatting filters
+
+You can format a small amount of text by applying one of the formatting filters:
+
+{% raw %}
+    {{ post.title|markdown }}
+{% endraw %}
+
+Specific filters are availebl:
+
+* `markodwn` will run Markdown on the text.
+* `textile` will run Textile one the text.
+* `formatwith(blah)` will run the formatter whose name is `blah`.
+
+
+### Syntax highlighting
+
+If you're inserting source code into a page, you can make it pretty by using
+syntax highlighting on it. **PieCrust** uses [GeSHi][] for that, and it should
+support most of the languages you're likely to need.
+
+In **Twig**, you can use the `geshi` tag, followed by the language name, to
+specify a portion of text to process. For example, here's how you can add some
+PHP code:
+
+{% raw %}
+    {% geshi 'php' %}
+    include 'foo.php';
+    function bar() { echo 'Bar'; }
+    {% endgeshi %}
+{% endraw %}
+
+
+
+
+  [1]: {{ pcurl('piecrust/doc/pretty-urls') }}
+  [2]: {{ pcurl('piecrust/doc/categories-and-tags') }}
+  [3]: {{ pcurl('piecrust/doc/create-post') }}
+  [geshi]: http://qbnz.com/highlighter/
