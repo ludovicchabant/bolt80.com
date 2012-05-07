@@ -1,0 +1,72 @@
+@import "lawrencium-variables.less";
+@import "../bootstrap/less/bootstrap.less";
+@import "../bootstrap/less/responsive.less";
+
+.periodic-table {
+    margin: @baseLineHeight - 3px;
+    padding: @baseLineHeight / 2;
+    border: 3px solid black;
+    display: inline-block;
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+
+    .element-atomic {
+        font-size: @baseFontSize - 3px;
+        line-height: 1.5em;
+    }
+    .element-acronym {
+        font-size: @baseFontSize * 5;
+        font-weight: bold;
+        line-height: @baseLineHeight * 3;
+    }
+    .element-name {
+        font-size: @baseFontSize + 3px;
+        line-height: 1.5em;
+    }
+}
+
+body {
+    //background-image: url(http://basehold.it/i/24/ff0000); 
+}
+
+h1 {
+    display: inline-block;
+}
+
+section {
+    margin: 1.5em 0;
+}
+
+footer p {
+    font-size: 80%;
+    color: @grayLight;
+    text-align: center;
+    text-transform: lowercase;
+}
+
+p {
+    margin: 0 0 @baseLineHeight;
+}
+
+pre {
+    margin: 0 0 @baseLineHeight;
+}
+
+.nav {
+    background-color: @grayLighter;
+    border: 1px solid darken(@grayLighter, 15%);
+    border-radius: 5px;
+    margin: 0;
+    padding: 0 2px;
+}
+.nav-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 0 10px #666;
+}
+.nav-pills > .active > a, 
+.nav-pills > .active > a:hover {
+    background-color: darken(@grayLight, 15%);
+}
+
