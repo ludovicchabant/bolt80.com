@@ -94,9 +94,37 @@ PHP code:
 {% endraw %}
 
 
+### Tag stripping
+
+The `striptag` filter will strip any HTML tags found at the beginning or end of the given string.
+
+For example, this will just print `wrapped in plastic` (without the `<p>` tags):
+
+{% raw %}
+    {{ "<p>wrapped in plastic</p>"|striptag }}
+{% endraw %}
+
+You can specify a tag to strip, if only that tag must be removed:
+
+{% raw %}
+    {{ "<p>wrapped in plastic</p>"|striptag('p') }}
+{% endraw %}
+
+
+### External text import
+
+The `textfrom` function will output text from an external file:
+
+{% raw %}
+    {{ textfrom("~/Dropbox/Drafts/my-fancy-post.txt")|raw }}
+{% endraw %}
+
+This is useful when, for example, you want to preview a post draft currently located somewhere else, like a [Dropbox][] folder.
 
 
   [1]: {{ pcurl('piecrust/doc/pretty-urls') }}
   [2]: {{ pcurl('piecrust/doc/categories-and-tags') }}
   [3]: {{ pcurl('piecrust/doc/create-post') }}
   [geshi]: http://qbnz.com/highlighter/
+  [dropbox]: http://db.tt/js87rJVc
+

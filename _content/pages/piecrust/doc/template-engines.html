@@ -15,6 +15,11 @@ the case. There's a little crash course for you on the [templates documentation
 page][1], along with a presentation of the extensions relevant to your
 **PieCrust** website.
 
+Twig will look at the following [site configuration settings][3] during
+initialization:
+
+* `twig/auto_escape`: by default, Twig will auto-escape any content, so you want to render HTML directly, you have to use the `raw` filter. If `twig/auto_escape` is set to `false`, then Twig will stop auto-escaping, and you will have to [do it explicitely][4].
+
 
 ### Mustache
 
@@ -26,6 +31,8 @@ other engines on purpose.
 
   [1]: {{ pcurl('piecrust/doc/templates') }}
   [2]: {{ pcurl('piecrust/doc/plugin-install') }}
+  [3]: {{ pcurl('piecrust/doc/site-config') }}
+  [4]: http://twig.sensiolabs.org/doc/tags/autoescape.html
   [Twig]: http://www.twig-project.org/
   [Mustache]: http://mustache.github.com/
   [Dwoo]: https://bitbucket.org/ludovicchabant/piecrust-dwoo

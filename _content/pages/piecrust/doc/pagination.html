@@ -23,6 +23,14 @@ What **PieCrust** does is merely expose pagination values to the template
 engine, and you can use them in any way you like. Check the [Twig
 documentation][twigdoc] to find out what you can do.
 
+Note that the `pagination` variable is called like that because it will
+*paginate* the current page by creating sub-pages (see below). If you want to
+display pages with a list of blogs without any pagination (_i.e._ without any
+sub-page), you can either set `single_page` to `true` in the [page
+configuration][1], or use the [blog archive variables][3] like `blog.posts`
+instead.
+
+
 ### Sub-pages
 
 Most pages don't have sub-pages -- there's just the page. However, pages that
@@ -115,6 +123,10 @@ on the page.
 
 * `total_page_count`: The total number of sub-pages.
 
+* `next_post`: The next post object.
+
+* `prev_post`: The previous post object.
+
 
 #### Posts array reference
 
@@ -125,7 +137,9 @@ construct in **Twig**), also has a few methods:
   _all_ posts. It's the only way to get rid of the default filtering applied by
   **PieCrust** which "slices" the array of posts in order to return only the
   appropriate portion to be displayed on the current page (_e.g._ posts 6
-  through 10 on page 2, assuming 5 posts per page).
+  through 10 on page 2, assuming 5 posts per page). If you're using this in
+  conjunction with the `single_page` setting, you might as well use
+  `blog.posts` instead. See the [blog archives][3] documentation.
 
 * `posts.skip(n)`: Skips _n_ posts from the beginning of the posts array.
 
@@ -141,6 +155,9 @@ construct in **Twig**), also has a few methods:
 
 * `posts.with_tags(name1, name2, ...)`: Returns only posts with all given tag
   names.
+
+* `posts.count`: Returns the number of posts in the array (after all filters,
+* offsets and limits have been applied).
 
 All those methods return the posts array itself, so you can chain them. For
 instance, the following code snippet would return the first 10 posts in category
@@ -184,4 +201,5 @@ Also, the whole page configuration of the post is available directly.
 
   [1]: {{ pcurl('piecrust/doc/page-config') }}
   [2]: {{ pcurl('piecrust/doc/site-config') }}
+  [3]: {{ pcurl('piecrust/doc/blog-archives') }}
   [twigdoc]: http://www.twig-project.org/doc/templates.html

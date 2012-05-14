@@ -12,8 +12,8 @@ some way or another. That's what _file processors_ do.
 ### Including and excluding files
 
 By default, _chef_ ignores the **PieCrust** directories (`_content`, `_cache`,
-`_counter`) along with common system and revision control files: `.DS_Store`,
-`Thumbs.db`, `.git`, `.hg` and `.svn`. Everything else gets processed.
+`_counter`) along with common system and revision control files (`.DS_Store`,
+`Thumbs.db`, `.git`, `.hg` and `.svn`). Everything else gets processed.
 
 You can tell **PieCrust** to skip some other files if you don't want them to be
 processed or copied to the output directory. You do this with the
@@ -55,7 +55,23 @@ You can however specify processors individually:
 > Otherwise, all the files not compiled by a listed processor will be missing
 > from the output directory!
 
-### Processors
+
+### Chained processors
+
+**PieCrust**, starting with version 0.7.0, is able to _chain_ processors. This is automatic, so you don't need to do anything, but you probably want to be aware of it. It's easier to think about it by using a common example:
+
+* Imagine you have 2 files in your website: `blah.css` and `fancy.less`. The first one is a vanilla CSS stylesheet, but the second one is a [Less](http://lesscss.org/) stylesheet. 
+
+* You also have 2 file processors currently enabled: the Less processor (which compiles Less into CSS), and the YUICompressor processor, which "minifies" CSS code. The first one matches any `*.less` file, and the second matches any `*.css` file.
+
+Now, you run **PieCrust** on that simple website. What happens is this:
+
+* `blah.css` gets picked up by the compressor processor (since its extension is `.css`) and gets minified. The output is a smaller `blah.css` file in the bake directory.
+
+* `fancy.less` gets picked up by the Less processor (since its extension is `.less`) and gets compiled into a CSS file called `fancy.css`. **PieCrust** then sees that another processor can further handle a `.css` file, so it runs the compressor on it. The final result is a compiled and minified `fancy.css` file in the bake directory!
+
+
+### Available processors
 
 Here's a list of file processors included with **PieCrust**, along with some
 information on how to use them.
