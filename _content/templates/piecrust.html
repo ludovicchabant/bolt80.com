@@ -3,44 +3,47 @@
 <!doctype html>
 <html>
 <head>
-    <title>PieCrust{% if page.title %} &mdash; {{ page.title }}{% endif %}</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="PieCrust, a simple website engine and static website generator" />
-    <meta name="keywords" content="bolt80, portfolio, ludovic, chabant" />
+    <meta name="keywords" content="piecrust, static, website, blog, generator,
+    php" />
     <meta name="generator" content="PieCrust" />
-    {% include('blueprint.html') %}
+    <title>PieCrust{% if page.title %} &mdash; {{ page.title }}{% endif %}</title>
     {{ google.webfonts('Lobster|Covered+By+Your+Grace') }}
-    <link rel="stylesheet" href="{{ site.root ~ 'styles/piecrust-screen.css' }}" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="{{ site.root ~ 'styles/piecrust.css' }}" type="text/css" />
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 </head>
-<body>
-    <div id="container" class="container">
-        <div id="header" class="span-24 last">
-            <h1>PieCrust</h1>
-            {% block slogan %}{% endblock %}
-        </div>
-        <div id="main-menu" class="menu span-24 last">
-            <div class="menu-inner">
-                <ul>
-                    <li><a href="{{ pcurl('piecrust') }}">Overview</a></li>
-                    <li><a href="{{ pcurl('piecrust/doc') }}">Documentation</a></li>
-                    <li><a href="{{ pcurl('piecrust/support') }}">Support</a></li>
-                    <li><a href="{{ pcurl('piecrust/code') }}">Code</a></li>
-                </ul>
+<body data-spy="scroll">
+    <div class="container">
+        <header>
+            {% block header %}
+            <div class="site-title">PieCrust</div>
+            {% endblock %}
+        </header>
+        <nav class="menu">
+            <ul>
+                <li><a href="{{ pcurl('piecrust') }}">Overview</a></li>
+                <li><a href="{{ pcurl('piecrust/doc') }}">Documentation</a></li>
+                <li><a href="{{ pcurl('piecrust/support') }}">Support</a></li>
+                <li><a href="{{ pcurl('piecrust/code') }}">Code</a></li>
+            </ul>
+        </nav>
+        <section class="content">
+            {% block content %}
+            <div class="content-box">
+                {% if page.title %}<h1>{{ page.title }}</h1>{% endif %}
+
+                {{ content|raw }}
             </div>
-        </div>
-        <div id="content" class="span-24 last">
-            <div id="content-inner">
-                {% block content %}
-                <div class="span-22 prepend-1 append-1 last">
-                    {% if page.title %}<h2>{{ page.title }}</h2>{% endif %}
-                    {{ content|raw }}
-                </div>
-                {% endblock %}
-            </div>
-        </div>
-        <div id="footer" class="span-24 last">
+            {% endblock %}
+            <div class="clearfix"></div>
+        </section>
+        <footer>
             <p>{{ piecrust.branding|raw }}</p>
-        </div>
+        </footer>
     </div>
     <a href="https://github.com/ludovicchabant/piecrust"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
     {{ piecrust.debug_info|raw }}

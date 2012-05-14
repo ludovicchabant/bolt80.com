@@ -11,26 +11,26 @@
 {% endmacro %}
 
 {% block content %}
-<div class="span-22 prepend-1 append-1 last">
-    {% if page.title %}<h2>{{ page.title }}</h2>{% endif %}
-    <div id="page-navigation">
-        <div id="page-navigation-inner">
-            <h4>Using</h4>
-            <ul>
-                <li>{{ _self.nav_entry('piecrust/code', page.slug, 'Running PieCrust') }}</li>
-                <li>{{ _self.nav_entry('piecrust/code/get', page.slug, 'Getting the code') }}</li>
-            </ul>
-            <h4>Extending</h4>
-            <ul>
-                <li>{{ _self.nav_entry('piecrust/code/plugin', page.slug, 'Writing a plugin') }}</li>
-                <li>{{ _self.nav_entry('piecrust/code/twig-extension', page.slug, 'Extending Twig') }}</li>
-                <li>{{ _self.nav_entry('piecrust/code/formatter', page.slug, 'Adding a formatter') }}</li>
-                <li>{{ _self.nav_entry('piecrust/code/template-engine', page.slug, 'Adding a template engine') }}</li>
-                <li>{{ _self.nav_entry('piecrust/code/processor', page.slug, 'Adding a file processor') }}</li>
-            </ul>
-        </div>
+<div class="content-box">
+    {% if page.title %}<h1>{{ page.title }}</h1>{% endif %}
+    <div class="page-navigation">
+        <p>Using</p>
+        <ul>
+            <li>{{ _self.nav_entry('piecrust/code', page.slug, 'Running PieCrust') }}</li>
+            <li>{{ _self.nav_entry('piecrust/code/get', page.slug, 'Getting the code') }}</li>
+        </ul>
+        <p>Extending</p>
+        <ul>
+            <li>{{ _self.nav_entry('piecrust/code/plugin', page.slug, 'Writing a plugin') }}</li>
+            <li>{{ _self.nav_entry('piecrust/code/twig-extension', page.slug, 'Extending Twig') }}</li>
+            <li>{{ _self.nav_entry('piecrust/code/formatter', page.slug, 'Adding a formatter') }}</li>
+            <li>{{ _self.nav_entry('piecrust/code/template-engine', page.slug, 'Adding a template engine') }}</li>
+            <li>{{ _self.nav_entry('piecrust/code/processor', page.slug, 'Adding a file processor') }}</li>
+        </ul>
     </div>
     
     {{ content|raw }}
+
+    <div class="clearfix"></div>
 </div>
 {% endblock %}
