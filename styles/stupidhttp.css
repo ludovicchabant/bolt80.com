@@ -1,11 +1,29 @@
+html {
+    font-size: 1.3em;
+    line-height: 1.5em;
+}
+p {
+    margin-bottom: 1.5em;
+}
+h1 {
+    text-align: center;
+}
+h2 {
+    color: white;
+    background: #666;
+    padding: 0.75em;
+}
+
+
 #container {
     margin: 0 3em;
 }
-
-#footer {
+header {
+}
+footer {
     margin: 2em;
 }
-#footer p {
+footer p {
     font-size: 75%;
     text-align: center;
 }
@@ -14,10 +32,10 @@ code, pre {
     border-radius: 5px;
     background: #eee;
     padding: 0.1em 0.5em;
-    box-shadow: 1px 1px 2px #aaa inset;
-    -webkit-box-shadow: 1px 1px 2px #aaa inset;
-    -moz-box-shadow: 1px 1px 2px #aaa inset;
-    -o-box-shadow: 1px 1px 2px #aaa inset;
+    box-shadow: 0 0 4px #666 inset;
+    -o-box-shadow: 0 0 4px #666 inset;
+    -moz-box-shadow: 0 0 4px #666 inset;
+    -webkit-box-shadow: 0 0 4px #666 inset;
 }
 pre {
     padding: 1em;

@@ -1,12 +1,26 @@
 ---
 layout: stupidhttp
-title: A super simple (and not very smart) HTTP library for PHP
+title: A super simple (and not very smart) HTTP server for PHP
 ---
-**StupidHttp** is the stupidest HTTP library for PHP ever (or for any other language, for that matter). The problem is, as far as I can tell, there's really not any other such library for PHP anyway[^1], so I could say it's also the best one too.
+**StupidHttp** is the stupidest HTTP server library for PHP ever (or for any other language, for that matter). The problem is, as far as I can tell, the only other remotely similar library available is the PEAR `Net_Server` library, which was deprecated, like, in the 16th century or something. It still works, but it's got lots of dependencies on other PEAR packages, and PHP hipsters (yes, there is such a thing apparently) haven't used PEAR since some time around 1972.
+
+As a result of this, and a rather quiet winter week-end, **StupidHttp** was born.
 
 
-Usage
------
+Get It
+------
+
+**StupidHttp** is available from both [Github][] and [Bitbucket][], and also on [Packagist][] if you're using [Composer][].
+
+
+  [github]: https://github.com/ludovicchabant/StupidHttp
+  [bitbucket]: https://bitbucket.org/ludovicchabant/stupidhttp
+  [packagist]: http://packagist.org/packages/bolt80/stupidhttp
+  [composer]: http://getcomposer.org
+
+
+Use It
+------
 
 Running a development web server with **StupidHttp** is stupidly easy:
 
@@ -24,6 +38,12 @@ Yes, it does exactly what you expect:
 * Display `Hello from StupidHttp!` when you hit the home page (`localhost:8080`).
 * Display `Hello, Dave` when you go to `localhost:8080/hello/Dave`.
 * Serve files in `/path/to/document/root` if the relative URL matches a file.
+
+
+More Examples
+-------------
+
+The source code comes with several examples in the appropriately named `examples` directory. Run them, they are pretty self-explanatory.
 
 
 Technical Details
@@ -45,5 +65,3 @@ That's it. That's all it does. It does not support _anything_ else, so obviously
 Remember, it's all in the name.
 
 
-  [^1]: Nope, [nanoweb](http://nanoweb.si.kz) doesn't cut it. It's a PHP _server_. Not a PHP _server library_.
-        You can't just call it from PHP, and have it call PHP in return.
