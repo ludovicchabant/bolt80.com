@@ -26,8 +26,8 @@ class HamlMarkdownFilter extends _HamlMarkdownFilter
     {
         // We need to programmatically include Markdown because we may
         // have to use Markdown-Extra instead of basic Markdown.
-        $defaultIncludePath = 'Markdown/markdown.php';
-        $extraIncludePath = 'MarkdownExtra/markdown.php';
+        $defaultIncludePath = 'markdown/markdown/markdown.php';
+        $extraIncludePath = 'markdown/markdown-extra/markdown.php';
         
         // The global $_PIECRUST_APP should be set by the Haml template engine
         // and the Haml formatter.
