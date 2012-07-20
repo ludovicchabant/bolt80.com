@@ -7,7 +7,7 @@ class HamlTextileFilter extends _HamlTextileFilter
 {
     public function init()
     {
-        $this->vendorPath = 'Textile/classTextile.php';
+        $this->vendorPath = 'textile/textile/classTextile.php';
         $this->vendorClass = 'Textile';
         parent::init();
     }
