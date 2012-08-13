@@ -4,15 +4,17 @@ layout: piecrust_doc
 ---
 
 In **PieCrust**, there are two ways to show a list of blog posts, or somehow
-manipulate the blog posts in bulk. The first is to use the [pagination
+manipulate the blog posts in bulk:
+
+* The first way is to use the [pagination
 features][1], exposed through the `pagination` [template variable][2]. This
-will however, somewhat unsurprisingly, trigger pagination on the current page
-(_i.e._ create sub-pages of the current page that can be accessed with "_next
+will however (unsurprisingly) trigger pagination on the current page (_i.e._
+create sub-pages of the current page that can be accessed with "_next
 entries_"/"_previous entries_"-type of links). That can be stopped with the
 `single_page` [configuration setting][3], but the list of posts will still be,
 by default, limited and filtered according to the default pagination settings.
 
-The other way is to use the more straightforward blog archives.
+* The other way is to use the more straightforward blog archives.
 
 Blog archive variables are accessed through the `blog` template variable,
 unless you have [more than one blog defined][4]. In that case, there will be
@@ -25,40 +27,39 @@ this page we will be referring to the main case of a `blog` variable, however.
 ### List of posts
 
 You can get an unlimited and unfiltered list of blog posts with `blog.posts`.
+This is a [post iterator][5] object, which has cool stuff like `count`,
+`skip(n)`, `limit(n)` or `filter(filtername)`.
 
-This list has the same available properties and functions than the list of
-posts returned by `pagination.posts` (see the [pagination documentation][1]).
-This includes functions like `count`, `skip(n)`, `limit(n)` and
-`filter(filtername)`.
-
-> Again, the difference between this and tweaking the `pagination.posts` list
+> Again, the main difference between this and tweaking the `pagination.posts` list
 > to your liking is that the pagination one will create sub-pages -- using
 > `blog.posts` will not.
 
-You can also access the list of tags and categories with `blog.tags` and `blog.categories`. Each entry in those arrays will be rendered as the name of the tag or category, but they also have a few properties of their own:
+You can also access the list of tags and categories with `blog.tags` and
+`blog.categories`. Each entry in those arrays will be rendered as the name of
+the tag or category, but they also have a few properties of their own:
 
 * `name`: the name of the tag or category (for convenience/readability).
 
-* `posts`: the list of posts in that tag or category.
-
-Each post returned by `blog.posts` or either a tag or category has the same properties than a post returned by `pagination.posts`. This includes properties like `url`, `date`, `content`, or `has_more`. 
+* `posts`: the list of posts in that tag or category. This is also, again, a [post iterator][5].
 
 
 ### Yearly and monthly archives
 
-To make writing blog archives easier, the `blog` variable also exposes posts split by year or month. They are available in `blog.years` and `blog.months`. Each entry in those arrays will be rendered as the name of the year or month (_e.g._ `2011` or `2012 01`), but they also have a few properties of their own:
+To make writing blog archives easier, the `blog` variable also exposes posts
+split by year or month. They are available in `blog.years` and `blog.months`.
+Each entry in those arrays will be rendered as the name of the year or month
+(_e.g._ `2011` or `2012 01`), but they also have a few properties of their own:
 
 * `name`: the name of the year or month (for convenience/readability).
 
 * `timestamp`: the timestamp of the year or month, so you can pass it through a custom date format.
 
-* `posts`: the posts in that year or month.
-
-Again, the posts returned by a year or month property have the same properties than a post returned by `pagination.posts`.
+* `posts`: the posts in that year or month. This is also, again, a [post iterator][5].
 
 
   [1]: {{ pcurl('piecrust/doc/pagination') }}
   [2]: {{ pcurl('piecrust/doc/templates') }}
   [3]: {{ pcurl('piecrust/doc/page-config') }}
   [4]: {{ pcurl('piecrust/doc/multi-blog') }}
+  [5]: {{ pcurl('piecrust/doc/post-iterator') }}
 
