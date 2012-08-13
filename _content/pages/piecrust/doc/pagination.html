@@ -21,11 +21,11 @@ the article, followed by the date and the excerpts.
 
 What **PieCrust** does is merely expose pagination values to the template
 engine, and you can use them in any way you like. Check the [Twig
-documentation][twigdoc] to find out what you can do.
+documentation][twigdoc] to find out what you can do. Read on to see what properties are available on the `pagination` variable.
 
 Note that the `pagination` variable is called like that because it will
 *paginate* the current page by creating sub-pages (see below). If you want to
-display pages with a list of blogs without any pagination (_i.e._ without any
+display pages with a list of posts _without_ any pagination (_i.e._ without any
 sub-page), you can either set `single_page` to `true` in the [page
 configuration][1], or use the [blog archive variables][3] like `blog.posts`
 instead.
@@ -35,6 +35,7 @@ instead.
 
 Most pages don't have sub-pages -- there's just the page. However, pages that
 show a list of blog posts could have sub-pages if there are too many blog posts.
+
 For example, if you only show 5 posts per page and you have written 17 posts in
 total, your blog's main page would have 4 sub-pages: sub-page 1 would show posts
 17 to 13, sub-page 2 would show posts 12 to 7, etc. (posts are sorted in
@@ -50,7 +51,9 @@ name is just a number!
 
 If you want to create a page that lists only specific posts, you can filter what
 you get from the `pagination` object. You do this with the `posts_filters`
-[configuration section][1] in your page. For example:
+[configuration section][1] in your page.
+
+For example:
 
     posts_filters:
         has_tags: announcement
@@ -99,13 +102,14 @@ Here's a list of variables accessible on the `pagination` object:
 posts in the list is at most `posts_per_page`, as defined in either the
 [page][1]'s or the [site][2]'s configuration. **PieCrust** takes care of
 returning the correct posts if the current page is a sub-page (e.g. page #2 of
-your blog's main page).
+your blog's main page). This object is actually a [post iterator][4], which has
+properties and methods of its own.
 
-* `prev_page`: The URL of the previous sub-page, if any.
+* `prev_page`: The URL of the previous sub-page, if any. You need to prepend `site.root` to it, or pass it to `pcurl()` to get an absolute URL.
 
-* `this_page`: The URL of this sub-page.
+* `this_page`: The URL of this sub-page. You need to prepend `site.root` to it, or pass it to `pcurl()` to get an absolute URL.
 
-* `next_page`: The URL of the next sub-page, if any.
+* `next_page`: The URL of the next sub-page, if any. You need to prepend `site.root` to it, or pass it to `pcurl()` to get an absolute URL.
 
 * `posts_per_page`: The effective number of posts to be theoritically displayed
 on the page.
@@ -127,79 +131,14 @@ on the page.
 
 * `prev_post`: The previous post object.
 
+* `all_page_numbers`: Returns the list of page numbers. For example, if the current page has 4 sub-pages, this will return: 1, 2, 3, 4. You can loop through that and use the `page(i)` method (see below).
 
-#### Posts array reference
+* `page(i)`: Returns the URL of a given sub-page (the index should be between 1 and the last sub-page). You need to prepend `site.root` to it, or pass it to `pcurl()` to get an absolute URL.
 
-The `posts` variable, on top of being enumerable (_e.g._ with the `for`
-construct in **Twig**), also has a few methods:
-
-* `posts.all`: Resets the filtering currently active for the page and returns
-  _all_ posts. It's the only way to get rid of the default filtering applied by
-  **PieCrust** which "slices" the array of posts in order to return only the
-  appropriate portion to be displayed on the current page (_e.g._ posts 6
-  through 10 on page 2, assuming 5 posts per page). If you're using this in
-  conjunction with the `single_page` setting, you might as well use
-  `blog.posts` instead. See the [blog archives][3] documentation.
-
-* `posts.skip(n)`: Skips _n_ posts from the beginning of the posts array.
-
-* `posts.limit(n)`: Limits the number of posts in the array to _n_.
-
-* `posts.filter(filtername)`: Applies a filter named `filtername` to the
-  pagination. This must be a page configuration setting similar to
-  `post_filters`, but named `filtername`.
-
-* `posts.in_category(name)`: Returns only posts in category `name`.
-
-* `posts.with_tag(name)`: Returns only posts with tag `name`.
-
-* `posts.with_tags(name1, name2, ...)`: Returns only posts with all given tag
-  names.
-
-* `posts.count`: Returns the number of posts in the array (after all filters,
-* offsets and limits have been applied).
-
-All those methods return the posts array itself, so you can chain them. For
-instance, the following code snippet would return the first 10 posts in category
-'recipes`.
-
-    pagination.posts.all.in_category('recipes').limit(10)
-
-Note that `skip` is not cumulative, so `posts.skip(3).skip(1)` will _not_ skip 4
-posts from the beginning of the array -- it will only skip 1 post!  (the last
-specified skip value). Similarly, `in_category`, `with_tag` and `with_tags` are
-not cumulative either: `posts.in_category('recipes').with_tag('apple')` will
-return all posts tagged with "_apple_" regardless of their category. Those
-methods are only for convenience -- if you want complex filtering, use the
-`filter()` method, or the `post_filters` feature.
-
-
-#### Post object reference
-
-Now here's a list of variables available on each post:
-
-* `url`: That's the local address of the post. You need to prepend the
-`site.root` to it, or pass it through the `pcurl` function if you want to use it
-as a hyperlink.
-
-* `slug`: The relative URL of the post.
-
-* `date`: The formatted date of the post. The date format is the one defined in
-the [page][1]'s or [site][2]'s configuration.
-
-* `timestamp`: The timestamp of the post, in case you need to re-format the date
-yourself.
-
-* `content`: The contents of the post.
-
-* `has_more`: If the post had a page break in it, the `content` variable only
-returns the first part (the "*excerpt*"), and `has_more` is set to `true` so you
-can add a "*Read more...*" link that points to the post's URL.
-
-Also, the whole page configuration of the post is available directly.
 
 
   [1]: {{ pcurl('piecrust/doc/page-config') }}
   [2]: {{ pcurl('piecrust/doc/site-config') }}
   [3]: {{ pcurl('piecrust/doc/blog-archives') }}
+  [4]: {{ pcurl('piecrust/doc/post-iterator') }}
   [twigdoc]: http://www.twig-project.org/doc/templates.html

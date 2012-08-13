@@ -1,0 +1,80 @@
+---
+title: Post iterator
+layout: piecrust_doc
+---
+The post iterator object is returned by several [template variables][4] in **PieCrust**, including `pagination.posts` and `blog.posts`. It basically represents a list of posts or pages, so that you can loop over it (_e.g._ with the `for` construct in **Twig**), but also has a few interesting things of its own.
+
+
+### Properties
+
+* `count`: Returns the number of posts in the array (after all filters,
+  offsets and limits have been applied).
+
+* `all`: Resets the filtering currently active for the page and returns
+  _all_ posts. In most cases, it's a better idea to use `blog.posts` instead.
+  See the [blog archives][3] documentation.
+
+
+### Functions
+
+* `skip(n)`: Skips _n_ posts from the beginning of the array.
+
+* `limit(n)`: Limits the number of posts in the array to _n_.
+
+* `filter(filtername)`: Applies a filter named `filtername` to the
+  pagination. This must be a page configuration setting similar to
+  `post_filters`, but named `filtername`.
+
+* `in_category(name)`: Returns only posts in category `name`.
+
+* `with_tag(name)`: Returns only posts with tag `name`.
+
+* `with_tags(name1, name2, ...)`: Returns only posts with all given tag
+  names.
+
+All those methods return the iterator itself, so you can chain them. For
+instance, the following code snippet would return the first 10 posts in category
+'recipes'.
+
+    blog.posts.in_category('recipes').limit(10)
+
+Note that these functions are not cumulative, so `posts.skip(3).skip(1)` will
+_not_ skip 4 posts from the beginning of the array -- it will only skip 1 post!
+(the last specified skip value). Similarly, `in_category`, `with_tag` and
+`with_tags` are not cumulative either:
+`posts.in_category('recipes').with_tag('apple')` will return all posts tagged
+with "_apple_" regardless of their category. Those methods are only for
+convenience -- if you want complex filtering, use the `filter()` method instead.
+
+
+### Post object reference
+
+Now here's a list of variables available on each post:
+
+* `url`: That's the local address of the post. You need to prepend the
+`site.root` to it, or pass it through the `pcurl` function if you want to use it
+as a hyperlink.
+
+* `slug`: The relative URL of the post.
+
+* `date`: The formatted date of the post. The date format is the one defined in
+the [page][1]'s or [site][2]'s configuration.
+
+* `timestamp`: The timestamp of the post, in case you need to re-format the date
+yourself.
+
+* `content`: The contents of the post.
+
+* `has_more`: If the post had a page break in it, the `content` variable only
+returns the first part (the "*excerpt*"), and `has_more` is set to `true` so you
+can add a "*Read more...*" link that points to the post's URL.
+
+Also, the whole page configuration of the post is available directly, along
+with the other content segments. This means that `post.extra_stuff` refers
+either to a content segment called `extra_stuff`, or a configuration setting of
+the same name.
+
+  [1]: {{ pcurl('piecrust/doc/page-config') }}
+  [2]: {{ pcurl('piecrust/doc/site-config') }}
+  [3]: {{ pcurl('piecrust/doc/blog-archives') }}
+  [4]: {{ pcurl('piecrust/doc/templates') }}

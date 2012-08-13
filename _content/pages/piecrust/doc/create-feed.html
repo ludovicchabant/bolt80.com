@@ -9,45 +9,47 @@ or [Atom] formats on **Wikipedia** for more information). The only difference
 is that you probably don't want any [sub-pages][3] created for the feed,
 especially when [baking the site][1].
 
-
 You can achieve this with either one of the following solutions.
 
-#### Adjusting the pagination
 
-Set the `single_page` setting to `true`, and change the number of posts shown
-in the feed. Your feed page header would look like this:
+### Blog feed using pagination
+
+Set the `single_page` setting to `true` (to prevent the creation of sub-pages),
+and change the number of posts shown in the feed with `posts_per_page`. Your
+feed page would look like this:
 
     ---
     posts_per_page: 10
     single_page: true
     ---
-    <feed>...</feed>
+    <feed>
+    ...
+    {% raw %}{% for post in pagination.posts %}
+    {% endfor %}{% endraw %}
+    ...
+    </feed>
 
-#### Using the blog archives
+### Blog feed using blog archives
 
 Instead of using `pagination.posts` to show the list of posts, you can use
-`blog.posts`. This would, however, show you _all_ the posts in your blog,
-instead of the few last ones, so you would have to limit it like so
-`blog.posts.limit(10)`.
+the [blog archives][4] like such:
+
+    <feed>
+    ...
+    {% raw %}{% for post in blog.posts.limit(10) %}
+    {% endfor %}{% endraw %}
+    ...
+    </feed>
 
 This is the preferred way, since it is much shorter.
 
-
-### Other considerations
-
-Note how it's also a good idea to specify the `content_type` so **PieCrust**
-sets the correct HTTP headers when dynamically rendering the page, or uses the
-correct file extension when baking. Setting it to `xml` or `rss` would work
-fine.
-
-    ---
-    content_type: rss
-    ---
-    <feed>...</feed>
+Note the use of `.limit(10)` to specify how many maximum posts should be
+included in the feed.
 
 
   [1]: {{ pcurl('piecrust/doc/baking') }}
   [2]: {{ pcurl('piecrust/doc/page-config') }}
   [3]: {{ pcurl('piecrust/doc/pagination') }}
+  [4]: {{ pcurl('piecrust/doc/blog-archives') }}
   [rss]: http://en.wikipedia.org/wiki/Rss
   [atom]: http://en.wikipedia.org/wiki/Atom_(standard)
