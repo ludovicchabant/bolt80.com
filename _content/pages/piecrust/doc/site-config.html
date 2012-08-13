@@ -78,9 +78,13 @@ must be all in the `site` section.
   `_content/plugins`. Can either be a single path, or an array of paths. You can
   specify paths relative to the site's root path.
 
+* `enable_debug_info`: If you're using **PieCrust** in dynamic CMS mode, visitors could use the [debugging features][6] to expose potentially private information. You can disable those features on the production server to prevent that.
+
+
   [1]: {{ pcurl('piecrust/doc/pretty-urls') }}
   [2]: {{ pcurl('piecrust/doc/pagination') }}
   [3]: {{ pcurl('piecrust/doc/create-post') }}
   [4]: {{ pcurl('piecrust/doc/caching') }}
   [5]: {{ pcurl('piecrust/doc/templates') }}
+  [6]: {{ pcurl('piecrust/doc/debugging') }}
   [yaml]: http://en.wikipedia.org/wiki/YAML
