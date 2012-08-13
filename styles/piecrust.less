@@ -13,7 +13,7 @@
 // Variables
 //---------------------------
 @highlight: #FFF;
-@crustLighter: #F5CD82;
+@crustLighter: #F7D69A;
 @crustLight: lighten(@crust, 10%);
 @crust: #CF931B;
 @crustShade: darken(@crust, 10%);
@@ -23,6 +23,8 @@
 @cherryShade: darken(@cherry, 20%);
 @stripesLight: #2b2b2b;
 @stripesDark: #292929;
+@strawberry: #d58181;
+@strawberryDark: #aa0000;
 
 // Mixins
 // --------------------------
@@ -63,19 +65,15 @@ acronym {
 }
 pre {
     margin: 0 0 1.5em 0;
-    background: @crust;
     overflow: auto;
 }
-pre.php {
-    background: @crustLighter;
-}
-code {
-    background: @crust;
-    border: 1px solid @crustShade;
+pre, code {
+    background: lighten(@crustLighter, 7%);
+    border: 1px solid darken(@crustLighter, 10%);
 }
 code, pre code {
     line-height: 1.1em; // monospace fonts have higher line-heights.
-    color: @darkCrustShade;
+    color: @strawberryDark;
 }
 blockquote {
     color: @darkCrustShade;
