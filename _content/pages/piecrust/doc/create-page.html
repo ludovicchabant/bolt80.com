@@ -13,11 +13,22 @@ The directory and name of that text file will decide what URL this page is acces
 
 To create the main page for your website (the one used for `http://domain.com`), use `_content/pages/_index.html`.
 
-The text file's extension must be "html", even if that page happens to not be HTML, sorry (but see the [page configuration][3] documentation on `content_type`).
-
 For more information on your website's directory structure, check out the [documentation on the subject][2].
 
 > **WARNING**: Don't create pages whose names are just a number (like `4.html`). This could mess up the [pagination features][6].
+
+
+### Non-HTML pages
+
+The text file's extension doesn't have to be `.html`: you can create `_content/pages/feed.xml` and that will map to:
+
+* `http://domain.com/feed.xml` 
+
+This is regardless of whether "pretty URLs" are enabled. Only `.html` files will have "pretty" addresses, otherwise there could be some conflicts.
+
+If you're running in dynamic CMS mode, you may also want to set the `content_type` in the [page configuration][3] so that the HTTP headers are correctly set (in the above example, you would probably set it to `text/xml` or something more specific like `application/rss+xml`).
+
+> **PieCrust** will always ignore some files: anything starting with a dot, like the infamous `.DS_Store`, and a few others, like the equally infamous `Thumbs.db`.
 
 
 ### Writing contents
@@ -37,15 +48,15 @@ The contents of the page are, by default, [Markdown][] text (to change this, see
 
 ...would render on your page like this:
 
-This is some sample text. It has stuff like *paragraphs* and *emphasized words* and all that jazz. It's seriously pretty cool, especially since it's so **natural** to write.
+> This is some sample text. It has stuff like *paragraphs* and *emphasized words* and all that jazz. It's seriously pretty cool, especially since it's so **natural** to write.
+> 
+> So Basically:
+> 
+> * It's easy
+> * It's useful
+> * It creates nice typography
 
-So Basically:
-
-* It's easy
-* It's useful
-* It creates nice typography
-
-See the [Markdown documentation][markdowndoc] for more info on the syntax.
+See the [Markdown documentation][markdowndoc] for more info on the syntax. Also, for creating several pieces of content in a single page, or switching the format in the middle of the text, see the [page segments][7] documentation.
 
 
 ### Template syntax appetizer
@@ -81,6 +92,7 @@ For more information, check out the [templates documentation][5], and **Twig**'s
   [4]: {{ pcurl('piecrust/doc/site-config') }}
   [5]: {{ pcurl('piecrust/doc/templates') }}
   [6]: {{ pcurl('piecrust/doc/pagination') }}
+  [7]: {{ pcurl('piecrust/doc/page-segments') }}
   [markdown]: http://daringfireball.net/projects/markdown/
   [markdowndoc]: http://daringfireball.net/projects/markdown/basics
   [twig]: http://www.twig-project.org/
