@@ -44,7 +44,35 @@ segment immediately after the header like so:
     Text goes here...
 
 
+### Changing the formatter
+
+When you start a new content segment, you can specify a different [formatter][] to use with the following syntax:
+
+    ---
+    title: Yet another example page
+    ---
+    Blah blah, this is the main segment, using the default formatter which is probably Markdown.
+
+    And then...
+    ---othersegment:textile---
+    %big. BLAM! TEXTILE!
+
+
+### Changing the formatter in the middle of a segment
+
+You can also change the formatter *in the middle of a segment* with the following syntax:
+
+    So I'm writing text in Markdown when...
+
+    <--textile-->
+    %big. BLAM! TEXTILE AGAIN!
+
+    <--markdown-->
+    ...and then I'm back to Markdown.
+
+
 
   [pages]: {{ pcurl('piecrust/doc/create-page') }}
   [templates]: {{ pcurl('piecrust/doc/templates') }}
   [pageconfig]: {{ pcurl('piecrust/doc/page-config') }}
+  [formatter]: {{ pcurl('piecrust/doc/page-formatters') }}
