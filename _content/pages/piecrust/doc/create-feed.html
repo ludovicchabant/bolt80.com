@@ -42,6 +42,9 @@ the [blog archives][4] like such:
     </feed>
 
 This is the preferred way, since it is much shorter.
+    
+You may however still specify `single_page: true` because that will give you a
+simpler output path, especially if your page's extension is not `.html`. See the documentation on [pretty URLs][5] for more information about that.
 
 Note the use of `.limit(10)` to specify how many maximum posts should be
 included in the feed.
@@ -51,5 +54,6 @@ included in the feed.
   [2]: {{ pcurl('piecrust/doc/page-config') }}
   [3]: {{ pcurl('piecrust/doc/pagination') }}
   [4]: {{ pcurl('piecrust/doc/blog-archives') }}
+  [5]: {{ pcurl('piecrust/doc/pretty-urls') }}
   [rss]: http://en.wikipedia.org/wiki/Rss
   [atom]: http://en.wikipedia.org/wiki/Atom_(standard)

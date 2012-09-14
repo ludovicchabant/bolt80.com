@@ -1,0 +1,86 @@
+---
+title: Post filtering
+layout: piecrust_doc
+---
+
+Any time a function returns a [post iterator][1], you can apply some filtering to the list of posts you will get from it. This is done with the `filter(filtername)` function, which takes the name of the filter to apply. A filter is a section in the [page configuration][2] that follows the post filtering syntax.
+
+
+### Basic syntax
+
+The basic filtering syntax lets you filter using the page's configuration settings:
+
+* `has_something`: this will look for the `something` setting in the post's
+configuration header. If that setting is an array, and it contains the specified
+value, then the post is included in the page. Otherwise, it's skipped.
+
+* `is_something`: this will look for the `something` setting in the post's
+configuration header. If that setting exists and is the same as the specified
+value, then the post is included in the page. Otherwise, it's skipped.
+
+So for example, the following filter would return all the posts with the tag "_recipe_":
+
+    ---
+    recipes:
+        has_tags: recipe
+    ---
+    {% raw %}
+    {% for post in blog.posts.filter('recipes') %}
+    ...
+    {% endfor %}
+    {% endraw %}
+
+
+### Boolean operators
+
+You can also group `has_*` and `is_*` statements in `and` and `or` sections to
+create more complex queries:
+
+    my_filter:
+        has_tags: announcement
+        or:
+            has_tags: piecrust
+            has_tags: stupidhttp
+
+This would return only posts with announcements regarding PieCrust or
+StupidHttp.
+
+You can also use the `not` clause to exclude something:
+
+    my_filter:
+        has_tags: announcement
+        not:
+            has_tags: family
+
+This will return all announcement posts except those regarding family stuff.
+
+#### Default operator
+
+Note that the default top level group is nested inside an `and` operator, so the following will list only posts with both the `piecrust` and `announcement` tags applied:
+
+    my_filter:
+        has_tags: piecrust
+        has_tags: announcement
+
+
+### The pagination object
+
+Note that the `pagination` object, used for getting a [paginated list of posts][3], will by default load a filter named `posts_filters`. However, it also returns a post iterator with `pagination.posts`, so you could also apply a filter at the end like this:
+
+    pagination.posts.filter('my_filter')
+
+**Don't do this**. It most probably won't do what you want.
+    
+The difference is that the `posts_filters` will be taken into account for the pagination, and the `filter()` is only applied after that:
+    
+* If you filter all posts with the tag `recipe` using `posts_filters`, and there are 7 of them, you will get 2 pages out of `pagination` (assuming 5 posts per page).
+
+* If however you use the `filter()` function to only return `recipe` posts, you will end up with *each page* being filtered. So if, out of the *5 latest posts* of your blog, only 1 is a recipe, you will only get one post on the first page. If, in the next 5 posts, none is a recipe, your page 2 will be empty. And so on.
+
+In conclusion: don't use the `filter()` method on the `pagination` object.
+
+
+  [1]: {{ pcurl('piecrust/doc/post-filtering') }}
+  [2]: {{ pcurl('piecrust/doc/page-config') }}
+  [3]: {{ pcurl('piecrust/doc/pagination') }}
+

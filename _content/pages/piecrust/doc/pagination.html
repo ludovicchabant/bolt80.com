@@ -31,22 +31,6 @@ configuration][1], or use the [blog archive variables][3] like `blog.posts`
 instead.
 
 
-### Sub-pages
-
-Most pages don't have sub-pages -- there's just the page. However, pages that
-show a list of blog posts could have sub-pages if there are too many blog posts.
-
-For example, if you only show 5 posts per page and you have written 17 posts in
-total, your blog's main page would have 4 sub-pages: sub-page 1 would show posts
-17 to 13, sub-page 2 would show posts 12 to 7, etc. (posts are sorted in
-reverse-chronological order). The visitor would then click on "*previous
-entries*" and "*next entries*" links to navigate back and forth.
-
-If a page's URL is `domain.com/blog`, its 3rd sub-page's URL would look like
-`domain.com/blog/3`. This means it's a bad idea to create an actual page whose
-name is just a number!
-
-
 ### Pagination filtering
 
 If you want to create a page that lists only specific posts, you can filter what
@@ -61,35 +45,24 @@ For example:
     
 ...will only return posts with the `announcement` and `piecrust` tags.
 
-The syntax works like this:
+For more information on the `posts_filters` syntax, read the documentation 
+on [post filtering][5].
 
-* `has_something`: this will look for the `something` setting in the post's
-configuration header. If that setting is an array, and it contains the specified
-value, then the post is included in the page. Otherwise, it's skipped.
-* `is_something`: this will look for the `something` setting in the post's
-configuration header. If that setting exists and is the same as the specified
-value, then the post is included in the page. Otherwise, it's skipped.
 
-You can also group `has_*` and `is_*` statements in `and` and `or` sections to
-create more complex queries:
+### Sub-pages
 
-    posts_filters:
-        has_tags: announcement
-        or:
-            has_tags: piecrust
-            has_tags: stupidhttp
+Most pages don't have sub-pages -- there's just the page. However, pages that
+show a list of blog posts could have sub-pages if there are too many blog posts.
 
-This would return only posts with announcements regarding PieCrust or
-StupidHttp.
+For example, if you only show 5 posts per page and you have written 17 posts in
+total, your blog's main page would have 4 sub-pages: sub-page 1 would show posts
+17 to 13, sub-page 2 would show posts 12 to 7, etc. (posts are sorted in
+reverse-chronological order). The visitor would then click on "*previous
+entries*" and "*next entries*" links to navigate back and forth.
 
-You can also use the `not` clause to exclude something:
-
-    post_filters:
-        has_tags: announcement
-        not:
-            has_tags: family
-
-This will return all announcement posts except those regarding the family.
+If a page's URL is `domain.com/blog`, its 3rd sub-page's URL would look like
+`domain.com/blog/3`. This means it's a bad idea to create an actual page whose
+name is just a number!
 
 
 ### Pagination reference
@@ -141,4 +114,5 @@ on the page.
   [2]: {{ pcurl('piecrust/doc/site-config') }}
   [3]: {{ pcurl('piecrust/doc/blog-archives') }}
   [4]: {{ pcurl('piecrust/doc/post-iterator') }}
+  [5]: {{ pcurl('piecrust/doc/post-filtering') }}
   [twigdoc]: http://www.twig-project.org/doc/templates.html

@@ -27,7 +27,9 @@ each time it will be replaced by "bar". Then you can easily replace "bar" with
 "beer" in one place. More importantly, that's a way to push stuff "up" to the
 layout pages, because all those values will be given to them *via* the template
 system. That's for instance how layouts can reference the title of the current
-page for the HTML head section. Again, see the [templating documentation][5] for more info.
+page for the HTML head section.
+
+Again, see the [templating documentation][5] for more info.
 
 
 ### Reference
@@ -56,11 +58,15 @@ overrides the similar value from the [site configuration][2].
 this page, even if there are more posts to show. This is useful for things like
 RSS feeds. See [how to use blog posts][1] and [RSS feeds][3].
 
+  Also (and this is a bit convoluted, sorry about that), when baking a page with a [non-HTML extension][7] with [pretty URLs][6] enabled and `single_page` set to `true`, the output name will be simpler (matching the source file name) instead of using a directory with `index.html` in it to allow for sub-pages). See the documentation on [pretty URLs][6] for some more information about this.
+
 
   [1]: {{ pcurl('piecrust/doc/pagination') }}
   [2]: {{ pcurl('piecrust/doc/site-config') }}
   [3]: {{ pcurl('piecrust/doc/create-feed') }}
   [4]: {{ pcurl('piecrust/doc/baking') }}
   [5]: {{ pcurl('piecrust/doc/templates') }}
+  [6]: {{ pcurl('piecrust/doc/pretty-urls') }}
+  [7]: {{ pcurl('piecrust/doc/create-page') ~ '#non-html' }}
   [yaml]: http://en.wikipedia.org/wiki/YAML
 

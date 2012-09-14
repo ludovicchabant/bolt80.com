@@ -2,7 +2,7 @@
 title: Post iterator
 layout: piecrust_doc
 ---
-The post iterator object is returned by several [template variables][4] in **PieCrust**, including `pagination.posts` and `blog.posts`. It basically represents a list of posts or pages, so that you can loop over it (_e.g._ with the `for` construct in **Twig**), but also has a few interesting things of its own.
+The post iterator object is returned by several [template variables][4] in **PieCrust**, including `pagination.posts` (see [here][6]) and `blog.posts` (see [here][3]). It basically represents a list of posts or pages, so that you can loop over it (_e.g._ with the `for` construct in **Twig**), but also has a few interesting things of its own.
 
 
 ### Properties
@@ -23,7 +23,7 @@ The post iterator object is returned by several [template variables][4] in **Pie
 
 * `filter(filtername)`: Applies a filter named `filtername` to the
   pagination. This must be a page configuration setting similar to
-  `post_filters`, but named `filtername`.
+  `post_filters`, but named `filtername`. See the documentation on [post filtering][5].
 
 * `in_category(name)`: Returns only posts in category `name`.
 
@@ -78,3 +78,5 @@ the same name.
   [2]: {{ pcurl('piecrust/doc/site-config') }}
   [3]: {{ pcurl('piecrust/doc/blog-archives') }}
   [4]: {{ pcurl('piecrust/doc/templates') }}
+  [5]: {{ pcurl('piecrust/doc/post-filtering') }}
+  [6]: {{ pcurl('piecrust/doc/pagination') }}
