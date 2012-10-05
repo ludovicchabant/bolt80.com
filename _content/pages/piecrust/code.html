@@ -27,9 +27,9 @@ request:
 * An associative array that's passed to the `PieCrust` constructor. It can contain any of the following:
     * `root` (defaults the the directory of the entry PHP script): the root of the website, where `_content/config.yml` lives.
     * `cache`: whether or not to enable [caching][]. Defaults to `true` unless
-    `?!debug` has been specified on the request URL.
+    `?!nocache` has been specified on the request URL.
     * `debug`: whether or not to enable [debug mode][debug]. Defaults to `false`
-    unless `?!nocache` has been specified on the request URL.
+    unless `?!debug` has been specified on the request URL.
 
 * The URL to process. It defaults to the current request's URL if `null`.
 
