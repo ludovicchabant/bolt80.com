@@ -96,10 +96,7 @@ with a list of `locations` that each define a URL along with optional
 properties:
 
 * `lastmod`: the last modification time of the location. By default, it will be
-  file modification time of the **PieCrust** page whose URL is the location URL,
-  if such a page can be found.
-* `lastmod_path`: specify the root-relative path to a file whose modification
-  time should be used for `lastmod`.
+  the time of the bake (_i.e._ the time at which the sitemap file is generated).
 * `changefreq`: the frequency of changes for the location. Should be one of the
   frequency names accepted by the [sitemap syntax][2].
 * `priority`: the priority of that location relative to the other locations in
