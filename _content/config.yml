@@ -16,6 +16,7 @@ baker:
         - index.php
         - .htaccess
         - web.config
+        - bootstrap/less
     config_variants:
         default:
             site:
