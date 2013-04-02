@@ -61,16 +61,14 @@ See the [Markdown documentation][markdowndoc] for more info on the syntax. Also,
 
 ### Auto-format extensions
 
-With `site/auto_formats` is it possible to use different file extensions for pages and posts, like `.md` for Markdown content or `.textile` for Textile content.
-
-This is a list that maps an extension to a format name:
+It is possible to use formatter-related file extensions for pages and posts, like `.md` for Markdown content or `.textile` for Textile content. This is done with the `site/auto_formats` site configuration setting. For example:
 
     site:
         auto_formats:
             md: markdown
             mdown: markdown
 
-The example mapping `*.md` and `*.mdown` to the Markdown format. Files found with those extensions will be treated as if they were `.html` files, but will also have their format set to `markdown`.
+This maps any `*.md` and `*.mdown` files (pages and posts) to the Markdown formatter. Files found with those extensions will be treated as if they were `.html` files, but will also have their format set to `markdown`.
 
 
 ### Template syntax appetizer
