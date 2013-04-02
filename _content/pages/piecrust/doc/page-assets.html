@@ -19,7 +19,7 @@ some of this problem, **PieCrust** has a "_page assets_" mechanism for
 page.
 
 
-### Using the asset sub-directory
+### Using the assets sub-directory
 
 You put all the assets for a page in a sub-directory that has the same name as
 the page file, with a `-assets` suffix. For instance, if you have a page at
@@ -33,12 +33,12 @@ the page file, with a `-assets` suffix. For instance, if you have a page at
              |- map.jpg
              |- street-view.jpg
 
-Then, on the page, you can access those assets with the `asset` variable and the
+Then, on the page, you can access those assets with the `assets` variable and the
 name of the asset (without the extension):
 
 {% raw %}
-    ![map to our place]({{ asset.map }})
-    ![our place]({{ asset.street-view }})
+    ![map to our place]({{ assets.map }})
+    ![our place]({{ assets.street-view }})
 {% endraw %}
 
 
