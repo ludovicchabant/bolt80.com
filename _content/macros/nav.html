@@ -1,0 +1,11 @@
+
+{% macro nav_entry(slug, current, label) %}
+{% spaceless %}
+{% if current == slug %}
+<a class="active" href="{{ pcurl(slug) }}">{{ label }}</a>
+{% else %}
+<a href="{{ pcurl(slug) }}">{{ label }}</a>
+{% endif %}
+{% endspaceless %}
+{% endmacro %}
+

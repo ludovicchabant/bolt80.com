@@ -82,6 +82,11 @@ blockquote {
     overflow: auto;
     padding: 1.5em 1em 0 1em;
     p { font-size: 1em; line-height: 1.5em; margin-bottom: 1.5em; }
+    pre, code { 
+        background: lighten(@crustLight, 10%); 
+        border: 1px solid darken(@crustLight, 10%);
+    }
+    pre code { border: 0; }
 }
 h2, .content h1 {
     color: @darkCrust;
@@ -128,7 +133,7 @@ header {
         .raised;
     }
     
-    .slogan p {
+    p {
         color: @darkCrustShade;
         font-family: Georgia, serif;
         font-size: 1.5em;
@@ -137,6 +142,12 @@ header {
         letter-spacing: 0;
         padding: 1.5em;
         margin: 0;
+
+        a { color: @darkCrust; }
+        a:link { color: @darkCrust; }
+        a:visited { color: @darkCrust; }
+        a:hover { color: @darkCrustShade; }
+        a:active { color: @darkCrust; }
     }
 }
 footer {

@@ -25,6 +25,7 @@
         <nav class="menu">
             <ul>
                 <li><a href="{{ pcurl('piecrust') }}">Overview</a></li>
+                <li><a href="{{ pcurl('piecrust/getting-started') }}">Getting Started</a></li>
                 <li><a href="{{ pcurl('piecrust/doc') }}">Documentation</a></li>
                 <li><a href="{{ pcurl('piecrust/support') }}">Support</a></li>
                 <li><a href="{{ pcurl('piecrust/code') }}">Code</a></li>
@@ -46,6 +47,8 @@
     </div>
     <a href="https://github.com/ludovicchabant/piecrust"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
     {{ piecrust.debug_info|raw }}
+    {% if baker.is_baking %}
     {{ google.analytics("UA-3426592-10") }}
+    {% endif %}
 </body>
 </html>
