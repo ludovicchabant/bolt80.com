@@ -14,7 +14,7 @@ you have [pretty URLs][1] enabled or not, or if it's for a baked website or
 whatever. That's done with the `pcurl` function:
 
 {% raw %}
-    {{ pcurl('my/page' }}
+    {{ pcurl('my/page') }}
 {% endraw %}
 
 Similarly to the `pcurl` function, the `pctagurl` and `pccaturl` functions will
@@ -22,8 +22,8 @@ generate URLs to a [tag or category listing page][2] with respect to the site
 configuration:
 
 {% raw %}
-    {{ pctagurl('sometag' }}
-    {{ pccaturl('category' }}
+    {{ pctagurl('sometag') }}
+    {{ pccaturl('category') }}
 {% endraw %}
 
 Last but not least, the `pcposturl` function generates the URL to a post given a
