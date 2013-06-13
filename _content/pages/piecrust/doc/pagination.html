@@ -9,7 +9,7 @@ the main page of a blog. To do this in **PieCrust**, you can use the
 template engine **Twig**:
 
 {% raw %}
-    {% for post in pagination.post %}
+    {% for post in pagination.posts %}
     ## [{{ post.title }}]({{ post.uri }})
     <span class="post-date">{{ post.date }}</span>
     {{ post.content|raw }}
