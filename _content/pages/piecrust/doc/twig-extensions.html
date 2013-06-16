@@ -93,6 +93,19 @@ PHP code:
     {% endgeshi %}
 {% endraw %}
 
+You can pass options to a `geshi` block:
+
+* `use_classes`: tells Geshi to use CSS classes instead of inline styles. This reduces the amount of generated HTML, but you'll have to output the Geshi CSS stylesheet somewhere on your page with the {% raw %}`{{geshi_css()}}`{% endraw %} method.
+* `line_numbers`: tells Geshi to output line numbers.
+
+So for example, if you want to use line numbers and CSS classes, you would do:
+
+{% raw %}
+    {% geshi 'php' line_numbers use_classes %}
+    $foo = 42;
+    {% endgeshi %}
+{% endraw %}
+
 
 ### Tag stripping
 
