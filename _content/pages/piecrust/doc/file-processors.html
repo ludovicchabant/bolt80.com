@@ -91,9 +91,10 @@ The `less` processor compiles all `.less` files into CSS files using the
 #### Sitemap processor
 
 The `sitemap` processor compiles any file with a `.sitemap` extension into an XML
-file with the [sitemap markup][2]. The input file must be written in YAML syntax
-with a list of `locations` that each define a URL along with optional
-properties:
+file with the [sitemap markup][2]. The input file must be written in YAML syntax.
+
+You can first provide a list of `locations` that each define a URL along with
+optional properties:
 
 * `lastmod`: the last modification time of the location. By default, it will be
   the time of the bake (_i.e._ the time at which the sitemap file is generated).
@@ -102,7 +103,12 @@ properties:
 * `priority`: the priority of that location relative to the other locations in
   the website. See the [sitemap protocol][2] for more information.
 
-Here's an example of a sitemap file:
+You can also enable auto-generation of locations for each page and/or post in
+your website by setting, respectively, the `autogen/pages` and/or `autogen/posts`
+properties to `true`.
+
+Here's an example of a sitemap file that defines a few pages manually, but lets
+PieCrust generation loations for all posts:
 
     locations:
         - url: /
@@ -111,7 +117,8 @@ Here's an example of a sitemap file:
         - url: stupidhttp
           changefreq: monthly
           priority: 0.2
-
+    autogen:
+        posts: true
 
 
   [chef]: {{ pcurl('piecrust/doc/chef') }}
