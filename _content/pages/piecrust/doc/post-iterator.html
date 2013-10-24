@@ -51,11 +51,9 @@ convenience -- if you want complex filtering, use the `filter()` method instead.
 
 Now here's a list of variables available on each post:
 
-* `url`: That's the local address of the post. You need to prepend the
-`site.root` to it, or pass it through the `pcurl` function if you want to use it
-as a hyperlink.
+* `url`: That's the URL of the post.
 
-* `slug`: The relative URL of the post.
+* `slug`: The relative URL of the post (same as `url` but without the site root).
 
 * `date`: The formatted date of the post. The date format is the one defined in
 the [page][1]'s or [site][2]'s configuration.
