@@ -21,9 +21,16 @@ The post iterator object is returned by several [template variables][4] in **Pie
 
 * `limit(n)`: Limits the number of posts in the array to _n_.
 
+* `slice(skip, limit)`: A combination of skipping and slicing in one function call.
+
 * `filter(filtername)`: Applies a filter named `filtername` to the
   pagination. This must be a page configuration setting similar to
   `post_filters`, but named `filtername`. See the documentation on [post filtering][5].
+
+* `sort(settingname, [reverse?])`: Sorts the posts using the given configuration
+  setting. Natural sorting order will be used, so it's best to use it only with
+  simple setting types (strings, integers, etc.). You can optionally specify
+  `true` as the second parameter to sort in revert order.
 
 * `in_category(name)`: Returns only posts in category `name`.
 
