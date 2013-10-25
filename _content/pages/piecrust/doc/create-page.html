@@ -71,7 +71,7 @@ It is possible to use formatter-related file extensions for pages and posts, lik
 This maps any `*.md` and `*.mdown` files (pages and posts) to the Markdown formatter. Files found with those extensions will be treated as if they were `.html` files, but will also have their format set to `markdown`.
 
 
-### Template syntax appetizer
+### Template syntax
 
 The template system exposes several variables that you can use when writing pages. We go into this in more detail in the [templates documentation][5] but here are a few tips to get you started.
 
@@ -81,21 +81,27 @@ With the default template engine, [Twig][], variables are referenced using doubl
     {{ variable }}
 {% endraw %}
 
-A very helpful variable would be `site.root`, which is the root URL of your website. That's pretty handy for hyperlinks. For example, if you want to link to the `about/contact` page, you could write:
+Settings that you define in the [page configuration][3] are available under the `page` variable. So if you configuration header looks like this:
+
+    ---
+    foo: bar
+    ---
+
+Then you can use this in several places in your page:
 
 {% raw %}
-    [Contact me!]({{ site.root }}about/contact)
+    I like to drink in a {{ page.foo }}.
 {% endraw %}
 
-That was the **Markdown** syntax for a hyperlink, by the way.
-
-Another more advanced tip is to make this work whether you have [pretty URLs][1] turned on or not (the previous example would only work with pretty URLs _enabled_). **Twig** also supports functions, and you can call a function on a variable. The `pcurl` creates a **PieCrust** URL with the correct syntax according to whether you have pretty URLs enabled or not. So you could rewrite your contact link like so:
+Settings defined in the [site configuration][4] are available under the `site` variable:
 
 {% raw %}
-    [Contact me!]({{ pcurl('about/contact') }})
+    This site's title is: {{ site.title }}.
 {% endraw %}
 
-For more information, check out the [templates documentation][5], and **Twig**'s [own documentation][twigdoc].
+You can also use all manners of control flow statements like loops and
+conditions. For more information, check out the [templates documentation][5],
+and **Twig**'s [own documentation][twigdoc].
 
 
   [1]: {{ pcurl('piecrust/doc/pretty-urls') }}

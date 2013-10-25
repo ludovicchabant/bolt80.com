@@ -86,6 +86,9 @@ documentation][5] for more info.
 In addition to the [usual page configuration values][3], blog posts can define a
 few useful things:
 
+* `layout`: This is used the same as for a page, but **PieCrust** will use a 
+  default layout called `post` instead of `default` if it exists.
+
 * `time`: Use this to specify a time of day for when the post was written (e.g.
   "12:45:02"). **PieCrust** will use it to expose the correct `date` and
   `timestamp` variables to the template engine.

@@ -17,9 +17,14 @@ the configuration header:
     ...page contents go here...
 
 This will tell **PieCrust** to go find a template file in
-`_content/templates/some-cool-layout.html`. By default, a page's layout is,
-unsurprisingly, `default`, which means it will use the template found in
-`_content/templates/default.html`.
+`_content/templates/some-cool-layout.html`.
+
+By default, a page's layout is, unsurprisingly, `default`, which means it will
+use the template found in `_content/templates/default.html` (that is, unless you
+specify other template directories in your site configuration... in which case
+it will also look for `default.html` in those other directories).
+
+For blog posts, it will use a default layout called `post`.
 
 Now's a good time to [read about templates][1].
 

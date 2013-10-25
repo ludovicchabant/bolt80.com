@@ -78,11 +78,11 @@ returning the correct posts if the current page is a sub-page (e.g. page #2 of
 your blog's main page). This object is actually a [post iterator][4], which has
 properties and methods of its own.
 
-* `prev_page`: The URL of the previous sub-page, if any. You need to prepend `site.root` to it, or pass it to `pcurl()` to get an absolute URL.
+* `prev_page`: The URL of the previous sub-page, if any.
 
-* `this_page`: The URL of this sub-page. You need to prepend `site.root` to it, or pass it to `pcurl()` to get an absolute URL.
+* `this_page`: The URL of this sub-page.
 
-* `next_page`: The URL of the next sub-page, if any. You need to prepend `site.root` to it, or pass it to `pcurl()` to get an absolute URL.
+* `next_page`: The URL of the next sub-page, if any.
 
 * `posts_per_page`: The effective number of posts to be theoritically displayed
 on the page.
@@ -106,7 +106,7 @@ on the page.
 
 * `all_page_numbers`: Returns the list of page numbers. For example, if the current page has 4 sub-pages, this will return: 1, 2, 3, 4. You can loop through that and use the `page(i)` method (see below).
 
-* `page(i)`: Returns the URL of a given sub-page (the index should be between 1 and the last sub-page). You need to prepend `site.root` to it, or pass it to `pcurl()` to get an absolute URL.
+* `page(i)`: Returns the URL of a given sub-page (the index should be between 1 and the last sub-page).
 
 
 

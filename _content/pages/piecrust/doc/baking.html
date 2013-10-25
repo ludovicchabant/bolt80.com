@@ -42,7 +42,7 @@ This would bake the website found at the current directory (it should contain
 If you want to bake into a specific output directory, from a specific root
 directory, type:
 
-    chef bake -o /path/to/output  --root /path/to/root
+    chef --root=/path/to/root bake -o /path/to/output
     
 For example, with the [recommended **PieCrust** directory structure][struct],
 you would set the output folder to the `mywebsite.com` folder.
@@ -55,6 +55,13 @@ sometimes it also means processing the file along the way. See the section on
 
 
 ### Customizing the baking
+
+#### Configuration variants
+
+You can use a slightly different configuration while baking by using
+[configuration variants][vars]. By default, baking will apply the `baker`
+variant unless it doesn't exist, or another one is specified.
+
 
 #### Specifying tag combinations
 
@@ -75,28 +82,17 @@ baked (`kids/photos` is a different URL than `photos/kids`, even if the contents
 are likely to be identical).
 
 
-#### Specifying configuration variants
+#### Making a website portable
 
-Sometimes you want to bake a website with slightly different configuration
-settings than when you preview it.
+You may want to bake a website in a way that you can just double-click on the
+index page using the Windows Explorer or MacOS Finder, and browse from there
+directly from the file-system.
 
-A common case is the `site/root` setting, which defines the base URL for a
-website. When previewed, you generally want **PieCrust** to figure out what that
-base URL is (something like `http://localhost:8080/mywebsite/`). However, when
-you bake it, you want a specific base URL like `http://mydomain.com`. Well, you
-can do this with the `baker/config_variants` setting:
+You can do that using the `--portable` option of the `chef bake` command, or by
+setting the `baker/portable_urls` configuration setting to `true`.
 
-    baker:
-        config_variants:
-            default:
-                site:
-                    root: http://mydomain.com
-
-The `default` configuration variant is the one _chef_ will use by default when
-baking. You can specify another configuration variant _via_ command line options
-if you need multiple variants:
-
-    chef bake -c other_variant
+This is especially useful if you need to copy the website to a USB key to show
+someone on their own machine, which may not have any web-server available.
 
 
   [struct]: {{ pcurl('piecrust/doc/structure') }}
@@ -104,3 +100,5 @@ if you need multiple variants:
   [procs]: {{ pcurl('piecrust/doc/file-processors') }}
   [config]: {{ pcurl('piecrust/doc/site-config') }}
   [templates]: {{ pcurl('piecrust/doc/templates') }}
+  [vars]: {{ pcurl('piecrust/doc/config-variants') }}
+
