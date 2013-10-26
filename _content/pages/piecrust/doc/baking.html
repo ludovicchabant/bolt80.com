@@ -56,6 +56,16 @@ sometimes it also means processing the file along the way. See the section on
 
 ### Customizing the baking
 
+#### Common configuration settings
+
+Here's a non-exhaustive list of important [site configuration settings][config]
+that affect how a site is baked:
+
+* `site/pretty_urls`: Turns on [pretty URLs][pretty].
+* `site/trailing_slash`: If `pretty_urls` is enabled, this also makes
+  **PieCrust** add a trailing slash to generated URLs.
+
+
 #### Configuration variants
 
 You can use a slightly different configuration while baking by using
@@ -101,4 +111,5 @@ someone on their own machine, which may not have any web-server available.
   [config]: {{ pcurl('piecrust/doc/site-config') }}
   [templates]: {{ pcurl('piecrust/doc/templates') }}
   [vars]: {{ pcurl('piecrust/doc/config-variants') }}
+  [pretty]: {{ pcurl('piecrust/doc/pretty-urls') }}
 

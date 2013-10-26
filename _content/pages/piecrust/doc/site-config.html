@@ -89,6 +89,10 @@ must be all in the `site` section.
             md: markdown
             textile: textile
 
+* `trailing_slash`: If `true`, and `pretty_urls` is also `true`, **PieCrust**
+will generate links to other pages with a trailing slash, thus preventing 
+redirection by the web server.
+
 
   [1]: {{ pcurl('piecrust/doc/pretty-urls') }}
   [2]: {{ pcurl('piecrust/doc/pagination') }}
