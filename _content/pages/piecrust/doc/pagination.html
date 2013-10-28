@@ -106,6 +106,8 @@ on the page.
 
 * `all_page_numbers`: Returns the list of page numbers. For example, if the current page has 4 sub-pages, this will return: 1, 2, 3, 4. You can loop through that and use the `page(i)` method (see below).
 
+  You can also pass a number argument, which will be interpreted as the "radius" of page numbers to return around the current page number. So for example if the current page is the 6th one out of 11 total pages, calling `pagination.all_page_numbers(2)` would return `[4, 5, 6, 7, 8]`, _i.e._ 2 numbers around the current page.
+
 * `page(i)`: Returns the URL of a given sub-page (the index should be between 1 and the last sub-page).
 
 

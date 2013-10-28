@@ -107,6 +107,33 @@ So for example, if you want to use line numbers and CSS classes, you would do:
 {% endraw %}
 
 
+### Temporary cache
+
+When you're baking a website, you may make **PieCrust** do the same thing over and over again for every page. For example, you may have a tag cloud in a sidebar that you generate like this:
+
+{% raw %}
+    {% for t in log.tags if t.post_count > 2 %}
+    <span style="font-size: {{ t.post_count/2 + 10 }}pt"><a href="{{ pctagurl(t.name) }}">{{t.name}}</a></span>&nbsp;({{t.post_count}}) 
+    {% endfor %}
+{% endraw %}
+
+This is a lot of work that will produce *the exact same output* on every page during a bake. So you can cache this for the duration of the bake by wrapping it in a `pccache` statement:
+
+{% raw %}
+    {% pccache 'tag-cloud' %}
+    {% for t in log.tags if t.post_count > 2 %}
+    <span style="font-size: {{ t.post_count/2 + 10 }}pt"><a href="{{ pctagurl(t.name) }}">{{t.name}}</a></span>&nbsp;({{t.post_count}}) 
+    {% endfor %}
+    {% endpccache %}
+{% endraw %}
+
+You provide a key for `pccache` (in the example above: `tag-cloud`) and the first time it encounters it, it will proceed and execute the block inside `pccache` as usual. The next time, however, it will reuse the results that it cached the first time.
+
+This can dramatically improve baking times, but should only be used for things that would truly have the same output each time.
+
+This cache is only valid for duration of a bake, and `pccache` does nothing during `chef serve` (it will always let the inner block execute).
+
+
 ### Tag stripping
 
 The `striptag` filter will strip any HTML tags found at the beginning or end of the given string.

@@ -26,6 +26,15 @@ choose it accordingly. For example, you would get URLs like this:
 them to sub-directories named after each blog. So you would end up with
 `_content/pages/family/_tag.html` and `_content/pages/pro/_tag.html`.
 
+1. If you want to have different default blog post layouts for each blog, you 
+can create them as `<blogname>/post.html`. For example, a blog post in the
+`family` blog that doesn't have any custom `layout` specified would first try to
+use a layout called `family/post` and, if it doesn't exist, fall back to `post`.
+
+   Note that you can put that default layout in any template directory you
+   declared in the site configuration. So if you added `_content/mylayouts` as a
+   template directory, you can put `family/post.html` in there.
+
 1. If you want to configure each blog differently, specify configuration
 settings in a section named after the blog in the [site configuration][config].
 For example, here's how you keep the same date format between your 2 blogs, but

@@ -39,6 +39,10 @@ The post iterator object is returned by several [template variables][4] in **Pie
 * `with_tags(name1, name2, ...)`: Returns only posts with all given tag
   names.
 
+* `is_foo(value)`: Returns only posts that have setting `foo` set to `value`. Replace `foo` with whatever you want.
+
+* `has_foo(value)`: Returns only posts that have setting `foo` set to an array that contains `value`. Replace `foo` with whatever you want.
+
 All those methods return the iterator itself, so you can chain them. For
 instance, the following code snippet would return the first 10 posts in category
 'recipes'.
@@ -73,6 +77,8 @@ yourself.
 * `has_more`: If the post had a page break in it, the `content` variable only
 returns the first part (the "*excerpt*"), and `has_more` is set to `true` so you
 can add a "*Read more...*" link that points to the post's URL.
+
+* `assets`: The assets available on the post.
 
 Also, the whole page configuration of the post is available directly, along
 with the other content segments. This means that `post.extra_stuff` refers

@@ -57,6 +57,10 @@ must be all in the `site` section.
 * `category_url`: The URL pattern for the pages listing blog posts belonging to
   a given category. The default pattern is `%category%`.
 
+* `slugify`: A set of flags that determine how tags and categories will be
+  transformed when building or parsing URLs. Defaults to
+  `transliterate,lowercase`. For details, see [the page on slugification][8].
+
 * `date_format`: The date format to use for exposing formatted blog post dates
   to the template engine. The default format is `F j, Y`.
 
@@ -80,6 +84,14 @@ must be all in the `site` section.
   `_content/plugins`. Can either be a single path, or an array of paths. You can
   specify paths relative to the site's root path.
 
+* `plugins_sources': Specifies where to get plugins from. It should be an array
+  of paths (relative to the site root) and/or URLs to supported repositories.
+  For more information, see the [page on installing plugins][9].
+
+* `themes_sources`: Specifies where to get themes from. It should be an array of
+  paths (relative to the site root) and/or URLs to supported repositories. For
+  more information, see the [page on installing themes][10].
+
 * `enable_debug_info`: If you're using **PieCrust** in dynamic CMS mode, visitors could use the [debugging features][6] to expose potentially private information. You can disable those features on the production server to prevent that.
 
 * `auto_formats`: Specifies a list that maps an extension to a format name. This makes it possible to use different file extensions for pages and posts, like `.md` for Markdown content or `.textile` for Textile content. For example:
@@ -88,6 +100,8 @@ must be all in the `site` section.
           auto_formats:
             md: markdown
             textile: textile
+
+  The above `auto_formats` is actually what **PieCrust** has by default.
 
 * `trailing_slash`: If `true`, and `pretty_urls` is also `true`, **PieCrust**
 will generate links to other pages with a trailing slash, thus preventing 
@@ -101,4 +115,7 @@ redirection by the web server.
   [5]: {{ pcurl('piecrust/doc/templates') }}
   [6]: {{ pcurl('piecrust/doc/debugging') }}
   [7]: {{ pcurl('piecrust/doc/twig-extensions') }}
+  [8]: {{ pcurl('piecrust/doc/slugification') }}
+  [9]: {{ pcurl('piecrust/doc/plugin-install') }}
+  [10]: {{ pcurl('piecrust/doc/theme-install') }}
   [yaml]: http://en.wikipedia.org/wiki/YAML

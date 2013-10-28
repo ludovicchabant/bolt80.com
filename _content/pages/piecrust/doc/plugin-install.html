@@ -2,8 +2,29 @@
 title: Installing a plugin
 layout: piecrust_doc
 ---
-Installing a **PieCrust** plugin is pretty simple: create a sub-folder in
-`_content/plugins` and copy all the plugin's files in there. That's it!
+
+You can install plugins with the `chef plugins` command:
+
+1. First, you find what plugin you want using `chef plugins find`. It will list all the available plugins based on the `site/plugins_sources` setting. You can optionally pass an argument to filter plugins that match a specific word.
+
+1. Once you know the name of the plugin, you can install it with `chef plugins install <pluginname>`.
+
+You can also later update your installed plugins to their latest version with `chef plugins update`.
+
+
+### Plugin sources
+
+The `site/plugins_sources` lists the souces from which you can get plugins. **PieCrust** supports only 2 types of sources at the moment:
+
+* *File-system*: a file-system source is defined simply with a path, relative to the root or the website (unless the path itself is an absolute path). Such a plugin source should have available plugins under sub-directories -- each sub-directory being a plugin.
+
+* *Bitbucket*: a Bitbucket source is an URL to a BitBucket account, _i.e._ of the form: `http://bitbucket.org/<username>`. It will look for repositories whose name starts with `PieCrust-Plugin-` and return those as plugins available for install.
+
+
+### Install plugins manually
+
+Installing a **PieCrust** plugin manually is pretty simple: create a sub-folder in
+`_content/plugins` (or any other directory registered with `site/plugins_dirs`) and copy all the plugin's files in there. That's it!
 
     _content
       |- plugins
@@ -13,9 +34,5 @@ Installing a **PieCrust** plugin is pretty simple: create a sub-folder in
 You can name the plugin folder anything you want, but it's obviously a good idea
 to give it the name of the plugin you're installing.
 
-You can see what plugins are loaded by your website with the `chef plugins`
-command -- this is especially useful if you're [loading plugins from other
-locations][1] than the default one.
-
-  [1]: {{ pcurl('piecrust/doc/plugins') }}
+Installing plugins manually is required if you want to have them in a non-standard directory, _i.e._ a directory from your `site/plugins_dirs` setting... at least until the `chef plugins` command supports installing anywhere else than `_content/plugins`.
 

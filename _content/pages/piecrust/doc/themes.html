@@ -1,0 +1,59 @@
+---
+title: Themes
+layout: piecrust_doc
+---
+
+**PieCrust** supports themes to easily apply or change the look of you website.
+They also let you further separate content from appearance.
+
+
+### Theme contents
+
+A theme is really a small **PieCrust** website that will sit in the
+`_content/theme` directory of another website. When such a theme is detected, it
+will be applied to the main website.
+
+Like a regular website, a theme has a `_content` directory, a configuration
+file, pages, templates, and regular assets (Javascript, CSS, images, etc.).
+
+There are a few differences between a theme and a regular website:
+
+* A theme's configuration is named `_content/theme_config.yml`.
+
+* A theme cannot have posts -- just normal pages.
+
+* A theme must have a `theme_info.yml` file in its root directory.
+
+
+### Applying a theme
+
+When a theme is applied to a website, the following happens:
+
+* The website's configuration file is merged with the theme's. If a setting is
+  not specified in the website, it will default to the theme's value first, and
+  then only to the default value.
+
+* Some settings will actually be *combined* instead of *overriden*. For example,
+  `site/templates_dirs` will be combined so that the site's templates
+  directories are added after the theme's. The end result is that if the website
+  doesn't define the `default` layout but the theme does, **PieCrust** will use
+  that one.
+
+* Themes can define pages, and those will be baked with the rest of the website
+  unless a page with the exact same slug (relative path and name) exists in the
+  website. This is useful for example if a theme wants to implement a default
+  "_about_" page, or a credits page.
+
+* Themes also have asset files, like CSS files. They will also be baked with the
+  website, unless a file with the exact same relative path exists in the
+  website, in which case the theme file will be "eclipsed".
+
+
+> #### The built-in theme
+> 
+> By default, **PieCrust** applies a theme called "Built-in", which provides a
+> simple layout and style. It only has a `default` and `post` layouts, and some
+> implementation for the `_index`, `_tag`, and `_category` pages.
+
+
+

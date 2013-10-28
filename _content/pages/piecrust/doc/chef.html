@@ -44,6 +44,17 @@ can specify the actual root website directory you want _chef_ to use with the
 `--root` command-line option.
 
 
+### Updating Chef
+
+If you installed **PieCrust** using the official installer (and therefore using it through its `.phar` archive), you can make it update itself by running `chef selfupdate`.
+
+* If your current version is a stable version (_i.e._ with a non-`dev` version number), it will update to the latest stable version.
+
+* If you current version is on the `dev` branch, it will update to the latest `dev` version.
+
+You can pass a version number, or one of `master`, or `stable`, to the command if you want to switch between `dev` and `stable`.
+
+
   [baking]: {{ pcurl('piecrust/doc/baking') }}
   [preview]: {{ pcurl('piecrust/doc/serving') }}
 

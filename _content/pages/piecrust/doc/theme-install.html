@@ -1,0 +1,25 @@
+---
+title: Installing a theme
+layout: piecrust_doc
+---
+
+You can install a theme with the `chef themes` command:
+
+1. First you need to find a theme. You can use the `chef themes find` command for that, and it will list the available themes given your `site/themes_sources` setting.
+
+2. Once you know the name of the theme, you can install it with `chef themes install <themename>`.
+
+
+### Theme sources
+
+The `site/themes_sources` lists the souces from which you can get themes. **PieCrust** supports only 2 types of sources at the moment:
+
+* *File-system*: a file-system source is defined simply with a path, relative to the root or the website (unless the path itself is an absolute path). Such a theme source should have available themes under sub-directories -- each sub-directory being a theme.
+
+* *Bitbucket*: a Bitbucket source is an URL to a BitBucket account, _i.e._ of the form: `http://bitbucket.org/<username>`. It will look for repositories whose name starts with `PieCrust-Theme-` and return those as themes available for install.
+
+
+### Install themes manually
+
+Installing a **PieCrust** theme manually is pretty simple: create the `_content/theme` directory and copy all the theme's files into it. That's it! The `chef themes install` command will do that for you so you probably never will have to do it, but you may occasionally want to create a symbolic link or junction path between a theme you're working on and the `_content/theme` of a website you want to test it in.
+

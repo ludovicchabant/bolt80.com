@@ -5,11 +5,26 @@ title: Writing a plugin
 
 **PieCrust**` supports [plugins][4] since version 0.4.0. With plugins, you can add your own [formatters][1], [template engines][2] or [file processors][3] to your websites. You can even extend Twig with more functions.
 
-### The plugin class
-
 You start by creating a folder named after your plugin in the `_content/plugins`
 directory -- or any other directory specified in the `site/plugins_dirs` site
 configuration setting. Let's assume your plugin is named `Foo`.
+
+
+### The metadata file
+
+In the `_content/plugins/Foo` directory, create a `plugin_info.yml` file. It's a YAML file, just like the site configuration file. You only need a couple things:
+
+* `name`: The name of the plugin.
+
+* `description`: A short description of what the plugin does.
+
+So your file would look something like this:
+
+    name: Foo
+    description: A plugin that does foo.
+
+
+### The plugin class
 
 In the `_content/plugins/Foo` directory, create a `FooPlugin.php` file with a
 `FooPlugin` class inheriting `PieCrust\PieCrustPlugin`:
@@ -61,6 +76,18 @@ would put the classes for any custom formatter or template engine you wrote.
 
 
 ### Adding components
+
+Right now the `Foo` plugin doesn't do much because it doesn't provide any new component to a **PieCrust** website. To do so, you need to override one of the functions on the plugin class. There's a bunch of them, but they should all be quite self explanatory:
+
+* `getFormatters`: returns an array of formatter instances that will be available on top of the default Markdown and Textile formatters.
+
+* `getTemplateEngines`: returns an array of template engine instances that will be available on top of the default Twig and Mustache template engines.
+
+* `getProcessors`: returns an array of processor instances that... well, I guess you get the idea.
+
+* And more...
+
+Look at the `PieCrustPlugin` base class to see the list of functions you can override. By default they all return an empty array.
 
 You can now go read up on adding [formatters][5], [template engines][6],
 [processors][7], or [Twig extensions][8] to the basic **PieCrust**

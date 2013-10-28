@@ -1,0 +1,55 @@
+---
+title: Slugification
+layout: piecrust_doc
+---
+
+"_Slugification_" is a fancy -- and totally made-up term -- for describing the
+process of turning a word into something that can be used in an URL. In the case
+of **PieCrust**, it's the process applied to [tags and categories][tags] to
+generate URLs to the pages that list all blog posts that have each tag or
+category applied.
+
+The problem is that characters valid to be in an URL are pretty limited: they
+include any letter from "a" to "z" (upper or lower case), numbers, and a couple
+of punctuation characters like "+" or brackets. Any other character needs to be,
+somehow, replaced by something else.
+
+You have a choice of 5 "_slugification modes_":
+
+* `transliterate`: **PieCrust** will attempt to replace any non-Latin character
+  with a Latin equivalent. This means replacing accentuated characters like "é"
+  with their non-accentuated character version, which would be "e" in this case.
+  Anything that can't be replaced will be replaced with a dash ("-").
+
+  The end result is that a tag like `décoration` would show up as `decoration`
+  in URLs.
+
+  This obviously works for mostly Latin-based languages like French or Spanish,
+  but will fail miserably for others like Russian or Japanese.
+
+* `encode`: **PieCrust** will encode any invalid character using percent
+  encoding. So for example, `décoration` would show up as `d%C3%A9coration` in
+  URLs. Modern web-browsers, however, won't show you the encoded version, and
+  instead will transparently show you the decoded version, like everything's
+  fine, so it won't be as ugly as you would think.
+
+* `dash`: Just replace invalid characters with a dash. So this time, `décoration`
+  will end up as `d-coration`.
+
+* `none`: Don't do anything. You probably don't want that, though.
+
+You can also optionally combine the slugification mode with the `lowercase` flag
+so that tags and categories are made lowercase when making up URLs. So a tag
+like `iOS` would end up like `ios` in an URL.
+
+Specifying the slugification options is done with the `site/slugify`
+[configuration setting][config]. So for example, to use `encode` and
+`lowercase`:
+
+    site:
+        slugify: encode,lowercase
+
+
+ [tags]: {{ pcurl('piecrust/doc/categories-and-tags') }}
+ [config]: {{ pcurl('piecrust/doc/site-config') }}
+
