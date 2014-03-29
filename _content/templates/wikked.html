@@ -22,12 +22,9 @@
             </header>
             <div id="navigation">
                 <ul class="nav nav-pills">
-                    <li><a href="#overview">Overview</a></li>
-                    <li><a href="#installation">Installation</a></li>
-                    <li><a href="#quickstart">Quick Start</a></li>
-                    <li><a href="#concepts">Concepts</a></li>
-                    <li><a href="#editing">Editing Pages</a></li>
-                    <li><a href="#syntax">Wiki Syntax</a></li>
+                    {% for p in page.navigation|keys %}
+                    <li><a href="#{{p}}">{{page.navigation[p]}}</a></li>
+                    {% endfor %}
                 </ul>
             </div>
             <section id="content">

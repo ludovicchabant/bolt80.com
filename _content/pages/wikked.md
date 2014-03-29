@@ -1,6 +1,17 @@
 ---
 title: Wikked
 layout: wikked
+navigation:
+    overview: Overview
+    installation: Installation
+    quickstart: Quick Start
+    concepts: Concepts
+    editing: Editing Pages
+    syntax: Wiki Syntax
+    config: Configuration
+    deploy: Deployment
+    limitations: Limitations
+    support: Support
 ---
 
 <a id="overview"></a>
@@ -33,6 +44,10 @@ If you're using `easy_install` instead:
 
     easy_install wikked
 
+And if you want to use the very latest (and potentially broken) version:
+
+    pip install git+ssh://git@github.com/ludovicchabant/Wikked.git#egg=Wikked
+
 Check that you have Wikked correctly installed by running:
 
     wk --help
@@ -42,17 +57,29 @@ You should see Wikked's command line help.
 ### From source
 
 You can also use Wikked from source. It's recommended you use `virtualenv` for
-this:
+this (see the [documentation][venv] for more info).  It would look something
+like this:
 
-    <clone the repo with Git or Mercurial>
-    <initialize/activate virtualenv>
+    # Clone with either Mercurial or Git:
+    hg clone ssh://hg@bitbucket.org/ludovicchabant/wikked
+    git clone git@github.com:ludovicchabant/Wikked.git
+
+    # Create and activate virtualenv, if you're on Bash
+    virtualenv venv
+    source venv/bin/activate
+
+    # Install Wikked's requirements in venv
     pip install -r requirements.txt
+
     python wk.py --help
+
+
+[venv]: http://www.virtualenv.org/
 
 
 <a id="quickstart"></a>
 
-## Quickstart
+## Quick start
 
 Let's create a new wiki:
 
@@ -79,50 +106,30 @@ report][1] about it.
 
 ## Concepts
 
-Wikked's data is entirely stored in text files on disk. If you look at your
-newly created wiki, you should see a file called `Main page.md`, along with a
-few hidden files and directories.
+Wikked's data is entirely stored in text files on disk. All you ever need, or
+should really care about, are those text files, and the source control
+repository (which contains the history of those text files). Wikked may create
+some other files -- cache files, indices, etc. -- but they can always be safely
+deleted and re-created.
 
-* Each page's text is stored in a file whose name is the name of the page, which
-  is also the URL of the page. So a page named `Dorothy.md` will be linked to
-  with `[[Dorothy]]` (see the [syntax section](#syntax) for more information
-  on linking).
-* Sub-directories also map to sub-folders in page names and URLs. So a file
-  whose relative path is `Geography/Oz.md` will be linked to with
-  `[[Geography/Oz]]`.
+
+### The wiki folder
+
+If you look at your new wiki, you should see a file called `Main page.md`, along
+with a few hidden files and directories.
+
+* Each page's text is stored in a file whose name is the name of the page. That
+  name is important, since that's what you'll use for linking to it, and what
+  will show up in that page's URL.
+* Sub-directories also map to sub-folders in page names and URLs.
 * There's a `.wiki` folder that was created in the wiki root. This folder is a
   cache, and can generally be safely deleted and re-created with the `wk reset`
   command. You may however have some local configuration file(s) here, which
   we'll talk about later.
 * There's also some source control related files in there, like a `.hg` folder
   and `.hgignore` file in the case of Mercurial. Don't touch those, they're
-  important. You can learn about them using the wonders of the internet.
-
-Apart from this, Wikked uses the usual wiki concepts of being able to edit
-pages, look at their history and revert to previous revisions, and of course
-easily link to other pages.
-
-Wikked also supports the ability to include a page into another page, to assign
-metadata (like categories) to pages, and to query pages based on that metadata.
-So for example you can display a list of all pages under the category "_Witches
-of Oz_".
-
-
-<a id="editing"></a>
-
-## Editing Pages
-
-You can edit any page by clicking the "_edit_" link in the top navigation bar.
-Once you're done editing, you hit "_save_". If you're not happy with your edits,
-you can instead click on "_cancel_".
-
-> You can optionally specify an author and a message for the commit to the
-> backend storage. These will show up in the history of the page.
-
-You can also create a new page with the "_new page_" button on the top right
-(also in the navigation bar). You will be able to choose a title for the page,
-which will map directly to the name of the new text file. The rest is similar to
-editing an existing page.
+  important (they store your pages' history). You can learn about them using the
+  wonders of the internet.
 
 > There's nothing preventing you from using accented or non-latin characters for
 > a new page name, except for characters that would be invalid for a file name.
@@ -131,11 +138,24 @@ editing an existing page.
 > Windows, Mac, Linux).
 
 
+### General features
+
+Wikked implements the usual wiki concepts of being able to edit pages, look at
+their history and revert to previous revisions, and of course easily link to
+other pages.
+
+Wikked also supports the ability to include a page into another page, to assign
+metadata (like categories) to pages, and to query pages based on that metadata.
+So for example you can display a list of all pages under the category "_Witches
+of Oz_".
+
+
+
 <a id="syntax"></a>
 
 ## Wiki syntax
 
-### Markdown
+### Formatting
 
 By default, Wikked will use [Markdown][] syntax, so that things like these:
 
@@ -150,6 +170,10 @@ By default, Wikked will use [Markdown][] syntax, so that things like these:
 > before her! _And your mangy little dog, too!_
 
 [markdown]: http://daringfireball.net/projects/markdown/
+
+Page files that have a `.md` extension will be formatted using Markdown. Other
+formats can be used, like Textile, but they won't have as much support, like for
+instance giving a live preview of a page's text while you edit it.
 
 
 ### Links
@@ -190,6 +214,11 @@ you need to put the closing double curly braces by themselves on the last line:
     }}
     {%endraw%}
 
+> In this case, note that the carriage return to get to the closing braces won't
+> be included in the metadata. If you want the metadata value to end with a
+> carriage return, you'll need to add one, effectively leaving an empty line
+> before the closing braces.
+
 
 ### Includes
 
@@ -228,8 +257,9 @@ This will make `City of Oz` print the following warning:
     You can help by adding references.
 
 As you can see, arguments are passed as an array named `__args`, and this can be
-inserted using double curly brackets. So `{{__args[0]}}` inserts the first
-passed argument, `{{__args[1]}}` inserts the second, and so on.
+inserted using double curly brackets. So {%raw%}`{{__args[0]}}`{%endraw%}
+inserts the first passed argument, {%raw%}`{{__args[1]}}`{%endraw%} inserts the
+second, and so on.
 
 You can also pass arguments by name:
 
@@ -325,3 +355,258 @@ how you use the text in `/Templates/Witches Item` as the query item template:
     {%raw%}
     {{query: category=Witches|__item=[[/Templates/Witches Item]]}}
     {%endraw%}
+
+
+<a id="config"></a>
+
+## Configuration
+
+Wikked can be configured with a few files:
+
+* `.wikirc`: this file, located at the root of your wiki, can be submitted into
+  revision control, so that various clones of the wiki have the same options
+  where it makes sense.
+* `.wiki/wikirc`: some options, however, don't have to be the same depending on
+  where you run the wiki. This file is contained in the ignored-by-default
+  `.wiki` folder, and as such is meant to store options valid only for a local
+  installation.
+* `.wiki/app.cfg`: Wikked runs on top of [Flask][]. This file, if it exists,
+  will be passed on to Flask for more advanced configuration scenarios.
+  
+ [flask]: http://flask.pocoo.org/
+
+
+The `wikirc` file is meant to be written with an INI-style format:
+
+    [section1]
+    foo=bar
+    something=some other value
+
+    [section2]
+    blah=whatever
+
+
+### Main options
+
+The main Wikked options should be defined in a `[wiki]` section. Here are the
+supported options:
+
+* `main_page` (defaults to `Main page`): the name of the page that should be
+  displayed when people visit the root URL of your wiki. Page names are case
+  sensitive so watch out for the capitalization. 
+* `templates_dir` (defaults to `Templates`): by default, the `include` feature
+  (see above) will first look into a templates directory for a template of the
+  given name. This is the name of that folder.
+* `indexer` (defaults to `whoosh`): The full-text indexer to use. Only 2 indexers are currently
+  supported, `whoosh` (for [Whoosh][]) and `elastic` (for [Elastic Search][elastic]).
+* `database` (defaults to `sql`): The database system to use for the cache.
+  Wikked currently only supports SQL.
+* `database_url` (defaults to `sqlite:///%(root)s/.wiki/wiki.db`): the URL to
+  pass to [SQLAlchemy][] for connecting to the database.
+* `async_updates` (defaults to `False`): whether pages should be updated using
+  background jobs when they've been edited. See the [deployment][] chapter for
+  more information about this.
+
+ [SQLAlchemy]: http://docs.sqlalchemy.org/en/latest/core/engines.html#database-urls 
+ [whoosh]: https://bitbucket.org/mchaput/whoosh/wiki/Home
+ [elastic]: http://www.elasticsearch.org/
+ [deployment]: #deploy
+
+
+### Permissions
+
+The `wikirc` file can also be used to define user permissions. This is one of
+the biggest limitations for scaling Wikked at the moment (see the
+[limitations](#limitations) section).
+
+The `[users]` section defines user accounts for the wiki:
+
+    [users]
+    dorothy=PASSWORD_HASH
+
+The `PASSWORD_HASH` is, well, a password hash. You can generate one by using the
+`wk newuser` command.
+
+Once you have some users defined, you can give them some permissions, using the
+`[permissions]` section. Supported settings are:
+
+* `readers`: users able to read the wiki.
+* `writers`: users able to edit the wiki.
+
+Multiple usernames must be separated by a comma. You can also use `*` for "all
+users", and `anonymous` for unauthenticated visitors.
+
+The following example shows a wiki only accessible to registered users, and that
+can only be edited by `dorothy` and `toto`:
+
+    [permissions]
+    readers = *
+    writers = dorothy,toto
+
+Those settings can also be overriden at the page level using the `readers` and
+`writers` metadata. So you can still have a public landing page for the
+previously mentioned private wiki by adding this to `Main page.md`:
+
+    {%raw%}
+    {{readers: *,anonymous}}
+    {%endraw%}
+
+
+<a id="deploy"></a>
+
+## Deployment
+
+Wikked runs by default with an "easy" configuration, _i.e._ something that will
+"just work" when you play around locally. In this default setup, it uses
+[SQLite][] for the cache, and [Whoosh][] for the full-text search.
+
+ [sqlite]: https://sqlite.org/
+
+This technology stack works very well for local testing, but doesn't scale up
+for a public facing website. Wikked [isn't meant to scale up][limits] very high
+anyway, but it should still be able to handle a fairly sizable amount of
+traffic. That's why, when deploying Wikked in production, you should:
+
+* Use a different backend: a proper SQL database for caching, and Elastic Search
+  for indexing.
+* Use asynchronous updates: when a page has been edited, updating and caching
+  the rest of the wiki accordingly should be done as a background task.
+* Use a different web server: replace the built-in Flask/Werkzeug-based web
+  server with something based on Apache or Nginx.
+
+ [limits]: #limitations
+
+
+### Backend options
+
+Change the default `database_url` in your `wikirc` to an [SQLAlchemy-supported
+  database URL][SQLAlchemy]. For instance, if you're using MySQL with `pymsql`
+  installed:
+
+    [wiki]
+    database_url=mysql+pymysql://username:password123@localhost/db_name
+
+> Note that you'll have to install the appropriate SQL layer. For instance: `pip
+> install pymsql`.
+
+Also change the indexer to use [Elastic Search][elastic] for the full-text search:
+
+    [wiki]
+    indexer=elastic
+
+You'll obviously have to install Elastic Search.
+
+
+### Background updates
+
+In order to opt-in to background updates, edit the `.wiki/app.cfg` file and add:
+
+    WIKI_ASYNC_UPDATE=True
+
+Then you'll need to run [Celery][]. There are many different ways to do this,
+but a quick-start way would be to do the following:
+
+    sudo apt-get install rabbitmq-server
+    pip install celery
+
+And then, in an environment that has Wikked available in the `PYTHONPATH`:
+
+    celery worker --app=wikked.tasks
+
+This will run Celery directly in the current console. If this works OK, you can
+look at options to [run Celery as a service][celerydaemon].
+
+ [celery]: http://www.celeryproject.org/
+ [celerydaemon]: http://docs.celeryproject.org/en/latest/tutorials/daemonizing.html#daemonizing
+
+
+### Apache and WSGI
+
+A simple way to run Wikked on a proper production server is to use [Apache][]
+with [`mod_wsgi`][wsgi]. For a proper introduction to the matter, you can see [Flask's
+documentation on the subject][flask_wsgi]. Otherwise, you can probably reuse the
+following examples.
+
+ [apache]: https://httpd.apache.org/
+ [wsgi]: http://code.google.com/p/modwsgi/
+ [flask_wsgi]: http://flask.pocoo.org/docs/deploying/mod_wsgi/
+
+The first thing is to create a `.wsgi` file somewhere on your server. You only
+need to create the Wikked WSGI app in it, and optionally activate your
+`virtualenv` if you're using that:
+
+    # Activate your virtualenv
+    activate_this = '/path/to/venv/bin/activate_this.py'
+    execfile(activate_this, dict(__file__=activate_this))
+
+    # Get the Wikked WSGI app
+    from wikked.wsgiutil import get_wsgi_app
+    application = get_wsgi_app('/path/to/your/wiki/root')
+
+The second thing to do is to add a new virtual host to your Apache
+configuration. The [Flask documentation][flask_wsgi] shows an example that you
+should be able to use directly, although you'll also need to tell Apache where
+to serve some static files: Wikked's static files (Javascript, CSS, icons,
+etc.), and you own wiki's files (your pictures and other attachments). This
+means your Apache configuration will look like this in the end:
+
+    <VirtualHost *:80>
+        ServerName yourwikidomain.com
+
+        WSGIDaemonProcess yourwiki user=user1 group=group1 threads=5
+        WSGIScriptAlias / /path/to/your/wsgi/file.wsgi
+
+        DocumentRoot /path/to/your/wiki/_files
+        Alias /static/ /path/to/wikked/static/
+
+        <Directory /path/to/your/wiki>
+            WSGIProcessGroup yourwiki
+            WSGIApplicationGroup %{GLOBAL}
+            Order deny,allow
+            Allow from all
+        </Directory>
+    </VirtualHost>
+
+> You will have to create the `_files` directory in your wiki before
+> reloading Apache, otherwise it may complain about it.
+
+
+> Also, the path to Wikked's `static` directory is going to point directly into
+> your installed Wikked package. So if you installed it with `virtualenv`, it
+> would be something like:
+> `/path/to/your/wiki/venv/lib/python/site-packages/wikked/static`.
+
+
+<a id="limitations"></a>
+
+## Limitations
+
+Wikked was written mainly for a small group of editors in mind. It's especially
+well suited for a personal digital notebook, a private family documents
+repository, or a wiki for a small team of developers.
+
+The main limitation of Wikked comes into play when you increase the number of
+contributors -- *not* when you increase the number of visitors. Once the website
+is cached, all requests are done against the SQL database, and search is done
+through the indexer. So if you're using a proper backend, it should scale up
+pretty well (give or take a few optimization passes on the code). However, user
+accounts are stored in a text file, and must be added by hand by an
+administrator, so it's impossible to scale this up to hundreds or thousands of
+users. You could probably improve this by adding a different user account
+backend, but when those users start editing pages, each edit must write to a
+separate file on disk, which is also a bottleneck anyway.
+
+So in summary: Wikked should be able to handle lots of visitors, but not too
+many contributors.
+
+
+<a id="support"></a>
+
+## Support
+
+If you need assistance with Wikked, [contact me directly][me] or report an issue
+on the [GitHub bug tracker][bugs].
+
+ [me]: http://ludovic.chabant.com
+ [bugs]: https://github.com/ludovicchabant/Wikked/issues
+
