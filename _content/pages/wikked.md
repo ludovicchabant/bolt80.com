@@ -403,14 +403,10 @@ supported options:
   Wikked currently only supports SQL.
 * `database_url` (defaults to `sqlite:///%(root)s/.wiki/wiki.db`): the URL to
   pass to [SQLAlchemy][] for connecting to the database.
-* `async_updates` (defaults to `False`): whether pages should be updated using
-  background jobs when they've been edited. See the [deployment][] chapter for
-  more information about this.
 
  [SQLAlchemy]: http://docs.sqlalchemy.org/en/latest/core/engines.html#database-urls 
  [whoosh]: https://bitbucket.org/mchaput/whoosh/wiki/Home
  [elastic]: http://www.elasticsearch.org/
- [deployment]: #deploy
 
 
 ### Permissions
@@ -458,74 +454,33 @@ previously mentioned private wiki by adding this to `Main page.md`:
 
 Wikked runs by default with an "easy" configuration, _i.e._ something that will
 "just work" when you play around locally. In this default setup, it uses
-[SQLite][] for the cache, and [Whoosh][] for the full-text search.
+[SQLite][] for the cache, and [Whoosh][] for the full-text search, all running
+in Flask's built-in server.
 
  [sqlite]: https://sqlite.org/
 
-This technology stack works very well for local testing, but doesn't scale up
-for a public facing website. Wikked [isn't meant to scale up][limits] very high
-anyway, but it should still be able to handle a fairly sizable amount of
-traffic. That's why, when deploying Wikked in production, you should:
+This technology stack works very well for running your wiki locally, or for 
+private websites. It has some limitations, however:
 
-* Use a different backend: a proper SQL database for caching, and Elastic Search
-  for indexing.
-* Use asynchronous updates: when a page has been edited, updating and caching
-  the rest of the wiki accordingly should be done as a background task.
-* Use a different web server: replace the built-in Flask/Werkzeug-based web
-  server with something based on Apache or Nginx.
+* The `wk runserver` command runs the Flask development server, which you
+  [shouldn't use in production][flaskdeploy]. You'll probably need to run Wikked
+  inside a proper server instead.
+* When a page has been edited, Wikked will immediately evaluate and reformat all
+  pages that have a dependency on it. You probably want to have this done in the
+  background instead.
 
- [limits]: #limitations
+In this chapter we'll therefore look at deployment options, and follow-up with
+some more advanced configurations for those with special requirements.
 
-
-### Backend options
-
-Change the default `database_url` in your `wikirc` to an [SQLAlchemy-supported
-  database URL][SQLAlchemy]. For instance, if you're using MySQL with `pymsql`
-  installed:
-
-    [wiki]
-    database_url=mysql+pymysql://username:password123@localhost/db_name
-
-> Note that you'll have to install the appropriate SQL layer. For instance: `pip
-> install pymsql`.
-
-Also change the indexer to use [Elastic Search][elastic] for the full-text search:
-
-    [wiki]
-    indexer=elastic
-
-You'll obviously have to install Elastic Search.
-
-
-### Background updates
-
-In order to opt-in to background updates, edit the `.wiki/app.cfg` file and add:
-
-    WIKI_ASYNC_UPDATE=True
-
-Then you'll need to run [Celery][]. There are many different ways to do this,
-but a quick-start way would be to do the following:
-
-    sudo apt-get install rabbitmq-server
-    pip install celery
-
-And then, in an environment that has Wikked available in the `PYTHONPATH`:
-
-    celery worker --app=wikked.tasks
-
-This will run Celery directly in the current console. If this works OK, you can
-look at options to [run Celery as a service][celerydaemon].
-
- [celery]: http://www.celeryproject.org/
- [celerydaemon]: http://docs.celeryproject.org/en/latest/tutorials/daemonizing.html#daemonizing
-
+ [flaskdeploy]: http://flask.pocoo.org/docs/deploying/
+    
 
 ### Apache and WSGI
 
-A simple way to run Wikked on a proper production server is to use [Apache][]
-with [`mod_wsgi`][wsgi]. For a proper introduction to the matter, you can see [Flask's
-documentation on the subject][flask_wsgi]. Otherwise, you can probably reuse the
-following examples.
+A simple way to run Wikked on a production server is to use [Apache][] with
+[`mod_wsgi`][wsgi]. For a proper introduction to the matter, you can see
+[Flask's documentation on the subject][flask_wsgi]. Otherwise, you can probably
+reuse the following examples.
 
  [apache]: https://httpd.apache.org/
  [wsgi]: http://code.google.com/p/modwsgi/
@@ -569,12 +524,64 @@ means your Apache configuration will look like this in the end:
 
 > You will have to create the `_files` directory in your wiki before
 > reloading Apache, otherwise it may complain about it.
-
-
+> 
 > Also, the path to Wikked's `static` directory is going to point directly into
 > your installed Wikked package. So if you installed it with `virtualenv`, it
 > would be something like:
 > `/path/to/your/wiki/venv/lib/python/site-packages/wikked/static`.
+
+
+### Background updates
+
+The second thing to do is to enable background wiki updates. Good news: they're
+already enabled if you used the `get_wsgi_app` function from the previous
+section (you can disable it by passing `async_update=False` if you really need
+to).
+
+> If you want to use background updates locally, you can do `wk runserver
+> --usetasks`.
+
+However, you'll still need to run a separate process that, well, runs those
+updates in the background. To do this:
+
+    cd /path/to/my/wiki
+    wk runtasks
+
+> The background task handling is done with [Celery][]. By default, Wikked will
+> use the [SQLAlchemy transport][celerysqlite].
+
+ [celery]: http://www.celeryproject.org/
+ [celerysqlite]: http://docs.celeryproject.org/en/latest/getting-started/brokers/sqlalchemy.html
+
+
+### Backend options
+
+**This is for advanced use only**
+
+If you want to use a different storage than SQLite, set the `database_url`
+setting in your `wikirc` to an [SQLAlchemy-supported database URL][SQLAlchemy].
+For instance, if you're using MySQL with `pymsql` installed:
+
+    [wiki]
+    database_url=mysql+pymysql://username:password123@localhost/db_name
+
+ [sqlalchemy]: http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html#database-urls
+
+> Note that you'll have to install the appropriate SQL layer. For instance: `pip
+> install pymsql`. You will also obviously need to setup and configure your SQL
+> server.
+
+
+If Whoosh is also not suited to your needs, you can use [Elastic
+Search][elastic] instead:
+
+    [wiki]
+    indexer=elastic
+
+You'll obviously have to install and run Elastic Search.
+
+ [elastic]: http://www.elasticsearch.org/
+
 
 
 <a id="limitations"></a>
@@ -588,15 +595,17 @@ repository, or a wiki for a small team of developers.
 The main limitation of Wikked comes into play when you increase the number of
 contributors -- *not* when you increase the number of visitors. Once the website
 is cached, all requests are done against the SQL database, and search is done
-through the indexer. So if you're using a proper backend, it should scale up
-pretty well (give or take a few optimization passes on the code). However, user
-accounts are stored in a text file, and must be added by hand by an
-administrator, so it's impossible to scale this up to hundreds or thousands of
-users. You could probably improve this by adding a different user account
-backend, but when those users start editing pages, each edit must write to a
-separate file on disk, which is also a bottleneck anyway.
+through the indexer. This means you can scale quite well as long as you have the
+appropriate backend (and as long as I don't write anything stupid in the code).
 
-So in summary: Wikked should be able to handle lots of visitors, but not too
+However, user accounts are stored in a text file, and must be added by hand by
+an administrator, so it's impossible to scale this up to hundreds or thousands
+of users. You could probably improve this by adding a different user account
+backend, but when those users start editing pages, each edit must write to a
+separate file on disk, and be committed to a source control repository, and this
+will probably prove to be a bottleneck anyway at some point.
+
+In summary: Wikked should be able to handle lots of visitors, but not too
 many contributors.
 
 
