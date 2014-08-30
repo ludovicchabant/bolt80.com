@@ -1,8 +1,5 @@
 baker:
   config_variants:
-    default:
-      site:
-        root: http://bolt80.com
     local:
       baker:
         file_urls: true
