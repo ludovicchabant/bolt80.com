@@ -1,0 +1,120 @@
+---
+title: Using blog posts
+layout: piecrust_doc
+---
+
+There are typically a few pages that need to display a list of articles, like
+the main page of a blog. To do this in **PieCrust**, you can use the
+`pagination` variable on a page. For example, if you're using the default
+template engine **Twig**:
+
+{% raw %}
+    {% for post in pagination.posts %}
+    ## [{{ post.title }}]({{ post.uri }})
+    <span class="post-date">{{ post.date }}</span>
+    {{ post.content|raw }}
+    {% endfor %}
+{% endraw %}
+
+This will display a list of posts, and for each display the title with a link to
+the article, followed by the date and the excerpts.
+
+What **PieCrust** does is merely expose pagination values to the template
+engine, and you can use them in any way you like. Check the [Twig
+documentation][twigdoc] to find out what you can do. Read on to see what properties are available on the `pagination` variable.
+
+Note that the `pagination` variable is called like that because it will
+*paginate* the current page by creating sub-pages (see below). If you want to
+display pages with a list of posts _without_ any pagination (_i.e._ without any
+sub-page), you can either set `single_page` to `true` in the [page
+configuration][1], or use the [blog archive variables][3] like `blog.posts`
+instead.
+
+
+### Pagination filtering
+
+If you want to create a page that lists only specific posts, you can filter what
+you get from the `pagination` object. You do this with the `posts_filters`
+[configuration section][1] in your page.
+
+For example:
+
+    posts_filters:
+        has_tags: announcement
+        has_tags: piecrust
+    
+...will only return posts with the `announcement` and `piecrust` tags.
+
+For more information on the `posts_filters` syntax, read the documentation 
+on [post filtering][5].
+
+
+### Sub-pages
+
+Most pages don't have sub-pages -- there's just the page. However, pages that
+show a list of blog posts could have sub-pages if there are too many blog posts.
+
+For example, if you only show 5 posts per page and you have written 17 posts in
+total, your blog's main page would have 4 sub-pages: sub-page 1 would show posts
+17 to 13, sub-page 2 would show posts 12 to 7, etc. (posts are sorted in
+reverse-chronological order). The visitor would then click on "*previous
+entries*" and "*next entries*" links to navigate back and forth.
+
+If a page's URL is `domain.com/blog`, its 3rd sub-page's URL would look like
+`domain.com/blog/3`. This means it's a bad idea to create an actual page whose
+name is just a number!
+
+
+### Pagination reference
+
+#### Pagination object reference
+
+Here's a list of variables accessible on the `pagination` object:
+
+* `posts`: That's the list of blog posts for the current page. The number of
+posts in the list is at most `posts_per_page`, as defined in either the
+[page][1]'s or the [site][2]'s configuration. **PieCrust** takes care of
+returning the correct posts if the current page is a sub-page (e.g. page #2 of
+your blog's main page). This object is actually a [post iterator][4], which has
+properties and methods of its own.
+
+* `prev_page`: The URL of the previous sub-page, if any.
+
+* `this_page`: The URL of this sub-page.
+
+* `next_page`: The URL of the next sub-page, if any.
+
+* `posts_per_page`: The effective number of posts to be theoritically displayed
+on the page.
+
+* `posts_this_page`: The actual number of posts displayed on this page (can be
+  anything between 1 and `posts_per_page`).
+
+* `prev_page_number`: The previous sub-page number, if any.
+
+* `this_page_number`: The current sub-page number, if any.
+
+* `next_page_number`: The next sub-page number, if any.
+
+* `total_post_count`: The total number of posts across all sub-pages.
+
+* `total_page_count`: The total number of sub-pages.
+
+* `next_post`: The next post object.
+
+* `prev_post`: The previous post object.
+
+* `all_page_numbers`: Returns the list of page numbers. For example, if the current page has 4 sub-pages, this will return: 1, 2, 3, 4. You can loop through that and use the `page(i)` method (see below).
+
+  You can also pass a number argument, which will be interpreted as the "radius" of page numbers to return around the current page number. So for example if the current page is the 6th one out of 11 total pages, calling `pagination.all_page_numbers(2)` would return `[4, 5, 6, 7, 8]`, _i.e._ 2 numbers around the current page.
+
+* `page(i)`: Returns the URL of a given sub-page (the index should be between 1 and the last sub-page).
+
+
+
+  [1]: {{ pcurl('piecrust/doc/page-config') }}
+  [2]: {{ pcurl('piecrust/doc/site-config') }}
+  [3]: {{ pcurl('piecrust/doc/blog-archives') }}
+  [4]: {{ pcurl('piecrust/doc/post-iterator') }}
+  [5]: {{ pcurl('piecrust/doc/post-filtering') }}
+  [twigdoc]: http://www.twig-project.org/doc/templates.html

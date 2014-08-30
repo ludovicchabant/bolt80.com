@@ -1,0 +1,117 @@
+---
+title: Creating a page
+layout: piecrust_doc
+---
+
+Creating a new page is as easy as creating a new text file... probably because that's all there is to it.
+
+The directory and name of that text file will decide what URL this page is accessible from. For example, creating the file `_content/pages/food/bacon.html` would make the page:
+
+* `http://domain.com/food/bacon` (with "[pretty URLs][1]")
+* `http://domain.com/?/food/bacon` (without, dynamic website)
+* `http://domain.com/food/bacon.html` (without, baked website)
+
+To create the main page for your website (the one used for `http://domain.com`), use `_content/pages/_index.html`.
+
+For more information on your website's directory structure, check out the [documentation on the subject][2].
+
+> **WARNING**: Don't create pages whose names are just a number (like `4.html`). This could mess up the [pagination features][6].
+
+
+### Non-HTML pages <a id="non-html"></a>
+
+The text file's extension doesn't have to be `.html`: you can create `_content/pages/feed.xml` and that will map to:
+
+* `http://domain.com/feed.xml` 
+
+This is regardless of whether "pretty URLs" are enabled. Only `.html` files will have "pretty" addresses, otherwise there could be some conflicts.
+
+If you're running in dynamic CMS mode, you may also want to set the `content_type` in the [page configuration][3] so that the HTTP headers are correctly set (in the above example, you would probably set it to `text/xml` or something more specific like `application/rss+xml`).
+
+> **PieCrust** will always ignore some files: anything starting with a dot, like the infamous `.DS_Store`, and a few others, like the equally infamous `Thumbs.db`.
+
+
+### Writing contents
+
+The contents of the page are, by default, [Markdown][] text (to change this, see [page][3] and [site][4] configurations). This means that text like this:
+
+    This is some sample text. It has stuff like
+    *paragraphs* and *emphasized words* and all 
+    that jazz. It's seriously pretty cool, 
+    especially since it's so **natural** to write.
+    
+    So Basically:
+    
+    * It's easy
+    * It's useful
+    * It creates nice typography
+
+...would render on your page like this:
+
+> This is some sample text. It has stuff like *paragraphs* and *emphasized words* and all that jazz. It's seriously pretty cool, especially since it's so **natural** to write.
+> 
+> So Basically:
+> 
+> * It's easy
+> * It's useful
+> * It creates nice typography
+
+See the [Markdown documentation][markdowndoc] for more info on the syntax. Also, for creating several pieces of content in a single page, or switching the format in the middle of the text, see the [page segments][7] documentation.
+
+
+### Auto-format extensions
+
+It is possible to use formatter-related file extensions for pages and posts, like `.md` for Markdown content or `.textile` for Textile content. This is done with the `site/auto_formats` site configuration setting. For example:
+
+    site:
+        auto_formats:
+            md: markdown
+            mdown: markdown
+
+This maps any `*.md` and `*.mdown` files (pages and posts) to the Markdown formatter. Files found with those extensions will be treated as if they were `.html` files, but will also have their format set to `markdown`.
+
+
+### Template syntax
+
+The template system exposes several variables that you can use when writing pages. We go into this in more detail in the [templates documentation][5] but here are a few tips to get you started.
+
+With the default template engine, [Twig][], variables are referenced using double-curly-brackets:
+
+{% raw %}
+    {{ variable }}
+{% endraw %}
+
+Settings that you define in the [page configuration][3] are available under the `page` variable. So if you configuration header looks like this:
+
+    ---
+    foo: bar
+    ---
+
+Then you can use this in several places in your page:
+
+{% raw %}
+    I like to drink in a {{ page.foo }}.
+{% endraw %}
+
+Settings defined in the [site configuration][4] are available under the `site` variable:
+
+{% raw %}
+    This site's title is: {{ site.title }}.
+{% endraw %}
+
+You can also use all manners of control flow statements like loops and
+conditions. For more information, check out the [templates documentation][5],
+and **Twig**'s [own documentation][twigdoc].
+
+
+  [1]: {{ pcurl('piecrust/doc/pretty-urls') }}
+  [2]: {{ pcurl('piecrust/doc/structure') }}
+  [3]: {{ pcurl('piecrust/doc/page-config') }}
+  [4]: {{ pcurl('piecrust/doc/site-config') }}
+  [5]: {{ pcurl('piecrust/doc/templates') }}
+  [6]: {{ pcurl('piecrust/doc/pagination') }}
+  [7]: {{ pcurl('piecrust/doc/page-segments') }}
+  [markdown]: http://daringfireball.net/projects/markdown/
+  [markdowndoc]: http://daringfireball.net/projects/markdown/basics
+  [twig]: http://www.twig-project.org/
+  [twigdoc]: http://www.twig-project.org/doc/templates.html

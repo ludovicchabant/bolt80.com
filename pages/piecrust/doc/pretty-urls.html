@@ -1,0 +1,100 @@
+---
+title: Enabling pretty URLs
+layout: piecrust_doc
+---
+
+In the following documentation, we'll be using 3 different pages to show examples of how URLs will look like:
+
+* An "*about*" page, which is assumed to be a standard page.
+* The 3rd sub-page of a "*blog*" page (_i.e._ there are too many posts to display, and this is the 3rd page of the blog).
+* An Atom feed, `feed.xml`.
+
+
+### Baked websites
+
+With "*pretty URLs*" disabled, URLs would look like this:
+
+    http://yoursite.com/about.html
+    http://yoursite.com/blog/3.html
+    http://yoursite.com/feed.xml
+
+If the option is enabled, however, it would look like this:
+
+    http://yoursite.com/about
+    http://yoursite.com/blog/3
+    http://yoursite.com/feed.xml
+
+This obviously looks more "natural" to visitors, and it only requires you to set the `pretty_urls` [site configuration setting][siteconfig] to `true`:
+
+    site:
+        pretty_urls: true
+
+> Note that, with "*pretty URLs*" enabled, the actual, physical files would be located at:
+> 
+>     /path/to/counter/about/index.html
+>     /path/to/counter/blog/3/index.html
+>     /path/to/counter/feed.xml/index.html
+> 
+> In that last line, you can see that we could have used a simpler `/path/to/counter/feed.xml`. But `feed.xml` could have sub-pages, which would have to be located at `feed.xml/3`, which maps to a physical path of `feed.xml/3/index.html`, for example. That's why **PieCrust** is using a directory.
+> 
+> However, if you specified that `feed.xml` should never have any sub-pages, using the `single_page` [configuration setting][pageconfig], then **PieCrust** will use that more simple `feed.xml` output file.
+
+
+### Dynamic websites (PieCrust as a CMS)
+
+With "*pretty URLs*" disabled, URLs would look like this:
+
+    http://yoursite.com/?/about
+    http://yoursite.com/?/blog/3
+    http://yoursite.com/?/feed.xml
+
+If the option is enabled, however, it would look like this:
+
+    http://yoursite.com/about
+    http://yoursite.com/blog/3
+    http://yoursite.com/feed.xml
+    
+This obviously looks more "natural" to visitors, but it requires a bit of configuration, especially on the server side.
+
+To use pretty URLs you need a web-server with URL rewriting features. The ones supported out-of-the-box by **PieCrust**
+are [Apache][] and [IIS7][].
+
+* *At home*: if you've installed your web-server using some pre-packaged tool like [MAMP][], [XAMPP][]
+  or [WAMP][], you're running **Apache**. If you're on **Windows Vista** or **Windows 7** and you're 
+  using the built-in web-server, that's **IIS7**.
+* *On the web*: if you're hosting your website with services like [Dreamhost][], [Bluehost][], [NearlyFreeSpeech][]
+  or [HostGator][], chances are your website is running with **Apache**.
+
+#### On Apache
+
+1. Open the `.htaccess` file at the root of your website folder.
+1. Uncomment the line that says `RewriteEngine on` (remove the `#` character at the beginning of the line).
+1. If your **PieCrust** website is not at the root of your domain (e.g. you want to access it at `http://domain.com/piecrust/`),
+   also uncomment the line that says `RewriteBase /piecrust`, and replace "*piecrust*" with the name
+   of your sub-directory.
+1. In your `config.yml`, in the `site` section, set `pretty_urls` to `true` (check out the documenation
+   about [your website's configuration][siteconfig] to see how to do this).
+   
+If links on your website are suddenly broken, check that you've got the correct rewrite-base (step 3, above), and
+check (or have an admin check for you) that you have the `mod_rewrite` extension enabled.
+
+
+#### On IIS7
+
+1. Open the `web.config` file at the root of your domain.
+1. Uncomment the `rewrite` section (remove lines 8 and 23 completely).
+
+
+
+  [baking]: {{ pcurl('piecrust/doc/baking') }}
+  [siteconfig]: {{ pcurl('piecrust/doc/site-config') }}
+  [pageconfig]: {{ pcurl('piecrust/doc/page-config') }}
+  [apache]: http://httpd.apache.org/
+  [iis7]: http://www.iis.net/
+  [mamp]: http://www.mamp.info/
+  [xampp]: http://www.apachefriends.org/en/xampp.html
+  [wamp]: http://www.wampserver.com/en/
+  [dreamhost]: http://www.dreamhost.com/
+  [bluehost]: http://www.bluehost.com/
+  [nearlyfreespeech]: https://www.nearlyfreespeech.net/
+  [hostgator]: http://www.hostgator.com/

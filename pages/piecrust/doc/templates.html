@@ -1,0 +1,128 @@
+---
+title: Editing templates
+layout: piecrust_doc
+---
+
+**PieCrust** makes all your pages and layouts go through a _templating_ stage.
+
+By default, the template engine is [Twig], and all the examples found in this
+documentation are using the **Twig** syntax.
+
+* If you want to use a [different default engine][5], change the
+  `default_template_engine` setting in the [site configuration][1].
+
+* If you want just a specific layout file to use a different template engine,
+  change its file extension from `html` to the name of the engine you want (see
+  the available [template engines][5]). Remember that pages will have to
+  [specify that layout with the extension][6].
+
+* If you want a page itself to use a different template engine, set the
+  `template_engine` configuration setting for that page to the name of the
+  engine you want. Available template engines are listed in the [template
+  engines list][5].
+
+
+
+### Writing a layout template
+
+Templates are text files placed in the `_content/templates` folder. They usually
+have the `html` file extension if they're written using the default template
+engine's syntax -- otherwise, they need to have a file extension that matches
+the engine they should be processed with (see the [available engine names][5]).
+
+In its most basic form, a layout template would look like this:
+
+{% geshi 'html4strict' %}{% raw %}
+    <html>
+        <head>
+            <title>{{ page.title }}</title>
+        </head>
+        <body>
+            {{ content|raw }}
+        </body>
+    </html>
+{% endraw %}{% endgeshi %}
+
+This creates an HTML page whose title and contents are the title and contents of
+the **PieCrust** page being rendered. This is possible because the `page.title`
+and `content` variables are exposed to the template engine. A lot of other
+variables are available (see the "_Template variables_" section below).
+
+
+
+### Page templating
+
+Pages go through the templating stage before having their contents
+[formatted][8]. This means that template syntax (variables, loops, etc) are
+available not only in layout files, but also in pages. This is especially useful
+when a page needs to display a list of blog posts, for instance.
+
+
+
+### Template variables
+
+Here's how **PieCrust** exposes variables to the template engine.
+
+In pages:
+
+* The page's [configuration settings][2] (from the page's YAML header) are
+  exposed directly.
+* The page's [assets][3] and [pagination][4] are exposed through the `assets` and
+  `pagination` variables.
+* The site's [configuration settings][1] (from the `_content/config.yml` file)
+  are exposed directly. This means that the `site` variable exposes the settings
+  found in the `site` section of the site's configuration. The `custom` variable
+  would expose any setting found in the `custom` section.
+* The [blog archives][10] are available through the `blog` variable -- unless you have [multiple blogs][11], in which case they are exposed through the name of each blog (so if you named your blogs `artblog` and `cookingblog`, each blog's archives would be exposed through variables `artblog` and `cookingblog` respectively).
+
+In layouts:
+
+* The page's formatted contents are exposed in the `content` variable. Other
+  [content segments][9] are exposed directly with their name too.
+* The page's [configuration settings][2] (from the page's YAML header) are
+  exposed through the `page` variable.
+* The site's [configuration settings][1] (from the `_content/config.yml` file)
+  are exposed directly (see above).
+* The [blog archives][10] are available the same way as in pages (see above).
+
+A few system variables are always exposed:
+
+* `piecrust.version` contains the current version of the engine.
+* `piecrust.branding` contains a short text proudly telling the world how your
+  site runs with **PieCrust** (_you can see that text right now at the bottom of
+  this page!_).
+* `piecrust.debug_info` shows a list of available template variables on the
+  current page, along with their values, if the debugging mode is turned on.
+  This is called the [debug window][7].
+
+
+    
+### Sharing templates
+
+You may not want to have all your templates in the `_content/templates` folder
+-- _e.g._ you may want to share some templates with other websites. In that
+case, you can put some templates in other folders, including folders outside of
+your website's root folder.
+
+You can specify your custom templates folders with the `site/templates_dirs`
+[configuration setting][1]. Paths can be written relative to the website's root:
+
+    site:
+        templates_dirs:
+            - ../shared/templates
+            - ../framework/templates
+
+
+  [1]: {{ pcurl('piecrust/doc/site-config') }}
+  [2]: {{ pcurl('piecrust/doc/page-config') }}
+  [3]: {{ pcurl('piecrust/doc/page-assets') }}
+  [4]: {{ pcurl('piecrust/doc/pagination') }}
+  [5]: {{ pcurl('piecrust/doc/template-engines') }}
+  [6]: {{ pcurl('piecrust/doc/layout') }}
+  [7]: {{ pcurl('piecrust/doc/debugging') }}
+  [8]: {{ pcurl('piecrust/doc/page-formatters') }}
+  [9]: {{ pcurl('piecrust/doc/page-segments') }}
+  [10]: {{ pcurl('piecrust/doc/blog-archives') }}
+  [11]: {{ pcurl('piecrust/doc/multi-blog') }}
+  [twig]: http://www.twig-project.org/
+

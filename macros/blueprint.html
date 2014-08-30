@@ -1,0 +1,7 @@
+{% macro link(location) %}
+<link rel="stylesheet" href="{{ location }}/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="{{ location }}/print.css" type="text/css" media="print" /> 
+<!--[if lt IE 8]>
+<link rel="stylesheet" href="{{ location }}/ie.css" type="text/css" media="screen, projection" />
+<![endif]-->
+{% endmacro %}

@@ -1,0 +1,86 @@
+{% import "nav.html" as nav %}
+{% extends "piecrust.html" %}
+
+{% block content %}
+<div class="content-box">
+    {% if page.title %}<h1>{{ page.title }}</h1>{% endif %}
+    <div class="page-navigation">
+        <p>General</p>
+        <ul>
+            <li>{{ nav.nav_entry('piecrust/doc', page.slug, 'Introduction') }}</li>
+            <li>{{ nav.nav_entry('piecrust/doc/cookbook', page.slug, 'The PieCrust cookbook') }}</li>
+            <li>{{ nav.nav_entry('piecrust/doc/structure', page.slug, 'Website structure') }}</li>
+            <li>{{ nav.nav_entry('piecrust/doc/site-config', page.slug, 'Site configuration') }}</li>
+        </ul>
+        <p>Editing</p>
+        <ul>
+            <li>{{ nav.nav_entry('piecrust/doc/create-page', page.slug, 'Creating a page') }}
+                <ul>
+                    <li>{{ nav.nav_entry('piecrust/doc/page-config', page.slug, 'Page configuration') }}</li>
+                    <li>{{ nav.nav_entry('piecrust/doc/page-formatters', page.slug, 'Formatters') }}</li>
+                    <li>{{ nav.nav_entry('piecrust/doc/page-segments', page.slug, 'Content segments') }}</li>
+                    <li>{{ nav.nav_entry('piecrust/doc/page-assets', page.slug, 'Using page assets') }}</li>
+                    <li>{{ nav.nav_entry('piecrust/doc/pagination', page.slug, 'Using blog posts') }}</li>
+                    <li>{{ nav.nav_entry('piecrust/doc/post-iterator', page.slug, 'Post iterator') }}</li>
+                    <li>{{ nav.nav_entry('piecrust/doc/post-filtering', page.slug, 'Post filtering') }}</li>
+                </ul>
+            </li>
+            <li>{{ nav.nav_entry('piecrust/doc/create-post', page.slug, 'Creating a blog post') }}
+                <ul>
+                    <li>{{ nav.nav_entry('piecrust/doc/categories-and-tags', page.slug, 'Categories and tags') }}</li>
+                </ul>
+            </li>
+            <li>{{ nav.nav_entry('piecrust/doc/blog-archives', page.slug, 'Blog archives') }}</li>
+            <li>{{ nav.nav_entry('piecrust/doc/create-feed', page.slug, 'Creating an RSS/Atom feed') }}</li>
+            <li>{{ nav.nav_entry('piecrust/doc/layout', page.slug, 'Page layouts') }}</li>
+            <li>{{ nav.nav_entry('piecrust/doc/templates', page.slug, 'Editing templates') }}</li>
+                <ul>
+                    <li>{{ nav.nav_entry('piecrust/doc/template-engines', page.slug, 'Template engines') }}</li>
+                    <li>{{ nav.nav_entry('piecrust/doc/twig-101', page.slug, 'Twig 101') }}</li>
+                    <li>{{ nav.nav_entry('piecrust/doc/twig-extensions', page.slug, 'Twig extensions') }}</li>
+                </ul>
+            </li>
+        </ul>
+        <p>Themes</p>
+        <ul>
+            <li>{{ nav.nav_entry('piecrust/doc/themes', page.slug, 'PieCrust themes') }}</li>
+            <li>{{ nav.nav_entry('piecrust/doc/theme-install', page.slug, 'Installing a theme') }}</li>
+            <li>{{ nav.nav_entry('piecrust/doc/theme-creation', page.slug, 'Creating a theme') }}</li>
+        </ul>
+        <p>Plugins</p>
+        <ul>
+            <li>{{ nav.nav_entry('piecrust/doc/plugins', page.slug, 'PieCrust plugins') }}</li>
+            <li>{{ nav.nav_entry('piecrust/doc/plugin-install', page.slug, 'Installing a plugin') }}</li>
+        </ul>
+        <p>Advanced</p>
+        <ul>
+            <li>{{ nav.nav_entry('piecrust/doc/pretty-urls', page.slug, 'Pretty URLs') }}</li>
+            <li>{{ nav.nav_entry('piecrust/doc/slugification', page.slug, 'Slugification') }}</li>
+            <li>{{ nav.nav_entry('piecrust/doc/multi-blog', page.slug, 'Multi-blog sites') }}</li>
+            <li>{{ nav.nav_entry('piecrust/doc/caching', page.slug, 'Caching') }}</li>
+            <li>{{ nav.nav_entry('piecrust/doc/debugging', page.slug, 'Debugging') }}</li>
+            <li>{{ nav.nav_entry('piecrust/doc/config-variants', page.slug, 'Configuration variants') }}</li>
+        </ul>
+        <p>Chef</p>
+        <ul>
+            <li>{{ nav.nav_entry('piecrust/doc/chef', page.slug, 'Overview') }}</li>
+            <li>{{ nav.nav_entry('piecrust/doc/baking', page.slug, 'Baking the site') }}
+                <ul>
+                    <li>{{ nav.nav_entry('piecrust/doc/file-processors', page.slug, 'File processors') }}</li>
+                </ul>
+            </li>
+            <li>{{ nav.nav_entry('piecrust/doc/serving', page.slug, 'Serving the site') }}</li>
+            <li>{{ nav.nav_entry('piecrust/doc/import', page.slug, 'Importing content') }}</li>
+        </ul>
+        <p>Miscellaneous</p>
+        <ul>
+            <li>{{ nav.nav_entry('piecrust/doc/limitations', page.slug, 'Limitations and workarounds') }}</li>
+            <li>{{ nav.nav_entry('piecrust/doc/alternatives', page.slug, 'Alternatives') }}</li>
+        </ul>
+    </div>
+    
+    {{ content|raw }}
+
+    <div class="clearfix"></div>
+</div>
+{% endblock %}

@@ -1,0 +1,78 @@
+---
+layout: piecrust_doc
+title: Page configuration
+---
+
+Every page file can have a "header" part in which you specify some configuration
+values. This header is written using the [YAML][] syntax, and is delimited with
+3 dashes at the beginning and the end. Here's a simple example:
+
+    ---
+    title: My awesome new page
+    layout: mytemplate
+    ---
+    Here go the contents of the page.
+    Blah blah blah.
+    
+This header specifies the title for the page ("*My awesome page*") and the
+layout to use for rendering that page (templates are covered [later][5]).
+
+Anything you specify here will be exposed to the template system under the
+`page` variable, so if you have the following header:
+
+    ---
+    foo: bar
+    ---
+
+...then you can use `{{ '{{' }} page.foo {{ '}}' }}` several times on the page, and
+each time it will be replaced by "bar". Then you can easily replace "bar" with
+"beer" in one place. More importantly, that's a way to push stuff "up" to the
+layout pages, because all those values will be given to them *via* the template
+system. That's for instance how layouts can reference the title of the current
+page for the HTML head section.
+
+Again, see the [templating documentation][5] for more info.
+
+
+### Reference
+
+Here's a list of the system values for a regular page:
+
+* `format`: Specifies the text formatting to use for this page. **PieCrust**
+comes built-in with **Markdown** and **Textile** formatters (specify "markdown"
+and "textile" respectively). If you don't want any formatting applied, specify
+"none".
+
+* `layout`: Specifies the layout to use for this page. **PieCrust** will use the
+appropriately named `default` layout if nothing is specified, unless the
+current page is a blog post, in which case it will use `post`, if it exists.
+
+* `content_type`: Specified the type of content for the page. Can be html, xml,
+text (or txt), css, rss, atom or json. This will tell **PieCrust** to set the
+HTTP headers correctly before returning the page. When [baking][4] the site,
+this specifies what kind of file extension should be used.
+
+* `date_format`: Specifies the date format for the `date` variable. See [how to
+use blog posts][1]. This value overrides the similar value from the [site
+configuration][2].
+
+* `posts_per_page`: The number of posts you will get through the `pagination`
+for displaying on the current page. See [how to use blog posts][1]. This value
+overrides the similar value from the [site configuration][2].
+
+* `single_page`: When this is set to `true`, no sub-pages will be created for
+this page, even if there are more posts to show. This is useful for things like
+RSS feeds. See [how to use blog posts][1] and [RSS feeds][3].
+
+  Also (and this is a bit convoluted, sorry about that), when baking a page with a [non-HTML extension][7] with [pretty URLs][6] enabled and `single_page` set to `true`, the output name will be simpler (matching the source file name) instead of using a directory with `index.html` in it to allow for sub-pages). See the documentation on [pretty URLs][6] for some more information about this.
+
+
+  [1]: {{ pcurl('piecrust/doc/pagination') }}
+  [2]: {{ pcurl('piecrust/doc/site-config') }}
+  [3]: {{ pcurl('piecrust/doc/create-feed') }}
+  [4]: {{ pcurl('piecrust/doc/baking') }}
+  [5]: {{ pcurl('piecrust/doc/templates') }}
+  [6]: {{ pcurl('piecrust/doc/pretty-urls') }}
+  [7]: {{ pcurl('piecrust/doc/create-page') ~ '#non-html' }}
+  [yaml]: http://en.wikipedia.org/wiki/YAML
+

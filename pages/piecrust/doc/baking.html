@@ -1,0 +1,115 @@
+---
+title: Baking your website
+layout: piecrust_doc
+---
+
+"*Baking*" is the **PieCrust** name for transforming your website into a bunch
+of static HTML files.
+
+
+### Why and when to bake
+
+There are quite a few advantages for doing so:
+
+* You get the fatest website possible.
+* You barely use any of your web-server's resources.
+* There are no security holes in your website.
+
+When to bake:
+
+* You have a very high traffic website, or expect/hope to have high traffic in
+  the near future.
+* You have a blog section with many articles, or with lots of categories and/or
+  tags (this is where **PieCrust** doesn't scale well compared to SQL-enabled
+  CMS engines).
+* You don't have PHP 5.3+ on your web server.
+* You just don't want to worry!
+
+
+### Running the baker
+
+You run the baker through [_chef_][chef] with the `bake` command. Type `chef
+bake --help` for a detailed usage.
+
+In the most simple case, baking your website is done like this (if you're
+already in your website's root directory):
+
+    chef bake
+
+This would bake the website found at the current directory (it should contain
+`_content`) into a sub-directory named `_counter`.
+
+If you want to bake into a specific output directory, from a specific root
+directory, type:
+
+    chef --root=/path/to/root bake -o /path/to/output
+    
+For example, with the [recommended **PieCrust** directory structure][struct],
+you would set the output folder to the `mywebsite.com` folder.
+
+On top of baking all the **PieCrust** content (pages, posts, tags, categories,
+etc.), _chef_ also bakes any other file found in the root directory. In most
+cases it means just copying stuff over (images, CSS stylesheets, etc.), but
+sometimes it also means processing the file along the way. See the section on
+[file processors][procs] for more information.
+
+
+### Customizing the baking
+
+#### Common configuration settings
+
+Here's a non-exhaustive list of important [site configuration settings][config]
+that affect how a site is baked:
+
+* `site/pretty_urls`: Turns on [pretty URLs][pretty].
+* `site/trailing_slash`: If `pretty_urls` is enabled, this also makes
+  **PieCrust** add a trailing slash to generated URLs.
+
+
+#### Configuration variants
+
+You can use a slightly different configuration while baking by using
+[configuration variants][vars]. By default, baking will apply the `baker`
+variant unless it doesn't exist, or another one is specified.
+
+
+#### Specifying tag combinations
+
+By default, _chef_ will bake any tag combinations that you used in your site
+through a `pctagurl` [template function][templates]. But if you want a tag
+combination to be available for linking from outside of your site, or if you
+didn't use the `pctagurl` function, you can specify tag combinations to bake in
+the `baker/tag_combinations` [configuration setting][config]. For example:
+
+    baker:
+        tag_combinations:
+            - kids/photos
+            - some-tag/some-other-tag
+            - tag1/tag2/tag3
+
+You can specify tags in whatever order you want, but only that order would be
+baked (`kids/photos` is a different URL than `photos/kids`, even if the contents
+are likely to be identical).
+
+
+#### Making a website portable
+
+You may want to bake a website in a way that you can just double-click on the
+index page using the Windows Explorer or MacOS Finder, and browse from there
+directly from the file-system.
+
+You can do that using the `--portable` option of the `chef bake` command, or by
+setting the `baker/portable_urls` configuration setting to `true`.
+
+This is especially useful if you need to copy the website to a USB key to show
+someone on their own machine, which may not have any web-server available.
+
+
+  [struct]: {{ pcurl('piecrust/doc/structure') }}
+  [chef]: {{ pcurl('piecrust/doc/chef') }}
+  [procs]: {{ pcurl('piecrust/doc/file-processors') }}
+  [config]: {{ pcurl('piecrust/doc/site-config') }}
+  [templates]: {{ pcurl('piecrust/doc/templates') }}
+  [vars]: {{ pcurl('piecrust/doc/config-variants') }}
+  [pretty]: {{ pcurl('piecrust/doc/pretty-urls') }}
+

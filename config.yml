@@ -1,0 +1,27 @@
+baker:
+  config_variants:
+    default:
+      site:
+        root: http://bolt80.com
+    local:
+      baker:
+        file_urls: true
+      site:
+        pretty_urls: false
+  skip_patterns:
+  - /^_/
+  - index.php
+  - .htaccess
+  - web.config
+  - bootstrap/less
+jinja:
+  twig_compatibility: true
+markdown:
+  use_markdown_extra: true
+site:
+  pretty_urls: true
+  templates_dirs: macros
+  title: B O L T 8 0
+smartypants:
+  enable: true
+  use_smartypants_typographer: true
