@@ -1,6 +1,4 @@
-@import "lawrencium-variables.less";
-@import "../bootstrap/less/bootstrap.less";
-@import "../bootstrap/less/responsive.less";
+@import "minisite.less";
 
 .periodic-table {
     margin: @baseLineHeight - 3px;
@@ -24,49 +22,10 @@
     }
 }
 
-body {
-    //background-image: url(http://basehold.it/i/24/ff0000); 
-}
-
 h1 {
-    display: inline-block;
-}
-
-section {
-    margin: 1.5em 0;
-}
-
-footer p {
-    font-size: 80%;
-    color: @grayLight;
-    text-align: center;
-    text-transform: lowercase;
-}
-
-p {
-    margin: 0 0 @baseLineHeight;
-}
-
-pre {
-    margin: 0 0 @baseLineHeight;
-}
-
-.nav {
-    background-color: @grayLighter;
-    border: 1px solid darken(@grayLighter, 15%);
-    border-radius: 5px;
+    font-size: 1.9em;
+    line-height: auto;
     margin: 0;
-    padding: 0 2px;
-}
-.nav-fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    box-shadow: 0 0 10px #666;
-}
-.nav-pills > .active > a, 
-.nav-pills > .active > a:hover {
-    background-color: darken(@grayLight, 15%);
+    display: inline-block;
 }
 
