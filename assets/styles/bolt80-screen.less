@@ -15,7 +15,7 @@ body {
 	background: #bbb;
 	padding: 0;
 	margin: 0;
-    
+
     .vignette(@light_grey);
 }
 
@@ -35,7 +35,7 @@ a {
 
 #header {
 	padding: 2em 0 1em 0;
-	
+
 	h1 {
 		font-family: Cantarell, Arial, sans-serif;
 		font-weight: bold;
@@ -51,7 +51,7 @@ a {
 #menu {
 	padding: 0 0 2em 0;
 	overflow: hidden;
-	
+
 	ul {
 		margin: 0.5em 0;
 		font-size: 2em;
@@ -98,7 +98,7 @@ a {
 		text-align: center;
 		text-transform: lowercase;
 		margin: 0 3em;
-		
+
 		a:link,
 		a:visited,
 		a:active { color: lighten(@light_grey, 5%); }
@@ -113,13 +113,34 @@ a {
 	left: 50%;
 	margin: 0;
 	padding: 0;
-    
+
     li {
 		float: left;
 		left: -50%;
 		position: relative;
 		margin: 0 1em 0 0;
-		
+
 		.note { font-size: 40%; }
     }
 }
+
+@media (max-width: 479px) {
+    #wrapper { font-size: 30%; }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+    #wrapper { font-size: 45%; }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+    #wrapper { font-size: 60%; }
+}
+
+@media (min-width: 980px) and (max-width: 1199px) {
+    #wrapper { font-size: 80%; }
+}
+
+@media (min-width: 1200px) {
+    #wrapper { font-size: 100%; }
+}
+
