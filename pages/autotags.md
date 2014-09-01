@@ -1,5 +1,5 @@
 ---
-title: Autotags
+title: 
 layout: autotags
 ---
 

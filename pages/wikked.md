@@ -1,5 +1,5 @@
 ---
-title: Wikked
+title: 
 layout: wikked
 navigation:
     overview: Overview
