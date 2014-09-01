@@ -1,0 +1,43 @@
+{% import "google.html" as google %}
+{% import "github.html" as github %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Ludovic Chabant">
+        <meta name="generator" content="PieCrust {{ piecrust.version }}" />
+
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="description" content="{% block description %}{% endblock %}">
+        <link href="{{ site.root }}styles/{{ minisite_name }}.css" rel="stylesheet" type="text/css">
+
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+    <body data-spy="scroll">
+        <div class="container">
+            <header>
+                {% block header %}{% endblock %}
+            </header>
+            <div id="navigation">
+                <ul class="nav nav-pills">
+                    {% block nav %}{% endblock %}
+                </ul>
+            </div>
+            <section id="content">
+                {{ content|raw }}
+            </section>
+            <footer>
+                {% block footer %}{% endblock %}
+                {% if minisite_repo %}{{ github.ribbon(minisite_repo) }}{% endif %}
+                <p>&copy;2012 &mdash; {{ piecrust.branding|raw }}</p>
+            </footer>
+        </div>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script src="{{ site.root }}bootstrap/js/bootstrap-scrollspy.js"></script>
+        <script src="{{ site.root }}js/index-ui.js"></script>
+        {{ google.analytics("UA-3426592-10") }}
+    </body>
+</html>
