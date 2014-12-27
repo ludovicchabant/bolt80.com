@@ -1,0 +1,331 @@
+// Imports
+// --------------------------
+@import (less) "../pure/pure.css";
+
+
+// Variables
+//---------------------------
+@highlight: #FFF;
+@crustLighter: #F7D69A;
+@crustLight: lighten(@crust, 10%);
+@crust: #CF931B;
+@crustShade: darken(@crust, 10%);
+@darkCrust: #D65F04;
+@darkCrustShade: darken(@darkCrust, 30%);
+@cherry: #D42708;
+@cherryShade: darken(@cherry, 20%);
+@stripesLight: #2b2b2b;
+@stripesDark: #292929;
+@strawberry: #d58181;
+@strawberryDark: #aa0000;
+
+
+// Mixins
+// --------------------------
+.raised {
+	text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+	-webkit-mask-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgba(255,255,255,0.6)), color-stop(.6, #fff));
+	-moz-mask-image: -moz-gradient(linear, left bottom, left top, color-stop(0, rgba(255,255,255,0.6)), color-stop(.6, #fff));
+	-o-mask-image: -o-gradient(linear, left bottom, left top, color-stop(0, rgba(255,255,255,0.6)), color-stop(.6, #fff));
+	mask-image: gradient(linear, left bottom, left top, color-stop(0, rgba(255,255,255,0.6)), color-stop(.6, #fff));
+}
+
+.vignette(@color) {
+    background: -webkit-radial-gradient(center top, circle cover, @color, darken(@color, 18%));
+    background: -moz-radial-gradient(center top, circle cover, @color, darken(@color, 18%));
+    background: -o-radial-gradient(center top, circle cover, @color, darken(@color, 18%));
+    background: radial-gradient(center top, circle cover, @color, darken(@color, 18%));
+}
+
+
+// Elements
+// --------------------------
+html, body {
+    height: 100%;
+}
+body {
+    color: @darkCrustShade;
+    background: #333 url('../images/stripes_bg.png');
+}
+html, button, input, select, textarea,
+.pure-g [class *= "pure-u"] {
+    font-family: Georgia, serif; // WTF Pure?
+    font-size: 18px;
+}
+
+p {
+    margin-bottom: 1.5em;
+}
+
+hr {
+    margin: 0;
+    background: @cherryShade;
+}
+
+acronym {
+    font-weight: bold;
+    border-bottom: 1px dotted @darkCrustShade;
+}
+
+code {
+    padding: 0.1em 0.4em;
+}
+pre {
+    margin: 0 0 1.5em 0;
+    padding: 0.4em;
+    overflow: auto;
+}
+pre, code {
+    background: lighten(@crustLighter, 7%);
+    border: 1px solid darken(@crustLighter, 10%);
+}
+pre code {
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+code, pre code {
+    line-height: 1.1em; // monospace fonts have higher line-heights.
+    color: @strawberryDark;
+}
+
+blockquote {
+    color: @darkCrustShade;
+    background: @crustLight;
+    border-left: 5px solid @cherryShade;
+    overflow: auto;
+    padding: 1.5em 1em 0 1em;
+    p { font-size: 1em; line-height: 1.5em; margin-bottom: 1.5em; }
+    pre, code {
+        background: lighten(@crustLight, 10%);
+        border: 1px solid darken(@crustLight, 10%);
+    }
+    pre code { border: 0; }
+}
+
+h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 3em;
+}
+h1.site-title {
+    font-size: 5em;
+}
+
+h2, #content h1 {
+    color: @darkCrust;
+    font-family: Lobster, 'Trebuchet MS', sans-serif;
+    font-size: 3em;
+    line-height: 1.5em;
+    margin-top: 0;
+    margin-bottom: 0;
+    letter-spacing: 0.07em;
+}
+
+h3 {
+    color: black;
+    font-size: 2em;
+    line-height: 1.5em;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+h4 {
+    color: black;
+    font-size: 1.2em;
+    line-height: 1.5em;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+ul, ol {
+    margin: 0 0 1.5em 1em;
+}
+
+a {
+    color: @cherry;
+    font-weight: bold;
+    text-decoration: none;
+
+    &:link {}
+    &:visited { color: @cherryShade; }
+    &:hover { color: @highlight; background: @cherry; }
+    &:active {}
+}
+
+header {
+    background: @darkCrust;
+    .vignette(@darkCrust);
+
+    p {
+        color: @darkCrustShade;
+        font-family: Georgia, serif;
+        font-size: 1.5em;
+        font-weight: normal;
+        line-height: 1.5em;
+        letter-spacing: 0;
+        padding: 1.5em;
+        margin: 0;
+
+        a { color: @darkCrust; }
+        a:link { color: @darkCrust; }
+        a:visited { color: @darkCrust; }
+        a:hover { color: @darkCrustShade; }
+        a:active { color: @darkCrust; }
+    }
+}
+
+nav {
+    ul.pure-menu.pure-menu-open {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        width: auto;
+        background: @stripesDark;
+        border-top: 2px solid lighten(@stripesDark, 20%);
+        overflow: hidden;
+    }
+
+    ul.pure-menu li a {
+        color: @highlight;
+        font-size: 110%;
+        font-weight: bold;
+        text-decoration: none;
+        text-shadow: 0 1px 5px #000;
+        display: block;
+        padding: 1em 2em;
+
+        &:link {}
+        &:visited { color: darken(@highlight, 20%); }
+        &:hover { color: @highlight; background: @cherry; text-shadow: none; }
+        &:active {}
+    }
+}
+
+footer {
+    border-top: 2px solid lighten(@stripesDark, 20%);
+    background: @darkCrust;
+    .vignette(@darkCrust);
+
+    clear: both;
+
+    p {
+        padding: 1.875em;
+        margin: 0;
+        font-size: 0.8em;
+        text-transform: lowercase;
+        text-align: center;
+    }
+    a {
+        color: @cherry;
+        font-weight: bold;
+        text-decoration: none;
+
+        &:link {}
+        &:visited { color: @cherryShade; }
+        &:hover { color: @highlight; background: @cherry; }
+        &:active {}
+    }
+}
+
+
+// Classes
+// --------------------------
+#wrapper {
+    margin: 0 auto;
+    box-shadow: 0 0 30px #000;
+    min-height: 100%;
+}
+
+.site-title {
+    margin: 0;
+    font-family: Lobster, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    font-size: 5em;
+    line-height: 1.5em;
+    text-align: center;
+    color: #fff;
+    .raised;
+}
+
+section#content {
+    background-color: @crustLighter;
+    .vignette(@crustLighter);
+}
+
+aside {
+    border: 1px solid @crustShade;
+    border-radius: 5px;
+    background: @crust;
+    padding: 1em;
+    margin: 1em 0 1em 1em;
+
+    a {
+        font-weight: normal;
+    }
+    a.active {
+        font-weight: bold;
+    }
+    p {
+        //font-size: 1.2em;
+        //line-height: 1.5em;
+        //margin-bottom: 0.9em;
+    }
+    ul {
+        margin-left: 0;
+        padding-left: 1em;
+        list-style: disc;
+    }
+}
+
+.split {
+    text-align: center;
+}
+
+.content-box {
+    padding: 1.5em;
+}
+
+ol.tutorial {
+    font-family: Lobster, 'Trebuchet MS', sans-serif;
+    font-size: 4em;
+    line-height: 0.375em;
+    margin: 0 1.5em 1.5em 0;
+    padding-left: 1.5em;
+}
+ol.tutorial li {
+    margin: 1em 0;
+}
+ol.tutorial li p {
+    font-family: Georgia, serif;
+    font-size: 0.25em;
+}
+ol.tutorial li pre {
+    font-size: 0.25em;
+}
+.clearfix {
+    clear: both;
+}
+
+@media screen and (min-width: 35.5em) {
+}
+
+@media screen and (min-width: 48em) {
+    #wrapper {
+        width: 95%;
+    }
+}
+
+@media screen and (min-width: 64em) {
+    #wrapper {
+        width: 85%;
+    }
+}
+
+@media screen and (min-width: 80em) {
+    #wrapper {
+        width: 80em * 0.85;
+    }
+}
+
+

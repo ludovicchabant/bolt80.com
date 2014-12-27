@@ -8,28 +8,30 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="span8 offset2">
+<div class="pure-g">
+    <div class="pure-u-1-8"></div>
+    <div class="pure-u-3-4">
         <div class="content-box splash-main">
             {{ main|raw }}
         </div>
     </div>
+    <div class="pure-u-1-8"></div>
 </div>
 
-<div class="row">
-    <div class="span12">
+<div class="pure-g">
+    <div class="pure-u-1-1">
         <div class="split">
             {{ split1|raw }}
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="span6">
+<div class="pure-g">
+    <div class="pure-u-1-2">
         <div class="content-box">
             {{ detail1|raw }}
         </div>
     </div>
-    <div class="span6">
+    <div class="pure-u-1-2">
         <div class="content-box">
             {{ detail2|raw }}
         </div>

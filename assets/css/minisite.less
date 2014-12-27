@@ -1,0 +1,114 @@
+@import (less) "../pure/pure.css";
+
+@color-gray-dark: #333;
+@color-gray-light: #999;
+@color-gray-lighter: #EEE;
+@color-blue: #08C;
+@color-pink: #D14;
+
+body {
+    //background-image: url(http://basehold.it/i/24/ff0000);
+    font-family: Georgia, serif;
+    line-height: 1.5em;
+    color: @color-gray-dark;
+}
+
+a {
+    color: @color-blue;
+    text-decoration: none;
+
+    &:hover { text-decoration: underline; }
+}
+
+code, pre {
+    font-family: Menlo, Monaco, "Courier New", monospace;
+    font-size: 0.9em;
+    line-height: 1.75em;
+    background-color: @color-gray-lighter;
+    border: 1px solid @color-gray-light;
+    border-radius: 5px;
+}
+
+pre {
+    margin: 0 0 1.5em 0;
+    padding: 0.75em;
+    color: @color-gray-dark;
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+
+    code { border: none; color: @color-gray-dark; }
+}
+
+code {
+    padding: 2px 4px;
+    color: @color-pink;
+}
+
+#wrapper {
+    max-width: 1170px;
+    margin: 0 auto;
+}
+
+nav {
+    background-color: @color-gray-lighter;
+    border: 1px solid @color-gray-light; //#C8C8C8;
+    border-radius: 5px;
+    margin: 0;
+    padding: 0px 2px;
+
+    .pure-menu.pure-menu-open {
+        margin: 0;
+        background: transparent;
+    }
+    .pure-menu.pure-menu-open a {
+        color: @color-blue;
+    }
+}
+
+section {
+    margin: 1.5em 0;
+}
+
+h1 {
+    font-size: 6em;
+    line-height: 1em;
+    margin: 0.25em 0;
+}
+
+footer p {
+    font-size: 80%;
+    color: @color-gray-light;
+    text-align: center;
+    text-transform: lowercase;
+}
+
+p {
+    margin: 0 0 1.5em;
+}
+
+blockquote {
+    background: @color-gray-lighter;
+    border-left: 5px solid @color-gray-light;
+    padding: 1.5em/2.0;
+}
+
+.nav {
+    background-color: @color-gray-lighter;
+    border: 1px solid darken(@color-gray-light, 15%);
+    border-radius: 5px;
+    margin: 0;
+    padding: 0 2px;
+}
+.nav-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 0 10px #666;
+}
+.nav-pills > .active > a,
+.nav-pills > .active > a:hover {
+    background-color: darken(@color-gray-light, 15%);
+}
+

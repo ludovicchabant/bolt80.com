@@ -1,29 +1,30 @@
 {% import "google.html" as google %}
+{% import "github.html" as github %}
 <!doctype html>
 <html>
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="author" content="Ludovic Chabant">
+    <meta name="generator" content="PieCrust {{ piecrust.version }}" />
     <meta name="description" content="PieCrust, a simple website engine and static website generator" />
-    <meta name="keywords" content="piecrust, static, website, blog, generator,
-    php" />
-    <meta name="generator" content="PieCrust" />
-    <title>PieCrust{% if page.title %} &mdash; {{ page.title }}{% endif %}</title>
+
+    <title>{% if page.title %}{{ page.title }} &mdash; {% endif %}PieCrust</title>
     {{ google.webfonts('Lobster|Covered+By+Your+Grace') }}
-    <link rel="stylesheet" href="{{ site.root ~ 'styles/piecrust.css' }}" type="text/css" />
+    <link rel="stylesheet" href="{{ site.root }}css/piecrust.css" type="text/css" />
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 </head>
 <body data-spy="scroll">
-    <div class="container">
+    <div id="wrapper">
         <header>
             {% block header %}
             <div class="site-title">PieCrust</div>
             {% endblock %}
         </header>
-        <nav class="menu">
-            <ul>
+        <nav>
+            <ul class="pure-menu pure-menu-open pure-menu-horizontal">
                 <li><a href="{{ pcurl('piecrust') }}">Overview</a></li>
                 <li><a href="{{ pcurl('piecrust/getting-started') }}">Getting Started</a></li>
                 <li><a href="{{ pcurl('piecrust/doc') }}">Documentation</a></li>
@@ -31,7 +32,7 @@
                 <li><a href="{{ pcurl('piecrust/code') }}">Code</a></li>
             </ul>
         </nav>
-        <section class="content">
+        <section id="content">
             {% block content %}
             <div class="content-box">
                 {% if page.title %}<h1>{{ page.title }}</h1>{% endif %}
@@ -39,13 +40,12 @@
                 {{ content|raw }}
             </div>
             {% endblock %}
-            <div class="clearfix"></div>
         </section>
         <footer>
-            <p>{{ piecrust.branding|raw }}</p>
+            {{ github.ribbon_tr_red('piecrust') }}
+            <p>&copy;2014 &mdash; {{ piecrust.branding|raw }}</p>
         </footer>
     </div>
-    <a href="https://github.com/ludovicchabant/piecrust"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
     {{ piecrust.debug_info|raw }}
     {% if baker.is_baking %}
     {{ google.analytics("UA-3426592-10") }}

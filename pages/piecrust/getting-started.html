@@ -8,29 +8,7 @@ This tutorial will help you install **PieCrust** and show you the basics of sett
 
 ### Installation
 
-The first step is obviously to get **PieCrust** on your system (need I say you'll only have to do this once?). The easiest way is to use the **PieCrust** installer script: it will check your system against the minimum requirements and then download a `.phar` file containing **PieCrust** to the current directory (Phar files are archive files that contain a whole PHP application, and that you can run in a command line).
-
-
-#### Installing on Mac/Linux
-
-Run this from a Terminal window:
-
-    curl -sS http://backend.bolt80.com/piecrust/install | php
-
-
-#### Installing on Windows
-
-Run a command prompt window (`cmd.exe`) and copy/paste the following:
-
-    php -r "eval('?>'.file_get_contents('http://backend.bolt80.com/piecrust/install'));"
-
-> If you get an error that says `'php' is not recognized as an internal or external command, operable program or batch file`, or some other message telling you that Windows doesn't know about `php`, you'll need to specify the full path to the `php.exe` executable.
->
-> For example, if you have installed PHP in `C:\Program Files\PHP\v5.3`, then you'll find the executable at `C:\Program Files\PHP\v5.3\php.exe`. You'll need to run:
->
->     "C:\Program Files\PHP\v5.3\php.exe" -r "eval('?>'.file_get_contents('http://backend.bolt80.com/piecrust/install'));"
->
-> If you installed PHP through some 3rd party package like XAMPP or EasyPHP, you'll find PHP in their respective install folder, usually in a `PHP` sub-directory.
+The first step is obviously to get **PieCrust** on your system (need I say you'll only have to do this once?). The easiest way is to install it with `pip`.
 
 
 #### Installing from the sources

@@ -2,9 +2,9 @@
 {% extends "piecrust.html" %}
 
 {% block content %}
-<div class="content-box">
-    {% if page.title %}<h1>{{ page.title }}</h1>{% endif %}
-    <div class="page-navigation">
+<div class="pure-g">
+    <div class="pure-u-1-4">
+    <aside>
         <p>General</p>
         <ul>
             <li>{{ nav.nav_entry('piecrust/doc', page.slug, 'Introduction') }}</li>
@@ -77,10 +77,13 @@
             <li>{{ nav.nav_entry('piecrust/doc/limitations', page.slug, 'Limitations and workarounds') }}</li>
             <li>{{ nav.nav_entry('piecrust/doc/alternatives', page.slug, 'Alternatives') }}</li>
         </ul>
+    </aside>
     </div>
-    
-    {{ content|raw }}
-
-    <div class="clearfix"></div>
+    <div class="pure-u-3-4">   
+        <div class="content-box">
+            {% if page.title %}<h1>{{ page.title }}</h1>{% endif %}
+            {{ content|raw }}
+        </div>
+    </div>
 </div>
 {% endblock %}

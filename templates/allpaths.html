@@ -1,0 +1,21 @@
+{% set minisite_name = 'allpaths' %}
+{% extends "minisite.html" %}
+
+{% block title %}
+Allpaths{% if page.title %} &mdash; {{ page.title }}{% endif %}
+{% endblock %}
+
+{% block description %}
+Allpaths: bulk Mercurial actions for multiple remote repositories
+{% endblock %}
+
+{% block header %}
+    <h1>Allpaths</h1>
+{% endblock %}
+
+{% block nav %}
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#quickstart">Quick Start</a></li>
+{% endblock %}
+

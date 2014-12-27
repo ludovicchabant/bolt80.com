@@ -2,45 +2,30 @@
 <!doctype html>
 <html>
 <head>
-    <title>{{ site.title }}{% if page.title %} &mdash; {{ page.title }}{% endif %}</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>{{site.title}}</title>
+    <meta charset="utf-8">
     <meta name="description" content="BOLT80, the digital portfolio of Ludovic Chabant" />
     <meta name="keywords" content="bolt80, portfolio, ludovic, chabant" />
-    {{ google.webfonts('Droid+Sans|Nobile|Molengo|Cantarell|Inconsolata') }}
-    <link rel="stylesheet" href="{{ site.root ~ 'styles/bolt80-screen.css' }}" type="text/css" media="screen, projection" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{ google.webfonts('Cantarell') }}
+    <link rel="stylesheet" href="{{site.root}}css/bolt80.css" type="text/css" />
 </head>
-    <body>
-        <div id="wrapper">
-            <div id="header">
-                <h1><a href="{{ site.root }}">BOLT80</a></h1>
-            </div>
-            <div id="after-header"></div>
-            <div id="menu" class="horizontal-menu">
-                <ul>
-                    <li><a href="{{ pcurl('piecrust') }}">PieCrust</a></li>
-                    <li><a href="{{ pcurl('wikked') }}">Wikked</a></li>
-                    <li><a href="{{ pcurl('lawrencium') }}">Lawrencium</a></li>
-                    <li><a href="{{ pcurl('autotags') }}">Autotags</a></li>
-                </ul>
-            </div>
-            <div id="after-menu"></div>
-            {% if secondarymenu %}
-            <div id="secondary-menu" class="horizontal-menu">
-                {{ secondarymenu|raw }}
-            </div>
-            <div id="after-secondary-menu"></div>
-            {% endif %}
-            <div id="content">
-                {{ content|raw }}
-            </div>
-            <div id="after-content"></div>
-        </div>
-        <div id="footer">
+<body>
+    <div id="wrapper">
+        <header>
+            <h1><a href="{{ site.root }}">{{site.title}}</a></h1>
+        </header>
+        <nav>
+            {{navigation|raw}}
+        </nav>
+        <footer>
             <p>Copyright &copy;2010 <a href="http://ludovic.chabant.com">Ludovic Chabant</a>.
                All rights reserved.</p>
             <p class="piecrust-branding">{{ piecrust.branding|raw }}</p>
-        </div>
-        <div id="after-footer"></div>
-    </body>
-    {{ google.analytics("UA-3426592-10") }}
+        </footer>
+        {% if baker.is_baking %}
+        {{ google.analytics("UA-3426592-10") }}
+        {% endif %}
+    </div>
+</body>
 </html>

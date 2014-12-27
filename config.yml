@@ -1,24 +1,37 @@
-baker:
-  config_variants:
-    local:
-      baker:
-        file_urls: true
-      site:
-        pretty_urls: false
-  skip_patterns:
-  - /^_/
-  - index.php
-  - .htaccess
-  - web.config
-  - bootstrap/less
-jinja:
-  twig_compatibility: true
-markdown:
-  use_markdown_extra: true
 site:
-  pretty_urls: true
-  templates_dirs: macros
-  title: B O L T 8 0
+    pretty_urls: true
+    templates_dirs: macros
+    title: B0LT80
+    sources:
+        pages:
+            data_endpoint: site.pages
+            item_name: page
+    routes:
+        -
+          func: pcurl(path)
+          page_suffix: /%num%
+          source: pages
+          url: /%path:path%
+
+baker:
+    skip_patterns:
+        - /^_/
+        - index.php
+        - .htaccess
+        - web.config
+        - bootstrap
+        - pure
+        - stupidhttp
+        - styles/blueprint
+        - '*-variables.less'
+
+jinja:
+    twig_compatibility: true
+
+markdown:
+    use_markdown_extra: true
+
 smartypants:
-  enable: true
-  use_smartypants_typographer: true
+    enable: true
+    use_smartypants_typographer: true
+

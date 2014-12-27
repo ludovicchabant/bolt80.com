@@ -1,0 +1,22 @@
+{% set minisite_name = 'gutentags' %}
+{% set minisite_repo = 'vim-gutentags' %}
+{% extends "minisite.html" %}
+
+{% block title %}
+Gutentags{% if page.title %} &mdash; {{ page.title }}{% endif %}
+{% endblock %}
+
+{% block description %}
+Gutentags: painless and worry-free tags files management for Vim
+{% endblock %}
+
+{% block header %}
+    <h1>Gutentags</h1>
+{% endblock %}
+
+{% block nav %}
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#quickstart">Quick Start</a></li>
+{% endblock %}
+
