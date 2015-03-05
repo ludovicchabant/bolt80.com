@@ -8,22 +8,16 @@ site:
             item_name: page
     routes:
         -
-          func: pcurl(path)
+          func: pcurl(slug)
           page_suffix: /%num%
           source: pages
-          url: /%path:path%
+          url: /%path:slug%
 
 baker:
-    skip_patterns:
-        - /^_/
-        - index.php
-        - .htaccess
-        - web.config
+    ignore:
         - bootstrap
         - pure
         - stupidhttp
-        - styles/blueprint
-        - '*-variables.less'
 
 jinja:
     twig_compatibility: true
