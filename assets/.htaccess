@@ -1,18 +1,3 @@
-# Uncomment this if you want to set 'pretty_urls' to 'true'.
 RewriteEngine on
+RewriteRule ^piecrust/?$ /piecrust/en/latest/ [L]
 
-# If you're running from a sub-directory, uncomment the RewriteBase statement and
-# change it to the sub-directory name you're using.
-RewriteBase /bolt80
-
-# Don't rewrite requests to stuff that physically exists.
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -l
-RewriteRule ^.*$ - [NC,L]
-
-# Rewrite all the rest through the gateway.
-RewriteRule ^.*$ index.php [NC,L]
-
-# Various other configuration stuff.
-SetEnv TZ Canada/Vancouver
-AddType text/css .less
