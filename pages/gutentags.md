@@ -76,14 +76,29 @@ repositories (Git, Mercurial, Bazaar, Darcs), you can define the
 This will activate Gutentags when opening a file that's somewhere under a
 directory that contains a `Makefile` file or folder.
 
-If you find that your tags files contain stuff they shouldn't, define a
-`g:gutentags_exclude` variable in your `vimrc`. It should be a list that contains
-patterns that will be passed to the `ctags` executable. Note that your
-`wildignore` patterns are already passed.
+
+<a id="customization"></a>
+## Customization
+
+### Excluding files
+
+If you want to exclude things on a per-project basis, or otherwise customize
+`ctags` parameters for a given project, you can place a `.gutctags` file at the
+root of your project. It's a standard `ctags` options file, and will be passed
+to `ctags` via the `--options` parameter.
+
+Note that your `wildignore` patterns are already passed as patterns to ignore,
+and of course your home `~/.ctags` is automatically used by `ctags`.
+
+### Hiding tags files
 
 If you don't want the tags files to pollute your projects, you can define a
 `g:gutentags_cache_dir` variable in your `vimrc`. Tags files will go in this
 folder instead of each project directory.
+
+
+<a id="more"></a>
+## More
 
 There are more advanced options available. See `:help gutentags` for more
 information. You can also post questions and bug reports either in the [Github
