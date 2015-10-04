@@ -1,3 +1,4 @@
 RewriteEngine on
 RewriteRule ^piecrust/?$ /piecrust/en/latest/ [L]
+RewriteRule ^wikked/?$ /wikked/en/latest/ [L]
 
