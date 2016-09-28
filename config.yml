@@ -8,10 +8,10 @@ site:
             item_name: page
     routes:
         -
-          func: pcurl(slug)
+          func: pcurl
           page_suffix: /%num%
           source: pages
-          url: /%path:slug%
+          url: /%slug%
 
 baker:
     ignore:
