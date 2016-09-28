@@ -1,0 +1,23 @@
+{% set minisite_name = 'saturdaymorning' %}
+{% extends "minisite.html" %}
+
+{% block title %}
+Saturday Morning{% if page.title %} &mdash; {{ page.title }}{% endif %}
+{% endblock %}
+
+{% block description %}
+Saturday Morning: move files on a schedule
+{% endblock %}
+
+{% block header %}
+    <img src="{{site.root}}images/tv_bg.png"/>
+    <h1>Saturday Morning</h1>
+{% endblock %}
+
+{% block nav %}
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#quickstart">Quick Start</a></li>
+    <li><a href="#configuration">Configuration</a></li>
+{% endblock %}
+
+
