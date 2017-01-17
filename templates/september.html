@@ -1,0 +1,15 @@
+{% set minisite_name = 'september' %}
+{% extends "minisite.html" %}
+
+{% block title %}
+September{% if page.title %} &mdash; {{ page.title }}{% endif %}
+{% endblock %}
+
+{% block description %}
+September: go back in time and do something
+{% endblock %}
+
+{% block header %}
+    <h1>September</h1>
+{% endblock %}
+
