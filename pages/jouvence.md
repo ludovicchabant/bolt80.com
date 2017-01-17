@@ -10,7 +10,11 @@ Jouvence supports:
 * Most of the Fountain specification (see limitations below).
 * Rendering to HTML and terminals.
 
+The code is available on [BitBucket][bb] and [GitHub][gh].
+
 [fountain]: http://fountain.io/
+[bb]: https://bitbucket.org/ludovicchabant/jouvence
+[gh]: https://github.com/ludovicchabant/Jouvence
 
 
 Quickstart
@@ -19,8 +23,9 @@ Quickstart
 Installation
 ------------
 
-As with many Python packages, it's recommended that you use [`virtualenv`][],
-but since Jouvence doesn't have many dependencies, you should be fine.
+As with many Python packages, it's recommended that you use
+[`virtualenv`][venv], but since Jouvence doesn't have many dependencies, you
+should be fine.
 
 You can install Jouvence the usual way::
 
@@ -38,7 +43,7 @@ jouvence <path-to-fountain-file>
 You should then see the Fountain file rendered with colored and indented
 styles.
 
-[virtualenv]: https://virtualenv.pypa.io/en/stable/
+[venv]: https://virtualenv.pypa.io/en/stable/
 
 
 Usage
