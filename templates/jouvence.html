@@ -1,0 +1,15 @@
+{% set minisite_name = 'jouvence' %}
+{% extends "minisite.html" %}
+
+{% block title %}
+Jouvence{% if page.title %} &mdash; {{ page.title }}{% endif %}
+{% endblock %}
+
+{% block description %}
+Jouvence: a Python parser for Fountain documents
+{% endblock %}
+
+{% block header %}
+    <img src="{{assets.jouvence}}" />
+{% endblock %}
+
